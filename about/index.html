@@ -4,13 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About | The Musical Form Institute</title>
-<meta name="description" content="The Musical Form Institute is an independent certification body for sound recordings, founded by Jeffrey Anthony and operated by Muse Foundry LLC.">
+<meta name="description" content="The Musical Form Institute is an independent certification body for sound recordings, operated by Muse Foundry LLC. Two certification marks: CEP and CSF.">
 <meta property="og:title" content="About | The Musical Form Institute">
 <meta property="og:description" content="Independent certification body for sound recordings. Founded by Jeffrey Anthony. Operated by Muse Foundry LLC.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://musicalform.org/about">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
+<style>
+  /* Page-specific: pull quote treatment */
+  .pullquote {
+    max-width: 720px;
+    margin: 32px auto;
+    padding: 32px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  @media (max-width: 700px) {
+    .pullquote { font-size: 16px; padding: 24px 0; }
+  }
+</style>
 </head>
 <body>
 
@@ -41,8 +59,29 @@
 <section class="page-hero">
   <div class="container">
     <div class="page-hero-eyebrow">About</div>
-    <h1>An independent certification body for sound recordings.</h1>
-    <p>The Musical Form Institute publishes standards for how recordings are made, reviews submissions independently against those standards, and maintains a public record of certified work.</p>
+    <h1>About The Musical Form Institute.</h1>
+    <p>Musical Form Institute is an independent certification body for sound recordings, operated by Muse Foundry LLC. The Institute administers two certification marks: the Certificate of Embodied Production, which verifies that a recording was produced without grid correction, pitch correction, or generative AI, and Certified Significant Form, which verifies that a recording was performed, not generated.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="pullquote">
+      The Certificate of Embodied Production certifies how the music was made.<br>
+      Certified Significant Form certifies that it was made.
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="section-eyebrow">What We Do</div>
+    <h2>Two marks. One method.</h2>
+    <div class="prose" style="margin-top: 24px;">
+      <p>The Certificate of Embodied Production is process-based: it verifies how a recording was made, not whether it is "good," commercially viable, or aesthetically aligned with any genre norm. Certification decisions are based solely on whether the recording meets the published standard. Each recording is individually reviewed by a trained analyst against published criteria including tempo analysis, AI detection screening, and attestation review.</p>
+      <p>Certified Significant Form verifies that a recording was produced without generative AI. Detection uses published scoring methodology with analyst review for indeterminate results. CSF operates at scale, building a public registry of verified recordings that labels, distributors, and digital service providers can reference.</p>
+      <p>Every certification is tied to the recording's ISRC. Anyone can verify a recording's certification status through the public registry at <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">registry.musicalform.org</a>.</p>
+    </div>
   </div>
 </section>
 
@@ -52,34 +91,26 @@
       <div class="about-photo">
         <img src="/img/jeffrey-anthony.jpg" alt="Jeffrey Anthony, Founder and Director of The Musical Form Institute">
       </div>
-      <div class="prose">
-        <div class="section-eyebrow">Mission</div>
-        <h3>Make how a recording was produced verifiable on the public record.</h3>
-        <p>Anyone can claim their music is human-made. No platform's internal score can verify it across the industry. The Musical Form Institute exists to fill that gap.</p>
-        <p>We publish two open standards. Each submission is reviewed by trained analysts under those standards. Certified records get a unique ID and appear in the public registry, accessible to anyone for verification. Decisions are appealable. The standards evolve openly.</p>
-        <p>The Institute is independent of any platform, distributor, label, or rights organization.</p>
+      <div>
+        <div class="section-eyebrow">Founder</div>
+        <h2 style="margin-bottom: 6px;">Jeffrey Anthony</h2>
+        <div style="font-size: 13px; color: var(--vintage-blue); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">Founder and Director</div>
+
+        <div class="prose">
+          <p>Jeffrey Anthony is the founder and director of the Musical Form Institute, an independent certification body for sound recordings.</p>
+
+          <p>Jeffrey built the foundation for this work across two careers. As a session and touring drummer for more than 25 years, he recorded and performed with artists including Sheryl Crow, Chuck Prophet, Tony Furtado, Eric McFadden, and dozens of other artists, working through the transition from tape to Pro Tools as grid correction and post-production reconstruction became normalized. As a music analyst at Pandora's Music Genome Project for 17 years, he analyzed over 100,000 songs across every recorded genre, developing a structural understanding of how production decisions shape what listeners hear. That combination of studio experience and large-scale analytical work is the basis of the Institute's review methodology.</p>
+
+          <p>The philosophical framework behind the certification draws on the work of Susanne K. Langer, whose account of music as a presentational form clarifies what recordings lose when performance is treated as raw material for correction. Jeffrey has been invited to present this framework at an international philosophy conference in Vienna in May 2026.</p>
+
+          <p>Jeffrey holds a Master of Public Administration from the University of Arizona, with subsequent work in governance, compliance, and standards infrastructure. He holds a Bachelor's degree in Studio Music and Jazz Drumset from the University of Miami.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="section alt">
-  <div class="container">
-    <div class="section-eyebrow">Founder</div>
-    <h2>Jeffrey Anthony, Director.</h2>
-    <p class="section-intro">The Institute was founded by Jeffrey Anthony in 2026. His background bridges performance, music analysis, and public administration.</p>
-
-    <ul class="kv-list">
-      <li><strong>Role</strong><span>Founder and Director, The Musical Form Institute</span></li>
-      <li><strong>Production</strong><span>25+ years as a session and touring drummer</span></li>
-      <li><strong>Music Analysis</strong><span>17 years analyzing recordings at Pandora's Music Genome Project</span></li>
-      <li><strong>Public Administration</strong><span>Master of Public Administration, University of Arizona</span></li>
-      <li><strong>Speaking</strong><span>Susanne K. Langer Circle Conference 2026 (Vienna): "Operationalizing Langer's Presentational Symbols: The Certificate of Embodied Production as Musical Praxis"</span></li>
-    </ul>
-  </div>
-</section>
-
-<section class="section">
   <div class="container">
     <div class="section-eyebrow">Operating Entity</div>
     <h2>Muse Foundry LLC.</h2>
