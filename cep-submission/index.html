@@ -12,180 +12,75 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 <style>
-  /* Submission form (scoped to .mfi-cep-form so it can't leak) */
-  .mfi-cep-form, .mfi-cep-form *, .mfi-cep-form *::before, .mfi-cep-form *::after {
-    box-sizing: border-box;
-  }
-  .mfi-cep-form {
-    font-family: 'Poppins', sans-serif;
-    color: #1a1a1a;
-    max-width: 580px;
-    margin: 0 auto;
-    line-height: 1.5;
-  }
-  .mfi-cep-form .price-pill {
-    display: block;
-    text-align: center;
-    margin: 0 auto 12px;
-    padding: 10px 24px;
-    background: #F0F8F1;
-    border: 1px solid #C7E8CD;
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1F6B33;
-  }
-  .mfi-cep-form .cross-link {
-    display: block;
-    text-align: center;
-    margin: 0 auto 24px;
-    padding: 10px 24px;
-    background: rgba(93, 146, 205, 0.07);
-    border: 1px solid rgba(93, 146, 205, 0.20);
-    border-radius: 100px;
-    font-size: 13px;
-    color: #555;
-    line-height: 1.5;
-  }
-  .mfi-cep-form .cross-link a {
-    color: #DF693B;
-    font-weight: 600;
-    text-decoration: none;
-    border-bottom: 1px solid #DF693B;
-    padding-bottom: 1px;
-  }
+  /* Submission form (scoped to .mfi-cep-form so it cannot leak) */
+  .mfi-cep-form, .mfi-cep-form *, .mfi-cep-form *::before, .mfi-cep-form *::after { box-sizing: border-box; }
+  .mfi-cep-form { font-family: 'Poppins', sans-serif; color: #1a1a1a; max-width: 620px; margin: 0 auto; line-height: 1.5; }
+
+  .mfi-cep-form .price-pill { display: block; text-align: center; margin: 0 auto 12px; padding: 10px 24px; background: #F0F8F1; border: 1px solid #C7E8CD; border-radius: 100px; font-size: 13px; font-weight: 700; color: #1F6B33; }
+  .mfi-cep-form .cross-link { display: block; text-align: center; margin: 0 auto 24px; padding: 10px 24px; background: rgba(93, 146, 205, 0.07); border: 1px solid rgba(93, 146, 205, 0.20); border-radius: 100px; font-size: 13px; color: #555; line-height: 1.5; }
+  .mfi-cep-form .cross-link a { color: #DF693B; font-weight: 600; text-decoration: none; border-bottom: 1px solid #DF693B; padding-bottom: 1px; }
   .mfi-cep-form .cross-link a:hover { color: #c75a30; border-color: #c75a30; }
-  .mfi-cep-form .card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 32px 28px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
-    border: 1px solid #E5E7EB;
-  }
-  .mfi-cep-form .form-section {
-    margin-bottom: 24px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid #F1F2F4;
-  }
-  .mfi-cep-form .form-section:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 16px;
-  }
-  .mfi-cep-form .form-section-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: #5D92CD;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
+
+  .mfi-cep-form .form-card { background: #fff; border-radius: 12px; padding: 32px 28px; box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 8px 24px rgba(0,0,0,.04); border: 1px solid #E5E7EB; }
+
+  .mfi-cep-form .section-h { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #5D92CD; margin: 4px 0 14px; padding-bottom: 6px; border-bottom: 1px solid #E5E7EB; }
+  .mfi-cep-form .section-h:not(:first-child) { margin-top: 28px; }
+
   .mfi-cep-form .field { margin-bottom: 16px; }
-  .mfi-cep-form .field:last-child { margin-bottom: 0; }
-  .mfi-cep-form .field label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: #0F4761;
-    margin: 0 0 6px 0;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
+  .mfi-cep-form .field label { display: block; font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; }
   .mfi-cep-form .field .req { color: #DF693B; margin-left: 3px; }
-  .mfi-cep-form .field input {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1.5px solid #E5E7EB;
-    border-radius: 6px;
-    font-size: 15px;
-    font-family: 'Poppins', sans-serif;
-    color: #1a1a1a;
-    background: #fff;
-    outline: none;
-    transition: border-color .2s;
-    display: block;
-  }
+  .mfi-cep-form .field input { width: 100%; padding: 11px 14px; border: 1.5px solid #D4DDE8; border-radius: 6px; font-size: 15px; font-family: 'Poppins', sans-serif; color: #1a1a1a; background: #fff; outline: none; transition: border-color .15s; }
   .mfi-cep-form .field input:focus { border-color: #5D92CD; }
-  .mfi-cep-form .upload-area {
-    background: #F8FAFC;
-    border: 1px solid #E5E7EB;
-    border-radius: 8px;
-    padding: 28px 16px;
-    text-align: center;
-    cursor: pointer;
-    transition: background .2s, border-color .2s;
-    display: block;
-    margin: 0;
-  }
-  .mfi-cep-form .upload-area:hover { background: #F0F5FA; border-color: #5D92CD; }
-  .mfi-cep-form .upload-area.has-file { background: #F0F5FA; border-color: #5D92CD; }
-  .mfi-cep-form .upload-icon {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    text-align: center;
-    background: #5D92CD;
-    color: #fff;
-    border-radius: 50%;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  .mfi-cep-form .upload-text { font-size: 14px; color: #0F4761; font-weight: 600; margin: 0 0 4px 0; }
-  .mfi-cep-form .upload-sub { font-size: 12px; color: #6B7280; margin: 0; }
-  .mfi-cep-form .upload-area input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+  .mfi-cep-form .field .hint { font-size: 12px; color: #888; margin-top: 6px; }
   .mfi-cep-form .err { color: #DC2626; font-size: 12px; margin-top: 4px; display: none; }
   .mfi-cep-form .err.show { display: block; }
-  .mfi-cep-form .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+  .mfi-cep-form .row { display: grid; gap: 0 16px; }
+  .mfi-cep-form .row-2 { grid-template-columns: 1fr 1fr; }
   @media (max-width: 540px) { .mfi-cep-form .row-2 { grid-template-columns: 1fr; } }
-  .mfi-cep-form .btn-row { margin-top: 8px; }
-  .mfi-cep-form .submit-btn {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: background .2s;
-    background: #5D92CD;
-    color: #fff;
-    display: block;
-  }
-  .mfi-cep-form .submit-btn:hover { background: #4577ad; }
+
+  .mfi-cep-form .upload-zone { border: 2px dashed #D4DDE8; border-radius: 10px; padding: 36px 20px; text-align: center; cursor: pointer; background: #fff; transition: all .15s; }
+  .mfi-cep-form .upload-zone:hover { border-color: #5D92CD; background: #F7FAFD; }
+  .mfi-cep-form .upload-zone.has-file { border-color: #0F4761; background: #F0FAF5; border-style: solid; }
+  .mfi-cep-form .upload-zone .fname { font-size: 15px; font-weight: 600; color: #0F4761; }
+  .mfi-cep-form .upload-zone .fsize { font-size: 13px; color: #6B7280; margin-top: 4px; }
+  .mfi-cep-form .upload-zone .fchange { font-size: 12px; color: #5D92CD; margin-top: 8px; }
+  .mfi-cep-form .upload-zone .prompt { font-size: 15px; font-weight: 500; color: #0F4761; }
+  .mfi-cep-form .upload-zone .sub { font-size: 13px; color: #6B7280; margin-top: 6px; }
+  .mfi-cep-form .upload-zone .dnd { font-size: 12px; color: #888; margin-top: 10px; font-style: italic; }
+
+  .mfi-cep-form .attest-box { background: #F4F7FB; border-left: 3px solid #5D92CD; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 24px 0 18px; }
+  .mfi-cep-form .attest-box-title { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #5D92CD; margin-bottom: 10px; }
+  .mfi-cep-form .check-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; cursor: pointer; }
+  .mfi-cep-form .check-row input[type=checkbox] { margin-top: 3px; width: 18px; height: 18px; accent-color: #5D92CD; flex-shrink: 0; cursor: pointer; }
+  .mfi-cep-form .check-row span { font-size: 14.5px; line-height: 1.55; color: #1a1a1a; }
+  .mfi-cep-form .check-row a { color: #5D92CD; text-decoration: underline; }
+  .mfi-cep-form .legal-name input { font-weight: 500; font-style: italic; background: #FFF8F0 !important; border-color: #F0D4B8 !important; }
+  .mfi-cep-form .legal-hint { font-size: 12px; color: #888; margin-top: 4px; font-style: italic; }
+
+  .mfi-cep-form .submit-btn { padding: 14px 28px; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; letter-spacing: .01em; transition: all .15s; width: 100%; background: #DF693B; color: #fff; margin-top: 8px; }
+  .mfi-cep-form .submit-btn:hover:not(:disabled) { background: #c75a30; }
   .mfi-cep-form .submit-btn:disabled { opacity: .5; cursor: not-allowed; }
-  .mfi-cep-form .error-box {
-    background: #FEF2F2;
-    border: 1px solid #FECACA;
-    border-radius: 6px;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    font-size: 13px;
-    color: #DC2626;
-    display: none;
-  }
-  .mfi-cep-form .error-box.show { display: block; }
-  .mfi-cep-form .progress { margin-bottom: 16px; display: none; }
+
+  .mfi-cep-form .progress { margin-top: 16px; display: none; }
   .mfi-cep-form .progress.show { display: block; }
-  .mfi-cep-form .plabel { font-size: 13px; font-weight: 500; color: #0F4761; margin: 0 0 8px 0; }
+  .mfi-cep-form .progress .plabel { font-size: 13px; font-weight: 500; color: #0F4761; margin-bottom: 6px; }
   .mfi-cep-form .progress-bar { width: 100%; height: 6px; background: #E5E7EB; border-radius: 3px; overflow: hidden; }
-  .mfi-cep-form .progress-fill { height: 100%; background: #5D92CD; border-radius: 3px; transition: width .3s; width: 0; }
-  .mfi-cep-form .confirm { text-align: center; padding: 16px 0; }
-  .mfi-cep-form .confirm-check { font-size: 48px; color: #5D92CD; margin-bottom: 12px; line-height: 1; }
-  .mfi-cep-form .confirm h2 { font-size: 22px; font-weight: 700; color: #0F4761; margin: 0 0 8px 0; }
-  .mfi-cep-form .csub { font-size: 14px; color: #6B7280; margin: 0 0 20px 0; line-height: 1.5; }
-  .mfi-cep-form .details {
-    background: #F0F5FA;
-    border-radius: 8px;
-    padding: 16px 20px;
-    text-align: left;
-    margin: 0 auto 16px;
-    font-size: 14px;
-    line-height: 2;
-  }
-  .mfi-cep-form .details strong { color: #0F4761; }
+  .mfi-cep-form .progress-fill { height: 100%; background: #DF693B; border-radius: 3px; transition: width .3s; width: 0; }
+  .mfi-cep-form .error-box { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 6px; padding: 12px 16px; margin-top: 12px; font-size: 13px; color: #DC2626; display: none; }
+  .mfi-cep-form .error-box.show { display: block; }
+
+  .mfi-cep-form .confirm { text-align: center; padding: 32px 8px 16px; }
+  .mfi-cep-form .confirm .ok { font-size: 56px; color: #2A8A4F; margin-bottom: 12px; line-height: 1; }
+  .mfi-cep-form .confirm h2 { font-size: 24px; font-weight: 800; color: #0F4761; margin-bottom: 8px; letter-spacing: -.01em; }
+  .mfi-cep-form .confirm .csub { font-size: 15px; color: #555; margin-bottom: 24px; line-height: 1.55; }
+  .mfi-cep-form .confirm .details { background: #F4F7FB; border-radius: 8px; padding: 20px 22px; text-align: left; max-width: 460px; margin: 0 auto 20px; border-left: 3px solid #5D92CD; }
+  .mfi-cep-form .confirm .dtitle { font-size: 11px; color: #5D92CD; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: 10px; }
+  .mfi-cep-form .confirm .dline { font-size: 14px; line-height: 1.9; color: #1a1a1a; }
+  .mfi-cep-form .confirm .dline strong { color: #0F4761; }
+  .mfi-cep-form .hash { font-size: 11px; word-break: break-all; background: #fff; padding: 3px 7px; border-radius: 3px; font-family: 'JetBrains Mono', SFMono-Regular, Menlo, monospace; border: 1px solid #E5EBF1; color: #5D92CD; }
+  .mfi-cep-form .confirm .next-box { background: #FFF8F0; border-left: 3px solid #DF693B; padding: 16px 20px; border-radius: 0 6px 6px 0; max-width: 460px; margin: 0 auto 20px; text-align: left; font-size: 14px; line-height: 1.55; }
+  .mfi-cep-form .confirm .next-box strong { color: #DF693B; }
+
   .mfi-cep-form .hidden { display: none !important; }
 </style>
 </head>
@@ -234,53 +129,85 @@
         <a href="/csf-submission">Submit for Certified Significant Form &rarr;</a>
       </div>
 
-      <div class="card">
+      <div id="formCard" class="form-card">
 
-        <div id="cepFormStep">
-
-          <div class="form-section">
-            <div class="form-section-title">About You</div>
-            <div class="row-2">
-              <div class="field"><label>Your Name <span class="req">*</span></label><input id="cep_name" placeholder="Full name"><div class="err" id="cep_e_name">Required</div></div>
-              <div class="field"><label>Email <span class="req">*</span></label><input id="cep_email" type="email" placeholder="you@example.com"><div class="err" id="cep_e_email">Valid email required</div></div>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <div class="form-section-title">About the Recording</div>
-            <div class="row-2">
-              <div class="field"><label>Artist / Band Name <span class="req">*</span></label><input id="cep_artist" placeholder="Artist or band name"><div class="err" id="cep_e_artist">Required</div></div>
-              <div class="field"><label>Track Title <span class="req">*</span></label><input id="cep_title" placeholder="Song title"><div class="err" id="cep_e_title">Required</div></div>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <div class="form-section-title">Master Audio File</div>
-            <label class="upload-area" id="cepUploadArea" for="cep_file">
-              <div class="upload-icon">&uarr;</div>
-              <div class="upload-text" id="cepUploadText">Click to upload your master</div>
-              <div class="upload-sub" id="cepUploadSub">WAV, FLAC, AIFF, or high-bitrate MP3</div>
-              <input id="cep_file" type="file" accept="audio/wav,audio/flac,audio/aiff,audio/mpeg,audio/x-wav,audio/x-flac,audio/x-aiff,.wav,.flac,.aiff,.mp3">
-            </label>
-            <div class="err" id="cep_e_file">Master audio file is required</div>
-          </div>
-
-          <div class="error-box" id="cepSubmitError"></div>
-          <div class="progress" id="cepProgressBox"><div class="plabel" id="cepProgressLabel">Uploading...</div><div class="progress-bar"><div class="progress-fill" id="cepProgressFill"></div></div></div>
-          <div class="btn-row"><button class="submit-btn" id="cep_btn_submit">Submit for Certification</button></div>
-
+        <div class="section-h">About You</div>
+        <div class="row row-2">
+          <div class="field"><label>Your Name <span class="req">*</span></label><input id="f_name" placeholder="Full name" autocomplete="name"><div class="err" id="e_name">Required</div></div>
+          <div class="field"><label>Email <span class="req">*</span></label><input id="f_email" type="email" placeholder="you@example.com" autocomplete="email"><div class="err" id="e_email">Valid email required</div></div>
         </div>
 
-        <div id="cepConfirmStep" class="hidden">
-          <div class="confirm">
-            <div class="confirm-check">&#10003;</div>
-            <h2>Submission Received</h2>
-            <p class="csub">Your recording is being reviewed by an analyst under published CEP standards. We will notify you by email with the results.</p>
-            <div class="details" id="cepConfirmDetails"></div>
-            <div style="font-size:12px;color:#6B7280;margin-top:16px">Questions? Contact <a id="cepContactLink" href="#" style="color:#5D92CD"></a></div>
-          </div>
+        <div class="section-h">About the Recording</div>
+        <div class="row row-2">
+          <div class="field"><label>Artist / Band Name <span class="req">*</span></label><input id="f_artist" placeholder="Artist or band name"><div class="err" id="e_artist">Required</div></div>
+          <div class="field"><label>Track Title <span class="req">*</span></label><input id="f_title" placeholder="Song title"><div class="err" id="e_title">Required</div></div>
         </div>
 
+        <div class="section-h">Master Audio File</div>
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept=".wav,audio/wav" style="display:none">
+          <div id="uploadEmpty">
+            <div style="font-size:28px;margin-bottom:8px;opacity:.5">&#9835;</div>
+            <div class="prompt">Click to select your WAV file</div>
+            <div class="sub">Final stereo master &middot; 48kHz / 24-bit preferred</div>
+            <div class="dnd">or drag &amp; drop here</div>
+          </div>
+          <div id="uploadFilled" class="hidden">
+            <div style="font-size:28px;margin-bottom:8px;color:#2A8A4F">&#10003;</div>
+            <div class="fname" id="fileName"></div>
+            <div class="fsize" id="fileSize"></div>
+            <div class="fchange">Click to change file</div>
+          </div>
+        </div>
+        <div class="err" id="e_file" style="margin-top:8px">WAV file required</div>
+        <div class="hint" style="margin-top:10px;font-size:12px;color:#6B7280;line-height:1.5">Audio is uploaded to encrypted storage and automatically deleted after 14 days. Only a cryptographic hash (SHA-256) is kept as part of the permanent certification record.</div>
+
+        <div class="attest-box">
+          <div class="attest-box-title">Attestation</div>
+          <label class="check-row">
+            <input type="checkbox" id="f_check1">
+            <span>I confirm this recording was made without grid correction, pitch correction, or generative AI. <a href="/standards" target="_blank">See full standard</a></span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="f_check2">
+            <span>I&rsquo;m authorized to submit this recording and understand it&rsquo;ll appear in the public registry if certified.</span>
+          </label>
+          <div class="err" id="e_check" style="margin-top:4px">Both boxes required to proceed</div>
+        </div>
+
+        <div class="field legal-name" style="margin-bottom:4px">
+          <label>Type Your Full Legal Name <span class="req">*</span></label>
+          <input id="f_legal" placeholder="Full legal name" autocomplete="off">
+          <div class="legal-hint">This serves as your electronic signature on the attestation above.</div>
+          <div class="err" id="e_legal">Type your full legal name</div>
+        </div>
+
+        <button class="submit-btn" id="btn_submit" style="margin-top:20px">Submit for Certification</button>
+
+        <div class="progress" id="progressBox">
+          <div class="plabel" id="progressLabel">Creating submission...</div>
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+        <div class="error-box" id="submitError"></div>
+      </div>
+
+      <div id="confirmCard" class="form-card hidden">
+        <div class="confirm">
+          <div class="ok">&#10003;</div>
+          <h2>Submission Received</h2>
+          <p class="csub">Your recording is in the review queue. A trained music analyst will review it within <strong>7 days</strong> and you&rsquo;ll hear back by email.</p>
+
+          <div class="details">
+            <div class="dtitle">Submission Details</div>
+            <div class="dline" id="confirmDetails"></div>
+          </div>
+
+          <div class="next-box">
+            <strong>What happens next:</strong> We review the recording against the CEP standard (no grid, pitch, or AI) and run it through three-stem AI detection. If certified, the track appears in the public registry and you get a shareable certificate. We&rsquo;ll email <span id="confirmEmail"></span> with the decision within 7 days.
+          </div>
+
+          <div style="font-size:12px;color:#6B7280;margin-top:8px">Questions? Contact <a id="contactLink" href="#" style="color:#5D92CD"></a></div>
+        </div>
       </div>
 
     </div>
@@ -336,80 +263,161 @@
 <script>
 (function() {
   "use strict";
-  // NOTE: keep the existing CEP submission worker URL and upload flow.
-  // If the previous Squarespace page used a presigned-URL S3 flow, paste that
-  // here to replace the basic FormData POST below. The visual + IDs are
-  // namespaced with cep_ / cepXxx so they cannot collide with anything else.
   var WORKER_URL = "https://mfi-worker-production.up.railway.app";
+  var selectedFile = null;
+
   var eDomain = "musicalform.org";
   var eCerts = "certifications" + String.fromCharCode(64) + eDomain;
-  var contactEl = document.getElementById("cepContactLink");
+  var contactEl = document.getElementById("contactLink");
   if (contactEl) { contactEl.href = "mai" + "lto:" + eCerts; contactEl.textContent = eCerts; }
+
   function $(id) { return document.getElementById(id); }
   function val(id) { var el = $(id); return el ? el.value.trim() : ""; }
-  function showErr(id) { var el = $(id); if(el) el.classList.add("show"); }
-  function clearErr(id) { var el = $(id); if(el) el.classList.remove("show"); }
-  function fmtSize(b){ if(b<1024)return b+" B"; if(b<1048576)return (b/1024).toFixed(1)+" KB"; if(b<1073741824)return (b/1048576).toFixed(1)+" MB"; return (b/1073741824).toFixed(2)+" GB"; }
-  var fileInput = $("cep_file");
-  var zone = $("cepUploadArea");
-  if(fileInput){
-    fileInput.addEventListener("change", function(){
-      if(fileInput.files && fileInput.files[0]){
-        var f = fileInput.files[0];
-        $("cepUploadText").textContent = f.name;
-        $("cepUploadSub").textContent = fmtSize(f.size) + " — click to choose a different file";
-        zone.classList.add("has-file");
-        clearErr("cep_e_file");
-      }
-    });
+  function showErr(id) { var el = $(id); if (el) el.classList.add("show"); }
+  function clearErr(id) { var el = $(id); if (el) el.classList.remove("show"); }
+
+  $("uploadZone").addEventListener("click", function() { $("fileInput").click(); });
+  $("fileInput").addEventListener("change", function() {
+    if (this.files.length > 0) {
+      selectedFile = this.files[0];
+      $("uploadEmpty").classList.add("hidden");
+      $("uploadFilled").classList.remove("hidden");
+      $("uploadZone").classList.add("has-file");
+      $("fileName").textContent = selectedFile.name;
+      $("fileSize").textContent = (selectedFile.size / (1024 * 1024)).toFixed(1) + " MB";
+      clearErr("e_file");
+    }
+  });
+
+  var zone = $("uploadZone");
+  ["dragover", "dragenter"].forEach(function(ev) {
+    zone.addEventListener(ev, function(e) { e.preventDefault(); zone.style.borderColor = "#5D92CD"; });
+  });
+  zone.addEventListener("dragleave", function() { if (!selectedFile) zone.style.borderColor = "#D4DDE8"; });
+  zone.addEventListener("drop", function(e) {
+    e.preventDefault();
+    if (e.dataTransfer.files.length > 0) {
+      var dt = new DataTransfer();
+      dt.items.add(e.dataTransfer.files[0]);
+      $("fileInput").files = dt.files;
+      $("fileInput").dispatchEvent(new Event("change"));
+    }
+  });
+
+  function validateAll() {
+    var ok = true;
+    ["e_name", "e_email", "e_artist", "e_title", "e_file", "e_check", "e_legal"].forEach(clearErr);
+    if (!val("f_name")) { showErr("e_name"); ok = false; }
+    if (!val("f_email") || val("f_email").indexOf("@") < 0) { showErr("e_email"); ok = false; }
+    if (!val("f_artist")) { showErr("e_artist"); ok = false; }
+    if (!val("f_title")) { showErr("e_title"); ok = false; }
+    if (!selectedFile) { showErr("e_file"); ok = false; }
+    if (!$("f_check1").checked || !$("f_check2").checked) { showErr("e_check"); ok = false; }
+    if (!val("f_legal")) { showErr("e_legal"); ok = false; }
+    return ok;
   }
-  var submitBtn = $("cep_btn_submit");
-  if(submitBtn){
-    submitBtn.addEventListener("click", function() {
-      clearErr("cep_e_name"); clearErr("cep_e_email"); clearErr("cep_e_artist"); clearErr("cep_e_title"); clearErr("cep_e_file");
-      $("cepSubmitError").classList.remove("show");
-      var ok = true;
-      if (!val("cep_name")) { showErr("cep_e_name"); ok = false; }
-      if (!val("cep_email") || val("cep_email").indexOf("@") === -1) { showErr("cep_e_email"); ok = false; }
-      if (!val("cep_artist")) { showErr("cep_e_artist"); ok = false; }
-      if (!val("cep_title")) { showErr("cep_e_title"); ok = false; }
-      if (!fileInput.files || !fileInput.files[0]) { showErr("cep_e_file"); ok = false; }
-      if (!ok) return;
-      submitBtn.disabled = true;
-      $("cepProgressBox").classList.add("show");
-      $("cepProgressLabel").textContent = "Uploading master audio...";
-      $("cepProgressFill").style.width = "10%";
-      // TODO: paste your existing CEP upload + submit logic here if it differs
-      // from this basic FormData POST (e.g., presigned S3 URL flow).
-      var formData = new FormData();
-      formData.append("submitter_name", val("cep_name"));
-      formData.append("contact_email", val("cep_email"));
-      formData.append("primary_artist", val("cep_artist"));
-      formData.append("track_title", val("cep_title"));
-      formData.append("master_audio", fileInput.files[0]);
-      fetch(WORKER_URL + "/cep/public/submit", { method: "POST", body: formData })
-      .then(function(res) { if (!res.ok) return res.json().then(function(e) { throw new Error(e.detail || "Submission failed"); }); return res.json(); })
-      .then(function(data) {
-        $("cepProgressFill").style.width = "100%";
-        try { if (typeof window.gtag === "function") { window.gtag("event", "form_submit", { form_type: "cep", form_name: "CEP Public Submission", value: 1 }); } } catch (e) {}
-        $("cepConfirmDetails").innerHTML =
-          "<strong>Artist:</strong> " + val("cep_artist") + "<br>" +
-          "<strong>Track:</strong> " + val("cep_title") + "<br>" +
-          "<strong>Email:</strong> " + val("cep_email");
-        setTimeout(function() {
-          $("cepFormStep").classList.add("hidden");
-          $("cepConfirmStep").classList.remove("hidden");
-          window.scrollTo(0, 0);
-        }, 500);
+
+  function setProgress(pct, label) {
+    $("progressFill").style.width = pct + "%";
+    $("progressLabel").textContent = label;
+  }
+
+  $("btn_submit").addEventListener("click", function() {
+    $("submitError").classList.remove("show");
+    if (!validateAll()) return;
+
+    $("btn_submit").disabled = true;
+    $("progressBox").classList.add("show");
+    setProgress(3, "Creating submission...");
+
+    var caseNumber = null;
+
+    fetch(WORKER_URL + "/cep/public/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        primary_artist: val("f_artist"),
+        track_title: val("f_title"),
+        release_title: val("f_title"),
+        submitter_name: val("f_name"),
+        submitter_role: "Artist",
+        contact_email: val("f_email"),
+        filename: selectedFile.name,
+        content_type: "audio/wav",
+        legal_name: val("f_legal"),
+        checkbox_1: $("f_check1").checked,
+        checkbox_2: $("f_check2").checked
       })
-      .catch(function(err) {
-        $("cepSubmitError").textContent = err.message;
-        $("cepSubmitError").classList.add("show");
-        submitBtn.disabled = false;
-        $("cepProgressBox").classList.remove("show");
+    })
+    .then(function(res) {
+      if (!res.ok) return res.json().then(function(e) { throw new Error(e.detail || "Submission failed"); });
+      return res.json();
+    })
+    .then(function(data) {
+      caseNumber = data.case_number;
+      var uploadUrl = data.upload_url;
+      setProgress(10, "Uploading audio to secure storage...");
+
+      return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function(e) {
+          if (e.lengthComputable) setProgress(10 + Math.round((e.loaded / e.total) * 70), "Uploading audio to secure storage...");
+        });
+        xhr.addEventListener("load", function() {
+          if (xhr.status >= 200 && xhr.status < 300) resolve();
+          else reject(new Error("Audio upload failed: " + xhr.status));
+        });
+        xhr.addEventListener("error", function() { reject(new Error("Audio upload failed")); });
+        xhr.open("PUT", uploadUrl);
+        xhr.setRequestHeader("Content-Type", "audio/wav");
+        xhr.send(selectedFile);
       });
+    })
+    .then(function() {
+      setProgress(85, "Computing cryptographic hash...");
+      return fetch(WORKER_URL + "/cep/public/upload-complete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ case_number: caseNumber })
+      }).then(function(res) {
+        if (!res.ok) return res.json().then(function(e) { throw new Error(e.detail || "Confirmation failed"); });
+        return res.json();
+      });
+    })
+    .then(function(completeData) {
+      setProgress(100, "Complete.");
+      try {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "form_submit", {
+            form_type: "cep",
+            form_name: "CEP Public Submission",
+            case_number: caseNumber,
+            value: 1
+          });
+        }
+      } catch (e) { /* no-op */ }
+
+      var detailsHtml =
+        "<strong>Case Number:</strong> " + caseNumber + "<br>" +
+        "<strong>Artist:</strong> " + val("f_artist") + "<br>" +
+        "<strong>Track:</strong> " + val("f_title") + "<br>" +
+        "<strong>SHA-256:</strong> <span class='hash'>" + completeData.sha256 + "</span>";
+      $("confirmDetails").innerHTML = detailsHtml;
+      $("confirmEmail").textContent = val("f_email");
+
+      setTimeout(function() {
+        $("formCard").classList.add("hidden");
+        $("confirmCard").classList.remove("hidden");
+        window.scrollTo(0, 0);
+      }, 500);
+    })
+    .catch(function(err) {
+      $("submitError").textContent = err.message;
+      $("submitError").classList.add("show");
+      $("btn_submit").disabled = false;
+      $("progressBox").classList.remove("show");
     });
-  }
+  });
 })();
 </script>
 
