@@ -42,8 +42,8 @@ a { color: inherit; }
 
 /* ── UTILITY BAR ── */
 .utility-bar {
-  background: var(--black);
-  color: rgba(255,255,255,0.75);
+  background: var(--vintage-blue);
+  color: rgba(255,255,255,0.92);
   font-size: 11px;
   letter-spacing: 0.5px;
 }
@@ -54,8 +54,8 @@ a { color: inherit; }
   padding-top: 8px;
   padding-bottom: 8px;
 }
-.utility-bar a { color: inherit; text-decoration: none; }
-.utility-bar a:hover { color: var(--white); }
+.utility-bar a { color: var(--white); text-decoration: none; font-weight: 500; }
+.utility-bar a:hover { text-decoration: underline; }
 
 /* ── HEADER ── */
 .header {
@@ -193,6 +193,91 @@ a { color: inherit; }
   margin-top: 6px;
 }
 
+/* ── HORIZONTAL MARQUEE ── */
+.marquee-section {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 36px 0 44px;
+}
+.marquee-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+.marquee-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--black);
+  margin-top: 4px;
+}
+.marquee-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--retro-orange);
+  text-decoration: none;
+  border-bottom: 1px solid var(--retro-orange);
+  padding-bottom: 1px;
+}
+.marquee-link:hover { color: var(--retro-orange-dark); border-color: var(--retro-orange-dark); }
+.marquee-track-wrap {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 64px, black calc(100% - 64px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, black 64px, black calc(100% - 64px), transparent 100%);
+}
+.marquee-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: marquee-scroll-x 80s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+@keyframes marquee-scroll-x {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-tile {
+  flex-shrink: 0;
+  width: 160px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.marquee-tile-art {
+  width: 160px;
+  height: 160px;
+  background: var(--off-white);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.marquee-tile-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+.marquee-tile:hover .marquee-tile-art img { transform: scale(1.05); }
+.marquee-tile-info { margin-top: 8px; min-width: 0; }
+.marquee-tile-track {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 160px;
+}
+.marquee-tile-artist {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 160px;
+}
+
 /* ── SECTION COMMON ── */
 .section { padding: 72px 0; border-bottom: 1px solid var(--rule); }
 .section.alt { background: var(--off-white); }
@@ -314,121 +399,11 @@ a { color: inherit; }
   color: var(--text-secondary);
 }
 
-/* ── REGISTRY PREVIEW ── */
-.registry-preview {
-  background: var(--white);
-  border: 1px solid var(--rule);
-  padding: 32px;
-}
-.registry-preview-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--rule);
-}
-.registry-preview-header h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--black);
-}
-.registry-preview-header a {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--retro-orange);
-  text-decoration: none;
-}
-.registry-preview-header a:hover { text-decoration: underline; }
-.registry-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 14px;
-}
-.registry-tile {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  min-width: 0; /* allows long titles to truncate instead of forcing the grid column wider */
-}
-.registry-tile-art {
-  width: 100%;
-  aspect-ratio: 1/1;
-  background: var(--off-white);
-  border: 1px solid var(--rule);
-  overflow: hidden;
-  position: relative;
-}
-.registry-tile-art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
-.registry-tile:hover .registry-tile-art img { transform: scale(1.04); }
+/* placeholder kept for marquee tiles missing artwork */
 .registry-tile-art-empty {
   width: 100%; height: 100%;
   display: flex; align-items: center; justify-content: center;
   font-size: 22px; color: var(--text-tertiary);
-}
-.registry-tile-track {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text);
-  margin-top: 8px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.registry-tile-artist {
-  font-size: 11px;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ── ABOUT ── */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 56px;
-  align-items: start;
-}
-.about-photo {
-  width: 100%;
-  aspect-ratio: 4/5;
-  background: var(--off-white);
-  border: 1px solid var(--rule);
-  overflow: hidden;
-}
-.about-photo-placeholder {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: var(--text-tertiary);
-}
-.about h2 { margin-bottom: 24px; }
-.about p {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.75;
-  margin-bottom: 16px;
-}
-.about-credentials {
-  list-style: none;
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid var(--rule);
-}
-.about-credentials li {
-  font-size: 13px;
-  color: var(--text);
-  padding: 8px 0;
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 16px;
-}
-.about-credentials li strong {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
 }
 
 /* ── NEWS ── */
@@ -520,9 +495,9 @@ a { color: inherit; }
   .hero h1 { font-size: 36px; }
   .programs-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; gap: 32px; }
-  .registry-grid { grid-template-columns: repeat(3, 1fr); }
-  .about-grid { grid-template-columns: 1fr; gap: 32px; }
-  .about-photo { max-width: 320px; }
+  .marquee-tile { width: 140px; }
+  .marquee-tile-art { width: 140px; height: 140px; }
+  .marquee-tile-track, .marquee-tile-artist { width: 140px; }
   .news-list { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .section { padding: 56px 0; }
@@ -538,7 +513,7 @@ a { color: inherit; }
 <div class="utility-bar">
   <div class="container">
     <div>Independent certification body &middot; Operated by Muse Foundry LLC</div>
-    <div><a href="https://registry.musicalform.org/">Public registry &rarr;</a></div>
+    <div><a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Public registry &rarr;</a></div>
   </div>
 </div>
 
@@ -551,7 +526,7 @@ a { color: inherit; }
     <nav class="main-nav">
       <a href="/about">About</a>
       <a href="/standards">Standards</a>
-      <a href="https://registry.musicalform.org/">Registry</a>
+      <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
       <a href="/news">News</a>
       <a href="/faq">FAQ</a>
       <a href="/contact">Contact</a>
@@ -569,7 +544,7 @@ a { color: inherit; }
         <h1>Independent certification for <em>sound recordings</em>.</h1>
         <p class="hero-tagline">Two marks. Published standards. A public registry. We verify how recordings are made, then put the proof on the public record.</p>
         <div class="hero-actions">
-          <a href="https://registry.musicalform.org/" class="btn btn-primary">View the Registry</a>
+          <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" class="btn btn-primary">View the Registry</a>
           <a href="/submit" class="btn btn-outline">Submit a Recording</a>
         </div>
       </div>
@@ -594,6 +569,24 @@ a { color: inherit; }
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECENTLY CERTIFIED MARQUEE ============ -->
+<section class="marquee-section">
+  <div class="container">
+    <div class="marquee-header">
+      <div>
+        <div class="section-eyebrow">Public Record</div>
+        <h3 class="marquee-title">Recently Certified</h3>
+      </div>
+      <a href="https://registry.musicalform.org/csf" target="_blank" rel="noopener" class="marquee-link">Browse all <span id="marqueeBrowseCount">9,622</span> records &rarr;</a>
+    </div>
+  </div>
+  <div class="marquee-track-wrap">
+    <div class="marquee-track" id="marqueeTrack">
+      <!-- Tiles populated by JS, then duplicated for seamless loop -->
     </div>
   </div>
 </section>
@@ -655,49 +648,6 @@ a { color: inherit; }
         <div class="step-num">03 &middot; CERTIFIED</div>
         <h3>Public record.</h3>
         <p>Certified records get a unique ID and appear in the public registry, visible and verifiable to anyone. The audio file is deleted after review; only a SHA-256 hash is retained.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ REGISTRY PREVIEW ============ -->
-<section class="section">
-  <div class="container">
-    <div class="section-eyebrow">Public Record</div>
-    <h2>Recently certified.</h2>
-    <p class="section-intro">A live sample from the public registry, updated as new records are certified.</p>
-
-    <div class="registry-preview">
-      <div class="registry-preview-header">
-        <h3>From the CSF Registry</h3>
-        <a href="https://registry.musicalform.org/csf">Browse all 9,622 records &rarr;</a>
-      </div>
-      <div class="registry-grid" id="registryGrid">
-        <!-- Tiles populated by JS -->
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ABOUT / FOUNDER ============ -->
-<section class="section alt">
-  <div class="container about">
-    <div class="about-grid">
-      <div class="about-photo">
-        <div class="about-photo-placeholder">[Photo: Jeffrey Anthony]</div>
-      </div>
-      <div>
-        <div class="section-eyebrow">About</div>
-        <h2>Operated by Muse Foundry LLC.</h2>
-        <p>The Musical Form Institute is an independent certification body, founded and directed by Jeffrey Anthony. The mission: make how a recording was produced verifiable on the public record, independent of any platform or distributor.</p>
-        <p>Our published standards are the basis for every certification. Reviews are conducted by trained analysts. Decisions are appealable. The registry is the public record.</p>
-
-        <ul class="about-credentials">
-          <li><strong>Founder</strong><span>Jeffrey Anthony, Director</span></li>
-          <li><strong>Production</strong><span>25+ years session and touring drumming</span></li>
-          <li><strong>Music Analysis</strong><span>17 years at Pandora's Music Genome Project</span></li>
-          <li><strong>Education</strong><span>MPA, University of Arizona &middot; B.M. Studio Music and Jazz, University of Miami</span></li>
-        </ul>
       </div>
     </div>
   </div>
@@ -786,36 +736,54 @@ a { color: inherit; }
     return '';
   }
 
-  // Live counts
+  // Live counts (also updates the "Browse all N records" link in the marquee header)
   fetch(SUPA+'/v_csf_public_registry?select=csf_id',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
-    .then(function(r){var range=r.headers.get('content-range')||'*/0';document.getElementById('csfCount').textContent=fmt(range.split('/')[1]||'0')}).catch(function(){});
+    .then(function(r){
+      var range = r.headers.get('content-range') || '*/0';
+      var n = fmt(range.split('/')[1] || '0');
+      var el1 = document.getElementById('csfCount');
+      var el2 = document.getElementById('marqueeBrowseCount');
+      if(el1) el1.textContent = n;
+      if(el2) el2.textContent = n;
+    }).catch(function(){});
   fetch(SUPA+'/v_cep_public_registry?select=cep_id',{headers:h})
     .then(function(r){return r.json()}).then(function(d){document.getElementById('cepCount').textContent=fmt(d.length||0)}).catch(function(){});
   fetch(SUPA+'/v_label_summary?select=label&limit=500',{headers:h})
     .then(function(r){return r.json()}).then(function(d){document.getElementById('labelCount').textContent=fmt(d.length||0)+'+'}).catch(function(){});
 
-  // Registry preview tiles (12 tracks with valid art, take 6)
-  fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,cover_art,source_url&order=certification_date.desc&limit=60',{headers:h})
+  // Recently Certified marquee: horizontal auto-scrolling row of CSF tracks
+  // with valid artwork. Each tile opens the certificate detail in a new tab.
+  // Items are duplicated so the CSS keyframe loop from 0 to -50% is seamless.
+  function renderMarqueeTile(t){
+    var thumb = thumbFor(t);
+    var a = document.createElement('a');
+    a.className = 'marquee-tile';
+    a.href = 'https://registry.musicalform.org/csf/' + encodeURIComponent(t.csf_id || '');
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML =
+      '<div class="marquee-tile-art">'
+      + (thumb ? '<img src="'+escapeHtml(thumb)+'" alt="" loading="lazy">' : '<div class="registry-tile-art-empty">&#9834;</div>')
+      + '</div>'
+      + '<div class="marquee-tile-info">'
+      + '<div class="marquee-tile-track">'+escapeHtml(t.track_title||'')+'</div>'
+      + '<div class="marquee-tile-artist">'+escapeHtml(t.primary_artist||'')+'</div>'
+      + '</div>';
+    return a;
+  }
+
+  fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,cover_art,source_url&order=certification_date.desc&limit=200',{headers:h})
     .then(function(r){return r.json()})
     .then(function(d){
-      var grid = document.getElementById('registryGrid');
-      if(!d || !d.length){ grid.innerHTML = ''; return; }
-      var withThumb = d.filter(function(t){ return !!thumbFor(t); }).slice(0,6);
-      if(!withThumb.length){ grid.innerHTML = ''; return; }
-      grid.innerHTML = '';
-      withThumb.forEach(function(t){
-        var thumb = thumbFor(t);
-        var tile = document.createElement('a');
-        tile.className = 'registry-tile';
-        tile.href = 'https://registry.musicalform.org/csf/' + encodeURIComponent(t.csf_id || '');
-        tile.innerHTML =
-          '<div class="registry-tile-art">'
-          + (thumb ? '<img src="'+escapeHtml(thumb)+'" alt="" loading="lazy">' : '<div class="registry-tile-art-empty">&#9834;</div>')
-          + '</div>'
-          + '<div class="registry-tile-track">'+escapeHtml(t.track_title||'')+'</div>'
-          + '<div class="registry-tile-artist">'+escapeHtml(t.primary_artist||'')+'</div>';
-        grid.appendChild(tile);
-      });
+      var track = document.getElementById('marqueeTrack');
+      if(!d || !d.length){ return; }
+      var withThumb = d.filter(function(t){ return !!thumbFor(t); }).slice(0, 30);
+      if(!withThumb.length){ return; }
+      track.innerHTML = '';
+      // Render once for visible content
+      withThumb.forEach(function(t){ track.appendChild(renderMarqueeTile(t)); });
+      // Duplicate so the keyframe loop from 0 to -50% is seamless
+      withThumb.forEach(function(t){ track.appendChild(renderMarqueeTile(t)); });
     }).catch(function(){});
 })();
 </script>
