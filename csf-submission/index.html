@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit for CSF | The Musical Form Institute</title>
+<meta name="description" content="Submit an album or EP for Certified Significant Form (CSF) certification. Verify your recording was produced without generative AI. Currently free.">
+<meta property="og:title" content="Submit for CSF | The Musical Form Institute">
+<meta property="og:description" content="Submit an album or EP for CSF certification. Currently free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://musicalform.org/csf-submission">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  /* Submission form (scoped to .mfi-csf-form so it can't leak) */
+  .mfi-csf-form, .mfi-csf-form *, .mfi-csf-form *::before, .mfi-csf-form *::after {
+    box-sizing: border-box;
+  }
+  .mfi-csf-form {
+    font-family: 'Poppins', sans-serif;
+    color: #1a1a1a;
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .mfi-csf-form .price-pill {
+    display: block;
+    text-align: center;
+    margin: 0 auto 12px;
+    padding: 10px 24px;
+    background: #F0F8F1;
+    border: 1px solid #C7E8CD;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1F6B33;
+  }
+  .mfi-csf-form .cross-link {
+    display: block;
+    text-align: center;
+    margin: 0 auto 24px;
+    padding: 10px 24px;
+    background: rgba(93, 146, 205, 0.07);
+    border: 1px solid rgba(93, 146, 205, 0.20);
+    border-radius: 100px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .mfi-csf-form .cross-link a {
+    color: #DF693B;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid #DF693B;
+    padding-bottom: 1px;
+  }
+  .mfi-csf-form .cross-link a:hover { color: #c75a30; border-color: #c75a30; }
+  .mfi-csf-form .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+    border: 1px solid #E5E7EB;
+  }
+  .mfi-csf-form .field { margin-bottom: 18px; }
+  .mfi-csf-form .field:last-child { margin-bottom: 0; }
+  .mfi-csf-form .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0F4761;
+    margin: 0 0 6px 0;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .mfi-csf-form .field .req { color: #DF693B; margin-left: 3px; }
+  .mfi-csf-form .field .hint { font-size: 12px; color: #6B7280; margin: 0 0 6px 0; }
+  .mfi-csf-form .field input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    color: #1a1a1a;
+    background: #fff;
+    outline: none;
+    transition: border-color .2s;
+    display: block;
+  }
+  .mfi-csf-form .field input:focus { border-color: #5D92CD; }
+  .mfi-csf-form .err { color: #DC2626; font-size: 12px; margin-top: 4px; display: none; }
+  .mfi-csf-form .err.show { display: block; }
+  .mfi-csf-form .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+  @media (max-width: 540px) { .mfi-csf-form .row-2 { grid-template-columns: 1fr; } }
+  .mfi-csf-form .btn-row { margin-top: 20px; }
+  .mfi-csf-form .submit-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background .2s;
+    background: #DF693B;
+    color: #fff;
+    display: block;
+  }
+  .mfi-csf-form .submit-btn:hover { background: #c75a30; }
+  .mfi-csf-form .submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+  .mfi-csf-form .error-box {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #DC2626;
+    display: none;
+  }
+  .mfi-csf-form .error-box.show { display: block; }
+  .mfi-csf-form .progress { margin-bottom: 16px; display: none; }
+  .mfi-csf-form .progress.show { display: block; }
+  .mfi-csf-form .plabel { font-size: 13px; font-weight: 500; color: #0F4761; margin: 0 0 8px 0; }
+  .mfi-csf-form .progress-bar { width: 100%; height: 6px; background: #E5E7EB; border-radius: 3px; overflow: hidden; }
+  .mfi-csf-form .progress-fill { height: 100%; background: #0F4761; border-radius: 3px; transition: width .3s; width: 0; }
+  .mfi-csf-form .confirm { text-align: center; padding: 16px 0; }
+  .mfi-csf-form .confirm-check { font-size: 48px; color: #DF693B; margin-bottom: 12px; line-height: 1; }
+  .mfi-csf-form .confirm h2 { font-size: 22px; font-weight: 700; color: #0F4761; margin: 0 0 8px 0; }
+  .mfi-csf-form .csub { font-size: 14px; color: #6B7280; margin: 0 0 20px 0; line-height: 1.5; }
+  .mfi-csf-form .details {
+    background: #F0F5FA;
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: left;
+    margin: 0 auto 16px;
+    font-size: 14px;
+    line-height: 2;
+  }
+  .mfi-csf-form .details strong { color: #0F4761; }
+  .mfi-csf-form .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="container">
+    <div>Independent certification body &middot; Operated by Muse Foundry LLC</div>
+    <div><a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Public registry &rarr;</a></div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="container">
+    <a href="/" aria-label="Musical Form Institute home">
+      <img class="header-logo" src="/img/mfi-logo-horizontal.png" alt="The Musical Form Institute">
+    </a>
+    <nav class="main-nav">
+      <a href="/about">About</a>
+      <a href="/standards">Standards</a>
+      <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
+      <a href="/news">News</a>
+      <a href="/faq">FAQ</a>
+      <a href="/contact">Contact</a>
+      <a href="/submit" class="cta">Get Certified</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-eyebrow">Submit for Certification</div>
+    <h1>Certified Significant Form.</h1>
+    <p>Submit an album or EP for CSF certification, preferably a YouTube Music playlist link. We verify that each recording was produced without generative AI.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="mfi-csf-form">
+
+      <div class="price-pill">Currently free</div>
+
+      <div class="cross-link">
+        Want to certify how the music was made instead?
+        <a href="/cep-submission">Submit for Certificate of Embodied Production &rarr;</a>
+      </div>
+
+      <div class="card">
+
+        <div id="csfFormStep">
+          <div class="row-2">
+            <div class="field"><label>Name <span class="req">*</span></label><input id="csf_name" placeholder="Full name"><div class="err" id="csf_e_name">Required</div></div>
+            <div class="field"><label>Email <span class="req">*</span></label><input id="csf_email" type="email" placeholder="you@example.com"><div class="err" id="csf_e_email">Valid email required</div></div>
+          </div>
+          <div class="field">
+            <label>Album or Playlist Link <span class="req">*</span></label>
+            <div class="hint">YouTube Music playlist link preferred. Spotify or Deezer album links also OK.</div>
+            <input id="csf_link" placeholder="https://music.youtube.com/playlist?list=OLAK5uy_...">
+            <div class="err" id="csf_e_link">A link is required</div>
+          </div>
+          <div class="error-box" id="csfSubmitError"></div>
+          <div class="progress" id="csfProgressBox"><div class="plabel" id="csfProgressLabel">Submitting...</div><div class="progress-bar"><div class="progress-fill" id="csfProgressFill"></div></div></div>
+          <div class="btn-row"><button class="submit-btn" id="csf_btn_submit">Submit</button></div>
+        </div>
+
+        <div id="csfConfirmStep" class="hidden">
+          <div class="confirm">
+            <div class="confirm-check">&#10003;</div>
+            <h2>Submission Received</h2>
+            <p class="csub">We will review your submission and notify you by email with the results.</p>
+            <div class="details" id="csfConfirmDetails"></div>
+            <div style="font-size:12px;color:#6B7280;margin-top:16px">Questions? Contact <a id="csfContactLink" href="#" style="color:#5D92CD"></a></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/img/mfi-logo-horizontal-inverted.png" alt="Musical Form Institute" class="footer-brand-logo">
+        <p>Independent certification for sound recordings. Operated by Muse Foundry LLC.</p>
+        <p>Certificate of Embodied Production&trade; &middot; Certification mark application pending.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="/standards">Standards</a></li>
+          <li><a href="/csf-submission">Submit CSF</a></li>
+          <li><a href="/cep-submission">Submit CEP</a></li>
+          <li><a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a></li>
+          <li><a href="/labels">For Labels</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Institute</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:certifications@musicalform.org">certifications@musicalform.org</a></li>
+          <li><a href="tel:+15202657278">+1 520 265 7278</a></li>
+          <li>PO Box 12734<br>Tucson, AZ 85732</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Muse Foundry LLC. All rights reserved.</div>
+      <div>
+        <a href="/privacy" style="margin-right:24px">Privacy</a>
+        <a href="/terms-of-use">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  "use strict";
+  var WORKER_URL = "https://mfi-worker-production.up.railway.app";
+  var eDomain = "musicalform.org";
+  var eCerts = "certifications" + String.fromCharCode(64) + eDomain;
+  var contactEl = document.getElementById("csfContactLink");
+  if (contactEl) { contactEl.href = "mai" + "lto:" + eCerts; contactEl.textContent = eCerts; }
+  function $(id) { return document.getElementById(id); }
+  function val(id) { var el = $(id); return el ? el.value.trim() : ""; }
+  function showErr(id) { var el = $(id); if(el) el.classList.add("show"); }
+  function clearErr(id) { var el = $(id); if(el) el.classList.remove("show"); }
+  var submitBtn = $("csf_btn_submit");
+  if(submitBtn){
+    submitBtn.addEventListener("click", function() {
+      clearErr("csf_e_name"); clearErr("csf_e_email"); clearErr("csf_e_link");
+      $("csfSubmitError").classList.remove("show");
+      var ok = true;
+      if (!val("csf_name")) { showErr("csf_e_name"); ok = false; }
+      if (!val("csf_email") || val("csf_email").indexOf("@") === -1) { showErr("csf_e_email"); ok = false; }
+      if (!val("csf_link")) { showErr("csf_e_link"); ok = false; }
+      if (!ok) return;
+      submitBtn.disabled = true;
+      $("csfProgressBox").classList.add("show");
+      $("csfProgressFill").style.width = "30%";
+      fetch(WORKER_URL + "/csf/public/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ submitter_name: val("csf_name"), contact_email: val("csf_email"), source_url: val("csf_link") })
+      })
+      .then(function(res) { if (!res.ok) return res.json().then(function(e) { throw new Error(e.detail || "Submission failed"); }); return res.json(); })
+      .then(function(data) {
+        $("csfProgressFill").style.width = "100%";
+        try { if (typeof window.gtag === "function") { window.gtag("event", "form_submit", { form_type: "csf", form_name: "CSF Public Submission", value: 1 }); } } catch (e) {}
+        $("csfConfirmDetails").innerHTML =
+          "<strong>Name:</strong> " + val("csf_name") + "<br>" +
+          "<strong>Email:</strong> " + val("csf_email") + "<br>" +
+          "<strong>Link:</strong> " + val("csf_link");
+        setTimeout(function() {
+          $("csfFormStep").classList.add("hidden");
+          $("csfConfirmStep").classList.remove("hidden");
+          window.scrollTo(0, 0);
+        }, 500);
+      })
+      .catch(function(err) {
+        $("csfSubmitError").textContent = err.message;
+        $("csfSubmitError").classList.add("show");
+        submitBtn.disabled = false;
+        $("csfProgressBox").classList.remove("show");
+      });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
