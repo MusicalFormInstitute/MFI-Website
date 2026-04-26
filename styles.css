@@ -1089,6 +1089,75 @@ a { color: inherit; }
   gap: 16px;
 }
 
+/* Footer newsletter signup (Kit form 6544140898) */
+.footer-newsletter {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.footer-newsletter-text h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+  text-transform: none;
+}
+.footer-newsletter-text p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+  max-width: 480px;
+}
+.footer-newsletter-form {
+  display: flex;
+  gap: 8px;
+}
+.footer-newsletter-form input[type=email] {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 4px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--white);
+  outline: none;
+  min-width: 260px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.footer-newsletter-form input[type=email]::placeholder { color: rgba(255,255,255,0.45); }
+.footer-newsletter-form input[type=email]:focus {
+  border-color: var(--retro-orange);
+  background: rgba(255,255,255,0.12);
+}
+.footer-newsletter-form button {
+  background: var(--retro-orange);
+  border: none;
+  border-radius: 4px;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.3px;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.footer-newsletter-form button:hover {
+  background: var(--retro-orange-dark);
+}
+@media (max-width: 700px) {
+  .footer-newsletter { grid-template-columns: 1fr; gap: 16px; padding-bottom: 24px; margin-bottom: 24px; }
+  .footer-newsletter-form { flex-direction: column; }
+  .footer-newsletter-form input[type=email] { min-width: 0; width: 100%; }
+  .footer-newsletter-form button { width: 100%; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .hero { padding: 56px 0; }
