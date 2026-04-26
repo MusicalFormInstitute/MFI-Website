@@ -551,15 +551,14 @@ a { color: inherit; }
 }
 .standard-badge {
   width: 100%;
-  max-width: 200px;
+  max-width: 250px;
   aspect-ratio: 1/1;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--off-white);
-  border: 1px solid var(--rule);
+  margin: 0 auto;
 }
-.standard-badge img { width: 100%; height: 100%; object-fit: contain; padding: 16px; }
+.standard-badge img { width: 100%; height: 100%; object-fit: contain; }
 .standard-tag {
   display: inline-block;
   font-size: 10px;
@@ -1000,7 +999,7 @@ a { color: inherit; }
   .about-grid { grid-template-columns: 1fr; gap: 32px; }
   .about-photo { max-width: 320px; }
   .standard-card { grid-template-columns: 1fr; gap: 24px; text-align: center; }
-  .standard-badge { max-width: 160px; margin: 0 auto; }
+  .standard-badge { max-width: 200px; margin: 0 auto; }
   .chooser-grid { grid-template-columns: 1fr; }
   .value-grid { grid-template-columns: 1fr; gap: 20px; }
   .cta-banner { grid-template-columns: 1fr; text-align: center; padding: 32px 24px; }
