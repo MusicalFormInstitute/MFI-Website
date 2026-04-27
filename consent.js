@@ -16,7 +16,7 @@
 (function() {
   'use strict';
 
-  var GA_ID = 'G-3KDMLQS97C';
+  var GA_ID = 'G-VLH6Y1FM16';
   var AW_ID = 'AW-8028324232';
   var STORAGE_KEY = 'mfi_cookie_consent';
   var ACCEPT = 'granted';
