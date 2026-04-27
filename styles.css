@@ -88,6 +88,37 @@ a { color: inherit; }
 }
 .main-nav .cta:hover { background: var(--retro-orange-dark); color: var(--white); }
 
+/* Mobile nav toggle (hamburger). Hidden on desktop, shown at <=900px. */
+.mfi-nav-toggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  position: relative;
+  z-index: 102;
+}
+.mfi-nav-toggle span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--text);
+  margin: 6px auto;
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.2s;
+}
+body.mfi-nav-open .mfi-nav-toggle span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+body.mfi-nav-open .mfi-nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+body.mfi-nav-open .mfi-nav-toggle span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 /* ── BUTTONS ── */
 .btn {
   display: inline-flex;
@@ -1173,8 +1204,26 @@ a { color: inherit; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .section { padding: 56px 0; }
   .section h2 { font-size: 28px; }
-  .main-nav { gap: 16px; font-size: 13px; }
-  .main-nav a:not(.cta) { display: none; }
+  .mfi-nav-toggle { display: block; }
+  .header { position: relative; z-index: 101; background: var(--white); }
+  .main-nav {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: var(--white);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s;
+    padding: 24px;
+  }
+  body.mfi-nav-open .main-nav { opacity: 1; visibility: visible; }
+  body.mfi-nav-open { overflow: hidden; }
+  .main-nav a { font-size: 22px; font-weight: 500; color: var(--text); }
+  .main-nav .cta { margin-top: 8px; font-size: 16px; padding: 14px 32px; }
   .about-grid { grid-template-columns: 1fr; gap: 32px; }
   .about-photo { max-width: 320px; }
   .standard-card { grid-template-columns: 1fr; gap: 24px; text-align: center; }
