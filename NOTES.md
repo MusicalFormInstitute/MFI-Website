@@ -134,7 +134,7 @@ Poppins, weights 300-800. No other fonts.
 
 ### Google Analytics + Google Ads
 
-- GA Measurement ID: `G-3KDMLQS97C` (same as registry — they roll up to the same GA property)
+- GA Measurement ID: `G-VLH6Y1FM16` (same as registry — they roll up to the same GA property). Pulled from Squarespace's Developer Tools > External API Keys on Apr 27 after a wrong ID was found baked into the code. The wrong ID `G-3KDMLQS97C` was returning 404 from googletagmanager.com — never use it.
 - Google Ads ID: `AW-8028324232` (account ID matches Customer ID)
 - Both loaded via `consent.js` using Google Consent Mode v2 (one gtag.js load services both)
 - All four consent dimensions (`analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization`) default to `denied` and upgrade together when the user clicks Accept on the cookie banner
