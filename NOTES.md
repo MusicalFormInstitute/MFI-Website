@@ -212,7 +212,7 @@ Or just visit `musicalform.org` in an incognito window and see if the new site l
 Test these end-to-end on the live `musicalform.org` URL:
 
 - Homepage loads, marquee scrolls, live stats update
-- `/standards` PDF download buttons work (PDFs at `musicalform.org/s/...` — these still served? May need to migrate)
+- `/standards` PDF download buttons work (PDFs are now hosted in this repo at `MFI-Website/s/`, served from `/s/...`)
 - `/csf-submission` test submission with own email — should land in Supabase + trigger email
 - `/cep-submission` test with a small WAV file — should land in S3, return SHA-256, trigger analyst email
 - Footer newsletter form — submit own email, should land in Kit, redirect to `/thanks`
@@ -222,16 +222,14 @@ Test these end-to-end on the live `musicalform.org` URL:
 
 After 48 hours of verified Vercel traffic and the email signup test confirms list growth in Kit, cancel the Squarespace subscription.
 
-## PDFs that live at musicalform.org/s/...
+## Standards PDFs
 
-The Standards page links directly to:
+The Standards page (and homepage program cards) link to:
 
-- `https://musicalform.org/s/CSF_Public_Standard_v2_0_March_31_2026.pdf`
-- `https://musicalform.org/s/CEP_Public_Standard_v1_2_March_31_2026.pdf`
+- `/s/CSF_Public_Standard_v2_0_March_31_2026.pdf`
+- `/s/CEP_Public_Standard_v1_2_March_31_2026.pdf`
 
-These are currently hosted on Squarespace's `/s/` path. **After DNS cutover, these URLs will 404 unless we migrate the PDFs into this Vercel project.**
-
-To migrate: download both PDFs from Squarespace, drop into `MFI-Website/s/` folder, push. URLs continue working.
+These PDFs live in this repo at `MFI-Website/s/` and are served by Vercel. Migrated out of Squarespace's `/s/` path on Apr 26, 2026. Links use relative paths (`/s/...`) so they work on both the Vercel preview URL and the production URL after DNS cutover. To swap a standard for a new version: drop the new PDF into `s/`, update the filename in the four references in `index.html` and `standards/index.html`, push.
 
 ## Recent commits worth knowing about
 
