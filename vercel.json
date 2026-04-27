@@ -3,8 +3,8 @@
     { "source": "/beta", "destination": "/submit/index.html" }
   ],
   "redirects": [
-    { "source": "/about-jeffrey-anthony", "destination": "/about", "permanent": true },
-    { "source": "/founder", "destination": "/about", "permanent": true },
+    { "source": "/about-jeffrey-anthony", "destination": "/about#founder", "permanent": true },
+    { "source": "/founder", "destination": "/about#founder", "permanent": true },
     { "source": "/news-events", "destination": "/news", "permanent": true },
     { "source": "/get-certified", "destination": "/submit", "permanent": true },
     { "source": "/apply-for-certification", "destination": "/submit", "permanent": true },
