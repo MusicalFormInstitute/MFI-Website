@@ -222,6 +222,23 @@ Test these end-to-end on the live `musicalform.org` URL:
 
 After 48 hours of verified Vercel traffic and the email signup test confirms list growth in Kit, cancel the Squarespace subscription.
 
+## Squarespace URL redirects (preserve SEO equity)
+
+`vercel.json` includes 301 redirects from old Squarespace URLs that had been earning Google Search impressions/clicks. Without these, organic equity built on the prior site would be lost when Google crawls the new site and finds 404s. Map (added Apr 26, 2026 from Search Console data covering Mar 27 to Apr 23):
+
+| Old Squarespace URL | New URL | Reason |
+|---|---|---|
+| `/about-jeffrey-anthony` | `/about` | Founder bio merged into single About page |
+| `/founder` | `/about` | Same |
+| `/news-events` | `/news` | News index renamed |
+| `/get-certified` | `/submit` | Certification chooser renamed |
+| `/apply-for-certification` | `/submit` | Same |
+| `/certificate-of-embodied-production-cep` | `/standards` | Per-cert pages consolidated into shared Standards page |
+| `/certified-significant-form` | `/standards` | Same |
+| `/why-it-matters` | `/about` | Explainer rolled into About page |
+
+If new old-URL paths come back from Search Console later, add them to `vercel.json` `redirects[]` with `permanent: true` (301).
+
 ## Standards PDFs
 
 The Standards page (and homepage program cards) link to:
