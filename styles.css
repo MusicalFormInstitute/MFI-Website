@@ -705,8 +705,8 @@ body.mfi-nav-open .mfi-nav-toggle span:nth-child(3) {
 .chooser-features {
   list-style: none;
   margin: 0 0 24px 0;
-  padding: 16px 0;
-  border-top: 1px solid var(--rule);
+  padding: 8px 0 16px;
+  border-top: 0;
   border-bottom: 1px solid var(--rule);
 }
 .chooser-features li {
