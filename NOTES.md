@@ -145,7 +145,7 @@ Poppins, weights 300-800. No other fonts.
 ### Google Ads conversions tracked
 
 - **Page view of `/cep-submission`** — fires automatically once AW tag is loaded (URL-match conversion)
-- **Page view of `/beta`** — Squarespace-era URL. Vercel rewrite at `/beta` serves the `/csf-submission` page content so old ad-click URLs still land on a working CSF form AND the URL-match conversion still fires (URL stays `/beta`)
+- **Page view of `/beta`** — Vercel rewrite (in `vercel.json`) serves the `/submit` page (chooser between CSF and CEP) at the `/beta` URL. The browser bar stays `/beta`, so the URL-match conversion configured in Google Ads still fires. Tried building a dedicated stripped-down `/beta/index.html` landing page on Apr 26, 2026 but reverted — `/submit` is the page we want ads to land on.
 - **"Musical Form Inst Webform Submit"** (form_submit event) — GA4-imported conversion (Source: Google Analytics (GA4)). Both form pages already fire `gtag('event', 'form_submit', ...)` on submit success (`csf-submission/index.html` line ~316, `cep-submission/index.html` line ~402). GA4 receives the event and auto-syncs to Google Ads. No standalone AW label needed and no extra code required.
 
 ### Vercel Web Analytics

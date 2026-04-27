@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/beta", "destination": "/csf-submission/index.html" }
+    { "source": "/beta", "destination": "/submit/index.html" }
   ]
 }
