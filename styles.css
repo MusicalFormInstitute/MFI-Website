@@ -670,6 +670,16 @@ body.mfi-nav-open .mfi-nav-toggle span:nth-child(3) {
   color: inherit;
   transition: border-color 0.2s, transform 0.2s;
 }
+.chooser-badge {
+  width: 100%;
+  max-width: 130px;
+  aspect-ratio: 1/1;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chooser-badge img { width: 100%; height: 100%; object-fit: contain; }
 .chooser-card.csf:hover { border-color: var(--retro-orange); transform: translateY(-2px); }
 .chooser-card.cep:hover { border-color: var(--vintage-blue); transform: translateY(-2px); }
 .chooser-card h3 {
