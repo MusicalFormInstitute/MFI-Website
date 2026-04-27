@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/beta", "destination": "/csf-submission/index.html" }
+  ]
+}

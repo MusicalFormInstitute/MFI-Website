@@ -1,10 +1,10 @@
 /* ============================================================
-   MFI Cookie Consent + Google Analytics loader
-   - Loads Google Analytics (gtag) on every page that includes
-     this script.
-   - Uses Google Consent Mode v2: GA loads with analytics_storage
-     denied by default, then upgrades to granted only after the
-     user clicks Accept on the cookie banner.
+   MFI Cookie Consent + Google Analytics + Google Ads loader
+   - Loads Google tags (GA + Google Ads) on every page that
+     includes this script.
+   - Uses Google Consent Mode v2: storage and ad signals load
+     denied by default, then upgrade to granted together when
+     the user clicks Accept on the cookie banner.
    - User choice (granted | denied) is persisted in localStorage
      so the banner only appears once per device.
    - Respects the browser's Global Privacy Control (GPC) signal:
@@ -17,6 +17,7 @@
   'use strict';
 
   var GA_ID = 'G-3KDMLQS97C';
+  var AW_ID = 'AW-8028324232';
   var STORAGE_KEY = 'mfi_cookie_consent';
   var ACCEPT = 'granted';
   var DENY = 'denied';
@@ -39,19 +40,20 @@
     try { localStorage.setItem(STORAGE_KEY, DENY); } catch (e) {}
   }
 
-  // Determine the initial analytics_storage state.
-  var initialAnalytics = (savedChoice === ACCEPT) ? ACCEPT : DENY;
+  // Initial consent state. Accept grants both analytics and ad signals
+  // together; Reject (or no choice yet) keeps both denied.
+  var initialState = (savedChoice === ACCEPT) ? ACCEPT : DENY;
 
   // Set Consent Mode default BEFORE loading gtag.js.
   gtag('consent', 'default', {
-    'analytics_storage': initialAnalytics,
-    'ad_storage': DENY,
-    'ad_user_data': DENY,
-    'ad_personalization': DENY,
+    'analytics_storage': initialState,
+    'ad_storage': initialState,
+    'ad_user_data': initialState,
+    'ad_personalization': initialState,
     'wait_for_update': 500
   });
 
-  // Load gtag.js asynchronously.
+  // A single gtag.js load services both the GA and Google Ads tags.
   var s = document.createElement('script');
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
@@ -59,6 +61,7 @@
 
   gtag('js', new Date());
   gtag('config', GA_ID, { 'anonymize_ip': true });
+  gtag('config', AW_ID);
 
   // If the user has already chosen, do not render the banner.
   if (savedChoice === ACCEPT || savedChoice === DENY) return;
@@ -109,8 +112,8 @@
       '<div id="mfi-cookie-banner-inner">' +
         '<div id="mfi-cookie-banner-text">' +
           '<strong>Cookies.</strong>' +
-          'We use Google Analytics to understand how visitors use the site. ' +
-          'No advertising cookies, no personal information sold or shared. ' +
+          'We use Google Analytics and Google Ads cookies to measure how visitors use the Site and to attribute conversions from our advertising. ' +
+          'No personal information sold. ' +
           'See our <a href="/privacy">Privacy Policy</a> for detail.' +
         '</div>' +
         '<div id="mfi-cookie-banner-actions">' +
@@ -124,7 +127,10 @@
     document.getElementById('mfi-consent-accept').addEventListener('click', function() {
       try { localStorage.setItem(STORAGE_KEY, ACCEPT); } catch (e) {}
       gtag('consent', 'update', {
-        'analytics_storage': ACCEPT
+        'analytics_storage': ACCEPT,
+        'ad_storage': ACCEPT,
+        'ad_user_data': ACCEPT,
+        'ad_personalization': ACCEPT
       });
       bar.parentNode.removeChild(bar);
     });

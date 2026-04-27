@@ -132,13 +132,21 @@ Poppins, weights 300-800. No other fonts.
 - Double opt-in: ON
 - Confirmation email subject: "Confirm your subscription to The Musical Form Institute"
 
-### Google Analytics
+### Google Analytics + Google Ads
 
-- Measurement ID: `G-3KDMLQS97C` (same as registry — they roll up to the same GA property)
-- Loaded via `consent.js` using Google Consent Mode v2
-- `analytics_storage` defaults to `denied` until user clicks Accept on the cookie banner
-- All `ad_*` consent dimensions hardcoded `denied` (no Ads usage)
-- `anonymize_ip` enabled
+- GA Measurement ID: `G-3KDMLQS97C` (same as registry — they roll up to the same GA property)
+- Google Ads ID: `AW-8028324232` (account ID matches Customer ID)
+- Both loaded via `consent.js` using Google Consent Mode v2 (one gtag.js load services both)
+- All four consent dimensions (`analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization`) default to `denied` and upgrade together when the user clicks Accept on the cookie banner
+- Reject keeps everything denied; GPC signal also forces denied without showing the banner
+- `anonymize_ip` enabled on GA
+- Privacy Policy section 2.1, 3.4, 4, and 7 disclose Google Ads usage (updated April 26, 2026)
+
+### Google Ads conversions tracked
+
+- **Page view of `/cep-submission`** — fires automatically once AW tag is loaded (URL-match conversion)
+- **Page view of `/beta`** — Squarespace-era URL. Vercel rewrite at `/beta` serves the `/csf-submission` page content so old ad-click URLs still land on a working CSF form AND the URL-match conversion still fires (URL stays `/beta`)
+- **"Musical Form Inst Webform Submit"** (form_submit event) — NEEDS the conversion label from Google Ads to wire the `gtag('event', 'conversion', { send_to: 'AW-8028324232/LABEL' })` call into the form-success handlers in `csf-submission/index.html` and `cep-submission/index.html`. Pending user action.
 
 ### Vercel Web Analytics
 
