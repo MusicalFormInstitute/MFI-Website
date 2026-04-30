@@ -4,7 +4,7 @@ This is the handoff document. Read this FIRST in any new Claude Code session bef
 
 ## What this project is
 
-The new musicalform.org website. Static HTML, deployed to Vercel from this private GitHub repo. Will replace the existing Squarespace site at musicalform.org once DNS cuts over at Porkbun.
+The new musicalform.org website. Static HTML, deployed to Vercel from this private GitHub repo. Replaced the existing Squarespace site at musicalform.org via DNS cutover at Porkbun (~April 2026).
 
 The Public Registry at registry.musicalform.org is a separate project (`MFI-Registry` repo, also on Vercel). This project is the marketing/institutional site that sits in front of it.
 
@@ -12,8 +12,9 @@ The Public Registry at registry.musicalform.org is a separate project (`MFI-Regi
 
 | URL | What it is | Status |
 |---|---|---|
-| https://mfi-website-eta.vercel.app | New Vercel-hosted site (this project) | LIVE — production-ready, awaiting DNS cutover |
-| https://musicalform.org | Old Squarespace site | Still serving — to be replaced |
+| https://www.musicalform.org | New Vercel-hosted site (this project) | LIVE since DNS cutover ~April 2026 |
+| https://mfi-website-eta.vercel.app | Vercel preview URL for this project | Still works as a staging/preview URL |
+| ~~Squarespace site at musicalform.org~~ | Old site | DECOMMISSIONED — replaced by Vercel project |
 | https://registry.musicalform.org | Public Registry (separate Vercel project) | Live, untouched by this work |
 | https://github.com/MusicalFormInstitute/MFI-Website | Source repo, private | Owner: jeffrey@musicalform.org |
 
@@ -165,15 +166,15 @@ Poppins, weights 300-800. No other fonts.
 
 1. **Reinstate Kit subscription** — currently scheduled to cancel August 31, 2026. Banner at top of Kit dashboard has the "billing settings" link.
 2. **Import 20 new subscribers from Squarespace** — CSV is at `~/Desktop/kit-import.csv`. Drag into Kit Subscribers → Import.
-3. **DNS cutover at Porkbun** — change apex A records for `musicalform.org` to point at Vercel. Specific records come from Vercel when you add the domain in Settings → Domains.
+3. ~~**DNS cutover at Porkbun**~~ — **DONE ~April 2026.** Apex and www records now point at Vercel. musicalform.org serves this project. Procedure kept below for reference.
 
 ### Non-blocking (nice to have)
 
 1. **Enable Vercel Web Analytics** in dashboard (Analytics tab → Enable). Script is already in place.
 2. **Cancel Squarespace** after DNS verifies (48 hr to be safe).
-3. **Update CLAUDE.md** at `/Users/jeffreyanthony/Desktop/Reports for Labels and Ian/Spotify Audit/Script/CLAUDE.md` if anything in the worker setup changes.
+3. **Update CLAUDE.md** at `/Users/jeffreyanthony/Desktop/MFI/CLAUDE.md` if anything in the worker setup changes. (Was previously at `Spotify Audit/Script/CLAUDE.md` before the workspace reorg in late April 2026.)
 
-## DNS cutover sequence (when ready)
+## DNS cutover sequence (COMPLETED ~April 2026 — kept for historical reference)
 
 This is the actual procedure. Do it in order.
 
