@@ -91,6 +91,29 @@
   .mfi-cep-form .confirm .next-box strong { color: #DF693B; }
 
   .mfi-cep-form .hidden { display: none !important; }
+
+  /* Split layout: form-first conversion design.
+     Desktop: info text on the left, form card on the right, side by side.
+     Mobile: form first, info text below, single column. */
+  .cep-split-section { background: #fff; }
+  .cep-split { display: grid; grid-template-columns: 2fr 3fr; gap: 56px; align-items: start; padding: 48px 0 64px; }
+  .cep-split-info { font-family: 'Poppins', sans-serif; }
+  .cep-split-info .page-hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #6B7280; margin-bottom: 14px; }
+  .cep-split-info h1 { font-size: 38px; font-weight: 800; line-height: 1.12; color: #0F4761; margin: 0 0 16px; letter-spacing: -.01em; }
+  .cep-split-info p { font-size: 16px; color: #444; line-height: 1.6; margin: 0 0 24px; }
+  .cep-split-info .price-pill { display: inline-block; margin: 0 0 16px; padding: 9px 22px; background: #F0F8F1; border: 1px solid #C7E8CD; border-radius: 100px; font-size: 13px; font-weight: 700; color: #1F6B33; }
+  .cep-split-info .cross-link { display: block; padding: 14px 18px; background: rgba(93, 146, 205, 0.07); border: 1px solid rgba(93, 146, 205, 0.20); border-radius: 8px; font-size: 13px; color: #555; line-height: 1.55; }
+  .cep-split-info .cross-link a { color: #DF693B; font-weight: 600; text-decoration: none; border-bottom: 1px solid #DF693B; padding-bottom: 1px; }
+  .cep-split-info .cross-link a:hover { color: #c75a30; border-color: #c75a30; }
+  .cep-split-form { width: 100%; }
+  .cep-split-form .mfi-cep-form { max-width: none; margin: 0; }
+
+  @media (max-width: 900px) {
+    .cep-split { grid-template-columns: 1fr; gap: 32px; padding: 28px 0 48px; }
+    .cep-split-form { order: 1; }
+    .cep-split-info { order: 2; }
+    .cep-split-info h1 { font-size: 30px; }
+  }
 </style>
 </head>
 <body>
@@ -119,24 +142,23 @@
   </div>
 </header>
 
-<section class="page-hero">
+<section class="cep-split-section">
   <div class="container">
-    <div class="page-hero-eyebrow">Submit for Certification</div>
-    <h1>Certificate of Embodied Production</h1>
-    <p>Submit your recording for CEP certification. We verify production was done without grid correction, pitch correction, or generative AI.</p>
-  </div>
-</section>
+    <div class="cep-split">
 
-<section class="section">
-  <div class="container">
-    <div class="mfi-cep-form">
-
-      <div class="price-pill">Currently free</div>
-
-      <div class="cross-link">
-        Just want to verify a recording wasn't AI-generated?
-        <a href="/csf-submission">Submit for Certified Significant Form &rarr;</a>
+      <div class="cep-split-info">
+        <div class="page-hero-eyebrow">Submit for Certification</div>
+        <h1>Certificate of Embodied Production</h1>
+        <p>Submit your recording for CEP certification. We verify production was done without grid correction, pitch correction, or generative AI.</p>
+        <div class="price-pill">Currently free</div>
+        <div class="cross-link">
+          Just want to verify a recording wasn't AI-generated?
+          <a href="/csf-submission">Submit for Certified Significant Form &rarr;</a>
+        </div>
       </div>
+
+      <div class="cep-split-form">
+        <div class="mfi-cep-form">
 
       <div id="formCard" class="form-card">
 
@@ -216,6 +238,9 @@
           </div>
 
           <div style="font-size:12px;color:#6B7280;margin-top:8px">Questions? Contact <a id="contactLink" href="#" style="color:#5D92CD"></a></div>
+        </div>
+      </div>
+
         </div>
       </div>
 
