@@ -101,8 +101,32 @@ Poppins, weights 300-800. No other fonts.
 
 ### Logos
 
-- Source assets in user's `~/Desktop/Reports for Labels and Ian/Spotify Audit/github work/MFI-logosall-2.2026/`, `MFI-EmbodiedProductionCertification-all/`, `SignificantForm-cert-logo-all/` folders.
+- Source assets in user's `~/Desktop/MFI/brand/mfi-logos/`, `~/Desktop/MFI/brand/cep-cert-logos/`, `~/Desktop/MFI/brand/csf-cert-logos/` folders. (Was previously under `Spotify Audit/github work/` before the late-April 2026 workspace reorg.)
 - Already copied into `img/`. If the user updates source files, re-copy.
+
+## Cross-page UX patterns
+
+These are recurring conventions used in multiple pages. Maintain consistency when adding similar prompts elsewhere.
+
+### Label portal access prompt (prefilled mailto)
+
+Used wherever a visitor with a multi-track / album / catalog use case might land. The mailto opens a fresh email with the subject already filled in.
+
+**Canonical URL:**
+```
+mailto:certifications@musicalform.org?subject=Label%20Portal%20Access%20Request
+```
+
+**Where it currently appears:**
+- `/labels` — primary CTA button "Request Portal Access"
+- `/submit` (chooser) — comparison-table reference + "Learn About the Label Portal" section
+- `/contact` — instructions card with subject hint
+- `/faq` — two Q&As (whole-album submissions, labels with multiple recordings)
+- `/cep-submission` — secondary cross-link in the info column ("Submitting a full album, EP, or label catalog?")
+
+**When adding to a new page:** use the exact URL above for subject consistency. Don't add a `&body=...` parameter unless you also update the existing `/labels` button to match (currently no body prefill anywhere).
+
+**Why it matters:** Subject string `Label Portal Access Request` is used as a triage signal in the inbox. Changing the subject text breaks that filter.
 
 ## Production integrations
 
