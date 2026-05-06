@@ -288,8 +288,8 @@
     }).catch(function(){});
   fetch(SUPA+'/v_cep_public_registry?select=cep_id',{headers:h})
     .then(function(r){return r.json()}).then(function(d){var el=document.getElementById('cepCount');if(el)el.textContent=fmt(d.length||0)}).catch(function(){});
-  fetch(SUPA+'/v_label_summary?select=label&limit=500',{headers:h})
-    .then(function(r){return r.json()}).then(function(d){var el=document.getElementById('labelCount');if(el)el.textContent=fmt(d.length||0)+'+'}).catch(function(){});
+  fetch(SUPA+'/v_label_summary?select=label',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
+    .then(function(r){var range=r.headers.get('content-range')||'*/0';var el=document.getElementById('labelCount');if(el)el.textContent=fmt(range.split('/')[1]||'0')}).catch(function(){});
 
   function renderMarqueeTile(t){
     var thumb = thumbFor(t);
