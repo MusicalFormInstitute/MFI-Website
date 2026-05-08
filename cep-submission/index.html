@@ -332,6 +332,64 @@
   function showErr(id) { var el = $(id); if (el) el.classList.add("show"); }
   function clearErr(id) { var el = $(id); if (el) el.classList.remove("show"); }
 
+  // ── GA4 EVENT TRACKING ──────────────────────────────────────────
+  function trackEvent(name, params) {
+    try { if (typeof window.gtag === "function") window.gtag("event", name, params || {}); }
+    catch (e) { /* no-op */ }
+  }
+
+  var _formStarted = false;
+  var _formSubmittedOk = false;
+  function markFormStarted() {
+    if (_formStarted) return;
+    _formStarted = true;
+    trackEvent("cep_form_start", { form_name: "CEP Public Submission" });
+  }
+  ["f_name","f_email","f_artist","f_title","f_legal"].forEach(function(id) {
+    var el = $(id);
+    if (el) el.addEventListener("focus", markFormStarted, { once: true });
+  });
+
+  function trackFieldComplete(fieldId, fieldName) {
+    var el = $(fieldId);
+    if (!el) return;
+    el.addEventListener("blur", function() {
+      if (el.value.trim()) trackEvent("cep_field_complete", { field: fieldName });
+    });
+  }
+  trackFieldComplete("f_name","name");
+  trackFieldComplete("f_email","email");
+  trackFieldComplete("f_artist","artist");
+  trackFieldComplete("f_title","title");
+
+  ["f_check1","f_check2"].forEach(function(id) {
+    var el = $(id);
+    if (el) el.addEventListener("change", function() {
+      if (el.checked) trackEvent("cep_attestation_checked", { box: id });
+    });
+  });
+
+  // Scroll depth: fires once per threshold
+  var _scrollFired = {};
+  window.addEventListener("scroll", function() {
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+    if (docH <= 0) return;
+    var pct = Math.round((window.scrollY / docH) * 100);
+    [25,50,75,100].forEach(function(d) {
+      if (pct >= d && !_scrollFired[d]) {
+        _scrollFired[d] = true;
+        trackEvent("scroll_depth", { percent: d, page: "cep_submission" });
+      }
+    });
+  }, { passive: true });
+
+  // Abandon: fires on tab close/navigate if form was started but not submitted
+  window.addEventListener("beforeunload", function() {
+    if (_formStarted && !_formSubmittedOk) {
+      trackEvent("cep_form_abandon", { form_name: "CEP Public Submission" });
+    }
+  });
+
   $("uploadZone").addEventListener("click", function() { $("fileInput").click(); });
   $("fileInput").addEventListener("change", function() {
     if (this.files.length > 0) {
@@ -342,6 +400,7 @@
       $("fileName").textContent = selectedFile.name;
       $("fileSize").textContent = (selectedFile.size / (1024 * 1024)).toFixed(1) + " MB";
       clearErr("e_file");
+      trackEvent("cep_file_uploaded", { size_mb: +(selectedFile.size / (1024 * 1024)).toFixed(1), filename_ext: (selectedFile.name.split(".").pop() || "").toLowerCase() });
     }
   });
 
@@ -451,6 +510,7 @@
             value: 1
           });
         }
+        _formSubmittedOk = true;
       } catch (e) { /* no-op */ }
 
       var detailsHtml =
