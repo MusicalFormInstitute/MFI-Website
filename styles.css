@@ -575,12 +575,13 @@ body.mfi-nav-open .mfi-nav-toggle span:nth-child(3) {
   border: 1px solid var(--rule);
   padding: 40px 36px;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 1fr;
   gap: 40px;
   align-items: start;
   margin-bottom: 24px;
 }
 .standard-badge {
+  order: 2;
   width: 100%;
   max-width: 250px;
   aspect-ratio: 1/1;
