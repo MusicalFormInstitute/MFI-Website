@@ -696,7 +696,7 @@ body.mfi-nav-open .mfi-nav-toggle span:nth-child(3) {
 .submit-hero .page-hero-eyebrow { margin-bottom: 10px; }
 .submit-hero-text p { font-size: 15px; max-width: 480px; margin-bottom: 0; }
 .submit-hero-cards { display: flex; flex-direction: column; gap: 16px; }
-.submit-hero-cards .chooser-card { position: relative; padding: 22px 200px 18px 22px; }
+.submit-hero-cards .chooser-card { position: relative; padding: 22px; }
 .submit-hero-cards .chooser-badge {
   position: absolute;
   top: 22px;
@@ -706,14 +706,21 @@ body.mfi-nav-open .mfi-nav-toggle span:nth-child(3) {
   height: 170px;
   margin: 0;
 }
+/* Top-of-card text elements need right padding so they don't underflow the badge */
+.submit-hero-cards .chooser-card .program-tag,
+.submit-hero-cards .chooser-card h3,
+.submit-hero-cards .chooser-card .chooser-sub,
+.submit-hero-cards .chooser-card > p {
+  padding-right: 190px;
+}
 .submit-hero-cards .chooser-card h3 { font-size: 19px; margin-bottom: 6px; }
 .submit-hero-cards .chooser-card p { font-size: 13px; line-height: 1.5; margin-bottom: 14px; }
-.submit-hero-cards .chooser-features { font-size: 12.5px; margin-bottom: 12px; padding-left: 200px; padding-right: 0; padding-top: 0; }
+.submit-hero-cards .chooser-features { font-size: 12.5px; margin-bottom: 12px; }
 .submit-hero-cards .chooser-features li { margin-bottom: 3px; line-height: 1.45; }
 .submit-hero-cards .chooser-divider {
   height: 2px;
   width: 48px;
-  margin: 0 0 14px 0;
+  margin: 0 auto 14px;
   border-radius: 1px;
 }
 .submit-hero-cards .chooser-card.cep .chooser-divider { background: var(--vintage-blue); }
