@@ -193,6 +193,108 @@
     text-transform: uppercase;
     letter-spacing: 0.6px;
   }
+  .decade-table-wrap {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow-x: auto;
+    margin-top: 24px;
+  }
+  .decade-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .decade-table th, .decade-table td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+  .decade-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-tertiary);
+    font-weight: 700;
+    background: #FAFAFA;
+  }
+  .decade-table tbody tr:last-child td { border-bottom: 0; }
+  .decade-table td.num {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    text-align: right;
+  }
+  .decade-table th.num { text-align: right; }
+  .decade-table td.num-zero { color: var(--retro-orange); font-weight: 700; }
+  .extremes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 28px;
+  }
+  .extremes-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px;
+  }
+  .extremes-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .extremes-card .extremes-cap {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    margin: 6px 0 16px;
+    line-height: 1.55;
+  }
+  .extremes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .extremes-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .extremes-list li:last-child { border-bottom: 0; }
+  .extremes-song {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+  .extremes-meta {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+  .extremes-stat {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--retro-orange);
+    white-space: nowrap;
+  }
+  .extremes-stat .stat-unit {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    margin-left: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .extremes-card.zero .extremes-stat { color: var(--vintage-blue); }
+  @media (max-width: 760px) {
+    .extremes-grid { grid-template-columns: 1fr; }
+    .method-list li { grid-template-columns: 1fr; gap: 4px; }
+  }
 </style>
 </head>
 <body>
@@ -297,6 +399,113 @@
       </div>
     </div>
 
+    <div class="chart-card">
+      <h3>Distribution of within-song timing variance</h3>
+      <p class="chart-cap">All 330 tracks binned by detected standard deviation. The distribution splits cleanly: 96 tracks (29% of the dataset) cluster below 0.1 BPM &mdash; the floor below which embodied human performance does not register. The remaining tracks spread across the 0.5 to 5 BPM band typical of human-played timing. The narrow 0.1 to 0.5 BPM gap between them is sparse: a track is either gridded or it is not.</p>
+      <div class="chart-wrap">
+        <canvas id="chartHistogram"></canvas>
+      </div>
+      <div class="legend-note">The leftmost bin contains tracks with sequenced or grid-corrected timing. The remainder of the distribution reflects embodied performance, with or without a click track.</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="section-eyebrow">By decade</div>
+    <h2>Six and a half decades summarized</h2>
+    <p class="section-intro">Per-decade averages across the 330-track dataset. The median is the more honest central tendency here, since a handful of post-2010 outliers with intentional structural tempo changes inflate the mean. The median falls from 2.49 BPM in the 1960s to 0.00 in the 2010s and 2020s &mdash; meaning the median top-five hit of the last fifteen years registers no detected within-song timing variance at all.</p>
+
+    <div class="decade-table-wrap">
+      <table class="decade-table">
+        <thead>
+          <tr>
+            <th>Decade</th>
+            <th class="num">Tracks</th>
+            <th class="num">Mean STD (BPM)</th>
+            <th class="num">Median STD (BPM)</th>
+            <th class="num">Avg transitions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1960s</td><td class="num">50</td><td class="num">3.67</td><td class="num">2.49</td><td class="num">54</td></tr>
+          <tr><td>1970s</td><td class="num">50</td><td class="num">4.10</td><td class="num">2.06</td><td class="num">75</td></tr>
+          <tr><td>1980s</td><td class="num">50</td><td class="num">1.82</td><td class="num">0.86</td><td class="num">57</td></tr>
+          <tr><td>1990s</td><td class="num">50</td><td class="num">1.71</td><td class="num">0.40</td><td class="num">41</td></tr>
+          <tr><td>2000s</td><td class="num">50</td><td class="num">0.79</td><td class="num">0.26</td><td class="num">26</td></tr>
+          <tr><td>2010s</td><td class="num">50</td><td class="num">1.08</td><td class="num num-zero">0.00</td><td class="num">17</td></tr>
+          <tr><td>2020s</td><td class="num">30</td><td class="num">0.30</td><td class="num num-zero">0.00</td><td class="num">15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size: 12.5px; color: var(--text-tertiary); margin-top: 14px; line-height: 1.55;">The 2020s row covers six years (2020 through 2025), 30 tracks. Average tempo transitions per track fell from 75 in the 1970s to 15 in the 2020s &mdash; a fivefold reduction in detected within-song timing events.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Extremes of the dataset</div>
+    <h2>The most and least flexible recordings</h2>
+    <p class="section-intro">The two ends of the distribution. The highest-variance tracks include songs with deliberate structural tempo shifts; the lowest-variance tracks are the first three top-five recordings in the dataset to register zero detected within-song variance.</p>
+
+    <div class="extremes-grid">
+      <div class="extremes-card">
+        <h3>Highest detected variance</h3>
+        <p class="extremes-cap">Standard deviation in beats per minute, full track. These recordings combine flexible performance with intentional structural tempo changes that the methodology flags as variance.</p>
+        <ul class="extremes-list">
+          <li>
+            <div>
+              <div class="extremes-song">You Light Up My Life</div>
+              <div class="extremes-meta">Debby Boone &middot; 1978 &middot; #3</div>
+            </div>
+            <div class="extremes-stat">31.86<span class="stat-unit">BPM</span></div>
+          </li>
+          <li>
+            <div>
+              <div class="extremes-song">American Pie</div>
+              <div class="extremes-meta">Don McLean &middot; 1972 &middot; #3</div>
+            </div>
+            <div class="extremes-stat">16.65<span class="stat-unit">BPM</span></div>
+          </li>
+          <li>
+            <div>
+              <div class="extremes-song">Aquarius / Let the Sunshine In</div>
+              <div class="extremes-meta">The 5th Dimension &middot; 1969 &middot; #2</div>
+            </div>
+            <div class="extremes-stat">13.43<span class="stat-unit">BPM</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="extremes-card zero">
+        <h3>First zero-variance top-five hits</h3>
+        <p class="extremes-cap">The earliest recordings in the dataset to return a single Logic tempo with no detected timing transitions across the full track. This is the production signature that becomes dominant after 2001.</p>
+        <ul class="extremes-list">
+          <li>
+            <div>
+              <div class="extremes-song">On My Own</div>
+              <div class="extremes-meta">Patti LaBelle and Michael McDonald &middot; 1986 &middot; #4</div>
+            </div>
+            <div class="extremes-stat">0.00<span class="stat-unit">BPM</span></div>
+          </li>
+          <li>
+            <div>
+              <div class="extremes-song">Nothing Compares 2 U</div>
+              <div class="extremes-meta">Sin&eacute;ad O'Connor &middot; 1990 &middot; #3</div>
+            </div>
+            <div class="extremes-stat">0.00<span class="stat-unit">BPM</span></div>
+          </li>
+          <li>
+            <div>
+              <div class="extremes-song">Gonna Make You Sweat (Everybody Dance Now)</div>
+              <div class="extremes-meta">C+C Music Factory &middot; 1991 &middot; #3</div>
+            </div>
+            <div class="extremes-stat">0.00<span class="stat-unit">BPM</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -669,6 +878,54 @@
           scales: {
             x: { type: 'linear', title: { display: true, text: 'Year' }, ticks: { stepSize: 5, callback: v => v } },
             y: { beginAtZero: true, title: { display: true, text: 'Std dev (BPM)' } }
+          }
+        }
+      });
+
+      // ── Chart 6: STD distribution histogram ───────────────────
+      const histBins = [
+        { lbl: '0–0.1', lo: 0, hi: 0.1 },
+        { lbl: '0.1–0.5', lo: 0.1, hi: 0.5 },
+        { lbl: '0.5–1.0', lo: 0.5, hi: 1.0 },
+        { lbl: '1–2', lo: 1.0, hi: 2.0 },
+        { lbl: '2–5', lo: 2.0, hi: 5.0 },
+        { lbl: '5–10', lo: 5.0, hi: 10.0 },
+        { lbl: '10+', lo: 10.0, hi: Infinity },
+      ];
+      const trackTotal = tracks.filter(t => typeof t.std_dev === 'number').length;
+      const histCounts = histBins.map(b =>
+        tracks.filter(t => typeof t.std_dev === 'number' && t.std_dev >= b.lo && t.std_dev < b.hi).length
+      );
+      const ctxHist = document.getElementById('chartHistogram').getContext('2d');
+      new Chart(ctxHist, {
+        type: 'bar',
+        data: {
+          labels: histBins.map(b => b.lbl),
+          datasets: [{
+            label: 'Track count',
+            data: histCounts,
+            backgroundColor: histBins.map((b, i) => i === 0 ? 'rgba(93,146,205,0.85)' : 'rgba(223,105,59,0.85)'),
+            borderWidth: 0,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const n = ctx.parsed.y;
+                  const pct = trackTotal ? (n / trackTotal * 100).toFixed(0) : 0;
+                  return `${n} tracks (${pct}% of dataset)`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Number of tracks' } },
+            x: { title: { display: true, text: 'Within-song standard deviation (BPM)' } }
           }
         }
       });
