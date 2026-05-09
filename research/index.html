@@ -8,18 +8,48 @@
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<title>Contact | The Musical Form Institute</title>
-<meta name="description" content="Contact The Musical Form Institute. Email, phone, and mailing address for general questions, label portal access, and press inquiries.">
-<meta property="og:title" content="Contact | The Musical Form Institute">
-<meta property="og:description" content="Email, phone, and mailing address for the Musical Form Institute.">
+<title>Research | The Musical Form Institute</title>
+<meta name="description" content="Research from the Musical Form Institute: empirical analysis of how recorded music has changed across six decades, plus interpretive essays on the civic and aesthetic stakes.">
+<meta property="og:title" content="Research | The Musical Form Institute">
+<meta property="og:description" content="Empirical and interpretive research on the structural transformation of recorded popular music since 1960.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://musicalform.org/contact">
-<meta property="og:image" content="https://musicalform.org/img/og-default.jpg">
-<link rel="canonical" href="https://musicalform.org/contact">
+<meta property="og:url" content="https://musicalform.org/research">
+<link rel="canonical" href="https://musicalform.org/research">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 <script defer src="/consent.js"></script>
 <script defer src="/nav.js"></script>
+<style>
+  .research-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  .research-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 32px;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .research-card:hover { border-color: var(--black); transform: translateY(-2px); }
+  .research-card .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .research-card .tag.dataset { background: rgba(93,146,205,0.12); color: var(--vintage-blue); }
+  .research-card .tag.essay { background: rgba(223,105,59,0.12); color: var(--retro-orange); }
+  .research-card h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.4px; margin-bottom: 10px; color: var(--black); line-height: 1.2; }
+  .research-card .meta { font-size: 12px; color: var(--text-tertiary); letter-spacing: 0.4px; margin-bottom: 14px; }
+  .research-card p { font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 18px; max-width: 760px; }
+  .research-card .cta { font-size: 13px; font-weight: 600; color: var(--vintage-blue); }
+  .research-card.essay .cta { color: var(--retro-orange); }
+</style>
 </head>
 <body>
 
@@ -50,47 +80,49 @@
 
 <section class="page-hero">
   <div class="container">
-    <div class="page-hero-eyebrow">Contact</div>
-    <h1>Get in touch</h1>
-    <p>Three ways to reach the Institute. We respond to email within one business day. For general questions about the certifications, the FAQ may already have your answer.</p>
+    <div class="page-hero-eyebrow">Research</div>
+    <h1>Empirical and interpretive work on the structure of recorded music</h1>
+    <p>The Musical Form Institute publishes original research on how the production of popular music has changed across six decades. The work pairs measured datasets with interpretive essays. The empirical work stands on its own; the interpretive work asks what the measured shifts mean for listeners, music makers, and civic life.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="contact-grid">
-      <a href="mailto:certifications@musicalform.org" class="contact-card">
-        <div class="contact-card-eyebrow">Email</div>
-        <div class="contact-card-value">certifications@musicalform.org</div>
-        <div class="contact-card-note">General inquiries, label portal access requests, press, and partnerships.</div>
+    <div class="research-grid">
+
+      <a href="/research/gridification" class="research-card">
+        <span class="tag dataset">Dataset and analysis</span>
+        <h3>The Gridification of Popular Music, 1960 through 2025</h3>
+        <div class="meta">66 years &middot; 330 tracks &middot; Billboard Year-End Hot 100 Top 5</div>
+        <p>A direct measurement of within-song tempo variability across the year-end top five hits of every year from 1960 through 2025. Five interactive charts, including period-by-period breakdowns and same-artist trajectories. Extends Carter and von Appen's 1966-1995 analysis published in <em>Int&eacute;gral</em> Vol. 38 (2025) through to 2025, capturing the post-2001 inflection that Pro Tools' Beat Detective made possible.</p>
+        <span class="cta">View dataset and charts &rarr;</span>
       </a>
-      <a href="tel:+15202657278" class="contact-card">
-        <div class="contact-card-eyebrow">Phone</div>
-        <div class="contact-card-value">+1 520 265 7278</div>
-        <div class="contact-card-note">Voice messages returned within one business day. Email is faster.</div>
+
+      <a href="/research/perfect-music-democracy.pdf" target="_blank" rel="noopener" class="research-card essay">
+        <span class="tag essay">Companion essay</span>
+        <h3>Does &lsquo;Perfect&rsquo; Music Make Us Worse at Democracy?</h3>
+        <div class="meta">Essay &middot; PDF</div>
+        <p>Contrasting Taylor Swift's <em>Opalite</em> (standard deviation 0.02 BPM) with Fleetwood Mac's <em>Dreams</em> (standard deviation 1.82 BPM), the essay uses Susanne Langer's account of presentational symbolism to argue that the difference between the two recordings is categorical rather than stylistic. The civic stakes follow from that distinction.</p>
+        <span class="cta">Read the essay (PDF) &darr;</span>
       </a>
-      <div class="contact-card" style="cursor: default;">
-        <div class="contact-card-eyebrow">Mail</div>
-        <div class="contact-card-value">PO Box 12734<br>Tucson, AZ 85732</div>
-        <div class="contact-card-note">Mailing address for legal notices and physical correspondence.</div>
-      </div>
+
+      <a href="/research/listening-to-ai-25-years.pdf" target="_blank" rel="noopener" class="research-card essay">
+        <span class="tag essay">Companion essay</span>
+        <h3>You&rsquo;ve Been Listening to AI Music for 25 Years</h3>
+        <div class="meta">Essay &middot; PDF</div>
+        <p>The relevant inflection point in popular music production was not the arrival of generative AI. It was the institutionalization of Beat Detective in Pro Tools TDM 5.1 in 2001. Once human performance was routinely sliced, quantized, and reassembled to a grid, the structural distinction between human and machine production collapsed. Generative AI followed the logic that grid-based correction had already established.</p>
+        <span class="cta">Read the essay (PDF) &darr;</span>
+      </a>
+
     </div>
   </div>
 </section>
 
 <section class="section alt">
   <div class="container">
-    <div class="section-eyebrow">What to expect</div>
-    <h2>Who responds, and how fast</h2>
-    <p class="section-intro">Email is the fastest path. We aim to respond within one business day. If a question requires deeper review (a methodology question, a contested certification, a press inquiry), the first reply will tell you when to expect a complete response.</p>
-
-    <ul class="kv-list">
-      <li><strong>General questions</strong><span>Email <a href="mailto:certifications@musicalform.org" style="color:var(--vintage-blue)">certifications@musicalform.org</a>. Common questions are usually covered in the <a href="/faq" style="color:var(--vintage-blue)">FAQ</a>.</span></li>
-      <li><strong>Label portal access</strong><span>Use the same email with subject "Label Portal Access Request." Include your label name and approximate catalog size. See <a href="/labels" style="color:var(--vintage-blue)">For Labels</a> for context.</span></li>
-      <li><strong>Press &amp; media</strong><span>Email with subject "Press." Include outlet, deadline, and the angle. We respond same day for time-sensitive requests.</span></li>
-      <li><strong>Reconsideration of a CEP decision</strong><span>Reconsiderations are submitted in writing within 30 days of the decision. Include the CEP ID and the basis for reconsideration.</span></li>
-      <li><strong>Standards questions</strong><span>The published standards (<a href="/standards" style="color:var(--vintage-blue)">CSF v2.0, CEP v1.2</a>) are the canonical answer to methodology questions. If something is unclear, email and we will clarify.</span></li>
-    </ul>
+    <div class="section-eyebrow">About this work</div>
+    <h2>How the research connects to the certification</h2>
+    <p class="section-intro" style="max-width: 820px;">The Musical Form Institute's certification programs verify production process. The research published here documents, at scale, what gridification looks like across six decades of popular recording. The dataset does not certify anything itself. It provides the public empirical context against which the certification's claim becomes legible: that a Certificate of Embodied Production marked recording preserves human timing and decision-making against a measurable baseline of what unmarked recordings now typically are.</p>
   </div>
 </section>
 
@@ -124,6 +156,7 @@
         <h4>Programs</h4>
         <ul>
           <li><a href="/standards">Standards</a></li>
+          <li><a href="/research">Research</a></li>
           <li><a href="/csf-submission">Submit CSF</a></li>
           <li><a href="/cep-submission">Submit CEP</a></li>
           <li><a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a></li>
@@ -158,6 +191,5 @@
   </div>
 </footer>
 
-<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
