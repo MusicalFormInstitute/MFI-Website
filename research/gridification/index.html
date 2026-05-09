@@ -392,14 +392,6 @@
     </div>
 
     <div class="chart-card">
-      <h3>Same artists</h3>
-      <p class="chart-cap">Artists who appeared in the year-end top five more than once. Each line traces that artist's tempo variance across their charting years. The artists did not change. The production environment around them did.</p>
-      <div class="chart-wrap tall">
-        <canvas id="chartArtists"></canvas>
-      </div>
-    </div>
-
-    <div class="chart-card">
       <h3>Distribution of within-song timing variance</h3>
       <p class="chart-cap">All 330 tracks binned by detected standard deviation. The distribution splits cleanly: 96 tracks (29% of the dataset) cluster below 0.1 BPM &mdash; the floor below which embodied human performance does not register. The remaining tracks spread across the 0.5 to 5 BPM band typical of human-played timing. The narrow 0.1 to 0.5 BPM gap between them is sparse: a track is either gridded or it is not.</p>
       <div class="chart-wrap">
@@ -513,8 +505,8 @@
   <div class="container">
     <div class="section-eyebrow">Academic precursor</div>
     <h2>Extending Carter and von Appen</h2>
-    <p class="section-intro">This dataset extends the peer-reviewed analysis published by David S. Carter and Ralf von Appen in <em>Intégral</em> Vol. 38 (2025), &ldquo;Tempo Variability in Billboard Hot 100 Songs, 1966 through 1995.&rdquo; Their study established that tempo variability declined sharply beginning around 1979, attributable to the increasing use of click tracks and sequencing.</p>
-    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-top: 14px; max-width: 720px;">The Musical Form Institute's dataset uses comparable methodology (Logic Pro tempo detection rather than Melodyne, with the same statistical treatment) and applies it to the 66 years from 1960 through 2025. The continuation captures both Carter and von Appen's documented inflection at 1979 and a second, sharper inflection that begins after Pro Tools' Beat Detective shipped in 2001. The four coefficient-of-variation bands used in this dataset (Sequenced, Click Track, No Click, Free) are taken directly from Carter and von Appen's published thresholds.</p>
+    <p class="section-intro">This dataset extends the peer-reviewed analysis published by David S. Carter and Ralf von Appen in <a href="https://theory.esm.rochester.edu/integral/38-2025/carter-von-appen/" target="_blank" rel="noopener" style="color: var(--vintage-blue); text-decoration: underline;"><em>Int&eacute;gral</em> Vol. 38 (2025)</a>, &ldquo;Tempo Variability in Billboard Hot 100 Songs, 1966 through 1995.&rdquo; Their study established that tempo variability declined sharply beginning around 1979, attributable to the increasing use of click tracks and sequencing.</p>
+    <p class="section-intro">The Musical Form Institute's dataset uses comparable methodology (Logic Pro tempo detection rather than Melodyne, with the same statistical treatment) and applies it to the 66 years from 1960 through 2025. The continuation captures both Carter and von Appen's documented inflection at 1979 and a second, sharper inflection that begins after Pro Tools' Beat Detective shipped in 2001. The four coefficient-of-variation bands used in this dataset (Sequenced, Click Track, No Click, Free) are taken directly from Carter and von Appen's published thresholds.</p>
   </div>
 </section>
 
@@ -821,68 +813,7 @@
         }
       });
 
-      // ── Chart 5: Same-artist trajectories ────────────────────
-      const byArtist = {};
-      tracks.forEach(t => {
-        if (typeof t.std_dev !== 'number' || !t.artist) return;
-        (byArtist[t.artist] = byArtist[t.artist] || []).push(t);
-      });
-      // Pick artists with multiple appearances. Sort by track count, take top 8.
-      const interesting = Object.entries(byArtist)
-        .filter(([, ts]) => {
-          const yrs = Array.from(new Set(ts.map(t => t.year)));
-          return yrs.length >= 2;
-        })
-        .sort((a, b) => {
-          // Prefer more appearances first, then wider time span
-          const aYears = Array.from(new Set(a[1].map(t => t.year)));
-          const bYears = Array.from(new Set(b[1].map(t => t.year)));
-          if (b[1].length !== a[1].length) return b[1].length - a[1].length;
-          const aSpan = Math.max(...aYears) - Math.min(...aYears);
-          const bSpan = Math.max(...bYears) - Math.min(...bYears);
-          return bSpan - aSpan;
-        })
-        .slice(0, 8);
-
-      const palette = [ORANGE, BLUE, '#7C5295', '#2A8A6A', '#C75A30', '#3F6B9C', '#B8860B', '#8B4789'];
-      const datasets = interesting.map(([artist, ts], i) => {
-        const sorted = ts.sort((a, b) => a.year - b.year);
-        return {
-          label: artist,
-          data: sorted.map(t => ({ x: t.year, y: t.std_dev })),
-          borderColor: palette[i % palette.length],
-          backgroundColor: palette[i % palette.length],
-          borderWidth: 2,
-          pointRadius: 4,
-          pointHoverRadius: 7,
-          tension: 0,
-        };
-      });
-
-      const ctxArtists = document.getElementById('chartArtists').getContext('2d');
-      new Chart(ctxArtists, {
-        type: 'line',
-        data: { datasets },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14 } },
-            tooltip: {
-              callbacks: {
-                title: items => `${items[0].dataset.label} — ${items[0].parsed.x}`,
-                label: ctx => `Std dev: ${ctx.parsed.y.toFixed(2)} BPM`,
-              }
-            }
-          },
-          scales: {
-            x: { type: 'linear', title: { display: true, text: 'Year' }, ticks: { stepSize: 5, callback: v => v } },
-            y: { beginAtZero: true, title: { display: true, text: 'Std dev (BPM)' } }
-          }
-        }
-      });
-
-      // ── Chart 6: STD distribution histogram ───────────────────
+      // ── Chart 5: STD distribution histogram ───────────────────
       const histBins = [
         { lbl: '0–0.1', lo: 0, hi: 0.1 },
         { lbl: '0.1–0.5', lo: 0.1, hi: 0.5 },
