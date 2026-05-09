@@ -221,8 +221,8 @@
     </div>
 
     <div class="chart-card">
-      <h3>Same artists, across decades</h3>
-      <p class="chart-cap">A small set of artists who appeared in the year-end top five across multiple decades. Each line traces that artist's tempo variance over time. The artists did not change. The production environment around them did.</p>
+      <h3>Same artists</h3>
+      <p class="chart-cap">Artists who appeared in the year-end top five more than once. Each line traces that artist's tempo variance across their charting years. The artists did not change. The production environment around them did.</p>
       <div class="chart-wrap tall">
         <canvas id="chartArtists"></canvas>
       </div>
@@ -516,16 +516,24 @@
         if (typeof t.std_dev !== 'number' || !t.artist) return;
         (byArtist[t.artist] = byArtist[t.artist] || []).push(t);
       });
-      // Pick artists who appear in 3+ different years across at least a 10-year span
+      // Pick artists with multiple appearances. Sort by track count, take top 8.
       const interesting = Object.entries(byArtist)
         .filter(([, ts]) => {
           const yrs = Array.from(new Set(ts.map(t => t.year)));
-          return yrs.length >= 3 && (Math.max(...yrs) - Math.min(...yrs)) >= 10;
+          return yrs.length >= 2;
         })
-        .sort((a, b) => b[1].length - a[1].length)
-        .slice(0, 6);
+        .sort((a, b) => {
+          // Prefer more appearances first, then wider time span
+          const aYears = Array.from(new Set(a[1].map(t => t.year)));
+          const bYears = Array.from(new Set(b[1].map(t => t.year)));
+          if (b[1].length !== a[1].length) return b[1].length - a[1].length;
+          const aSpan = Math.max(...aYears) - Math.min(...aYears);
+          const bSpan = Math.max(...bYears) - Math.min(...bYears);
+          return bSpan - aSpan;
+        })
+        .slice(0, 8);
 
-      const palette = [ORANGE, BLUE, '#7C5295', '#2A8A6A', '#C75A30', '#3F6B9C'];
+      const palette = [ORANGE, BLUE, '#7C5295', '#2A8A6A', '#C75A30', '#3F6B9C', '#B8860B', '#8B4789'];
       const datasets = interesting.map(([artist, ts], i) => {
         const sorted = ts.sort((a, b) => a.year - b.year);
         return {
