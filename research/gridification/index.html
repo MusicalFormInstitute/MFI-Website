@@ -645,6 +645,22 @@
   Chart.defaults.font.size = 12;
   Chart.defaults.color = '#555';
 
+  // 5-year centered moving average. Each value becomes the mean of itself
+  // plus the 2 years on either side. At the edges the window narrows.
+  function centeredMovingAvg(data, window) {
+    const half = Math.floor(window / 2);
+    return data.map((_, i) => {
+      let sum = 0, count = 0;
+      for (let j = Math.max(0, i - half); j <= Math.min(data.length - 1, i + half); j++) {
+        if (data[j] != null && !isNaN(data[j])) {
+          sum += data[j];
+          count++;
+        }
+      }
+      return count ? sum / count : null;
+    });
+  }
+
   fetch('/research/gridification/data.json')
     .then(r => r.json())
     .then(({ tracks }) => {
@@ -680,27 +696,40 @@
         type: 'line',
         data: {
           labels: years,
-          datasets: [{
-            label: 'Mean std dev (BPM)',
-            data: meanStdDevByYear,
-            borderColor: ORANGE,
-            backgroundColor: 'rgba(223,105,59,0.10)',
-            borderWidth: 2,
-            tension: 0.25,
-            fill: true,
-            pointRadius: 2,
-            pointHoverRadius: 5,
-          }]
+          datasets: [
+            {
+              label: 'Year-by-year',
+              data: meanStdDevByYear,
+              borderColor: 'rgba(223,105,59,0.35)',
+              backgroundColor: 'rgba(223,105,59,0.06)',
+              borderWidth: 1.5,
+              tension: 0.25,
+              fill: true,
+              pointRadius: 1.5,
+              pointHoverRadius: 4,
+            },
+            {
+              label: '5-year smoothed',
+              data: centeredMovingAvg(meanStdDevByYear, 5),
+              borderColor: ORANGE,
+              backgroundColor: 'transparent',
+              borderWidth: 3,
+              tension: 0.4,
+              fill: false,
+              pointRadius: 0,
+              pointHoverRadius: 0,
+            },
+          ]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { display: false },
+            legend: { display: true, position: 'bottom', labels: { boxWidth: 14, padding: 14 } },
             tooltip: {
               callbacks: {
                 title: items => items[0].label,
-                label: ctx => `Std dev: ${ctx.parsed.y.toFixed(2)} BPM`,
+                label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)} BPM`,
               }
             },
             annotation: {}
@@ -790,22 +819,38 @@
         type: 'line',
         data: {
           labels: years,
-          datasets: [{
-            label: 'Fade-out tracks (% of top 5)',
-            data: fadeOutPctByYear,
-            borderColor: ORANGE,
-            backgroundColor: 'rgba(223,105,59,0.10)',
-            borderWidth: 2,
-            tension: 0.25,
-            fill: true,
-            pointRadius: 2,
-            pointHoverRadius: 5,
-          }]
+          datasets: [
+            {
+              label: 'Year-by-year',
+              data: fadeOutPctByYear,
+              borderColor: 'rgba(223,105,59,0.35)',
+              backgroundColor: 'rgba(223,105,59,0.06)',
+              borderWidth: 1.5,
+              tension: 0.25,
+              fill: true,
+              pointRadius: 1.5,
+              pointHoverRadius: 4,
+            },
+            {
+              label: '5-year smoothed',
+              data: centeredMovingAvg(fadeOutPctByYear, 5),
+              borderColor: ORANGE,
+              backgroundColor: 'transparent',
+              borderWidth: 3,
+              tension: 0.4,
+              fill: false,
+              pointRadius: 0,
+              pointHoverRadius: 0,
+            },
+          ]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.parsed.y.toFixed(0)}%` } } },
+          plugins: {
+            legend: { display: true, position: 'bottom', labels: { boxWidth: 14, padding: 14 } },
+            tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(0)}%` } }
+          },
           scales: {
             y: { beginAtZero: true, max: 100, title: { display: true, text: 'Percent of top five' } },
             x: { ticks: { maxTicksLimit: 14 } }
