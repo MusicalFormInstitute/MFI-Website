@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<title>The Gridification of Popular Music | The Musical Form Institute</title>
+<meta name="description" content="Tempo variability across 66 years of Billboard Hot 100 number-one through number-five songs (1960-2025). Detected within-song timing variance fell sharply after Pro Tools Beat Detective shipped in 2001. Independent measurement and methodology by the Musical Form Institute.">
+<meta property="og:title" content="The Gridification of Popular Music | The Musical Form Institute">
+<meta property="og:description" content="Tempo variability across 66 years of Billboard Hot 100 top-five hits. The grid arrived in 2001 and the chart shows what happened.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://musicalform.org/research/gridification">
+<meta property="og:image" content="https://musicalform.org/img/og-default.jpg">
+<link rel="canonical" href="https://musicalform.org/research/gridification">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<script defer src="/consent.js"></script>
+<script defer src="/nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 32px 0 8px;
+  }
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 20px 18px;
+  }
+  .stat-card .num {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.8px;
+    line-height: 1.05;
+  }
+  .stat-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  .stat-card .sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  @media (max-width: 760px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+  }
+  .chart-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .chart-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .chart-card .chart-cap {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    line-height: 1.55;
+  }
+  .chart-wrap {
+    position: relative;
+    height: 360px;
+  }
+  .chart-wrap.tall { height: 420px; }
+  .legend-note {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+  .findings-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+  }
+  .findings-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .findings-list li:last-child { border-bottom: 0; }
+  .findings-list strong {
+    color: var(--retro-orange);
+    font-weight: 700;
+  }
+  .method-list {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    list-style: none;
+    padding: 0;
+  }
+  .method-list li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+  }
+  .method-list li strong {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="container">
+    <div>Independent certification body &middot; Operated by Muse Foundry LLC</div>
+    <div><a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Public registry &rarr;</a></div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="container">
+    <a href="/" aria-label="Musical Form Institute home">
+      <img class="header-logo" src="/img/mfi-logo-horizontal.png" alt="The Musical Form Institute">
+    </a>
+    <nav class="main-nav">
+      <a href="/about">About</a>
+      <a href="/standards">Standards</a>
+      <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
+      <a href="/news">News</a>
+      <a href="/faq">FAQ</a>
+      <a href="/contact">Contact</a>
+      <a href="/submit" class="cta">Get Certified</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-eyebrow">Research</div>
+    <h1>The Gridification of Popular Music</h1>
+    <p>Detected within-song timing variance across 66 years of Billboard Hot 100 number-one through number-five songs, 1960 through 2025. The grid arrived in 2001 and the chart shows what happened.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="num">66</div>
+        <div class="label">Years analyzed</div>
+        <div class="sub">1960 through 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">330</div>
+        <div class="label">Tracks measured</div>
+        <div class="sub">Top five year-end hits per year</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">51%</div>
+        <div class="label">Variance reduction</div>
+        <div class="sub">Pre vs post Beat Detective (2001)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">2.4&times;</div>
+        <div class="label">Single-tempo rise</div>
+        <div class="sub">Tracks with zero detected variance</div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-top: 32px;">
+      <h3>Mean within-song tempo variance by year</h3>
+      <p class="chart-cap">Average detected standard deviation in beats per minute, calculated per track by Logic Pro tempo analysis and averaged within each year. Lower values mean tighter alignment to a single tempo across the whole song. Vertical markers indicate technology inflection points.</p>
+      <div class="chart-wrap">
+        <canvas id="chartHeadline"></canvas>
+      </div>
+      <div class="legend-note">An embodied human drummer playing to a click typically registers 0.6 to 1.2 BPM standard deviation. Values below 0.2 indicate sequenced or grid-corrected timing.</div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Five-year periods</h3>
+      <p class="chart-cap">Average tempo variance grouped into 5-year bands. Shows the long arc: relatively flat through the analog tape era, a step down in the early Pro Tools years, then a collapse after Beat Detective shipped.</p>
+      <div class="chart-wrap">
+        <canvas id="chartPeriods"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Share of top-five hits with zero detected tempo variance</h3>
+      <p class="chart-cap">Percentage of each year's top-five songs that returned a single Logic tempo with no detected timing transitions across the entire track. A single-tempo reading is the signature of a fully gridded recording.</p>
+      <div class="chart-wrap">
+        <canvas id="chartSingleTempo"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Share of top-five hits with a fade-out ending</h3>
+      <p class="chart-cap">Percentage of each year's top-five songs that end with a fade-out rather than a definitive ending. Fade-outs were the analog era's standard finish; they have effectively disappeared.</p>
+      <div class="chart-wrap">
+        <canvas id="chartFadeOut"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Same artists, across decades</h3>
+      <p class="chart-cap">A small set of artists who appeared in the year-end top five across multiple decades. Each line traces that artist's tempo variance over time. The artists did not change. The production environment around them did.</p>
+      <div class="chart-wrap tall">
+        <canvas id="chartArtists"></canvas>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="section-eyebrow">Headline findings</div>
+    <h2>What the data says</h2>
+
+    <ul class="findings-list">
+      <li>Mean tempo standard deviation across the year-end top five fell from approximately <strong>1.5 BPM</strong> in the late analog era to under <strong>0.5 BPM</strong> in the post-2001 Pro Tools era. A 51% reduction in detected within-song timing variance.</li>
+      <li>The share of top-five tracks returning <strong>zero detected tempo variance</strong> rose from roughly 27% before 2001 to about 63% after, a 2.4&times; increase. Several recent years show 80% or more of the top five with zero variance.</li>
+      <li>The fade-out ending, the analog era's default finish, fell from <strong>57%</strong> of top-five tracks before 2001 to <strong>17%</strong> after. In many recent years, the entire top five contains zero fade-outs.</li>
+      <li>The same artists, recording with the same broad instrumentation a decade apart, often show a measurable collapse from <strong>flexible timing</strong> in their early hits to <strong>zero variance</strong> in their later ones.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Methodology</div>
+    <h2>How the measurements were taken</h2>
+
+    <ul class="method-list">
+      <li><strong>Source</strong><span>Billboard Hot 100 year-end charts. Top five (#1 through #5) per year, 1960 through 2025. Total: 330 recordings.</span></li>
+      <li><strong>Audio source</strong><span>YouTube canonical recording per track, captured to lossless system audio.</span></li>
+      <li><strong>Tempo analysis</strong><span>Logic Pro tempo detection on each full track. Mean tempo, within-song standard deviation, minimum, maximum, and number of detected tempo transitions recorded.</span></li>
+      <li><strong>Reliability</strong><span>Test-retest reliability: mean tempo within 0.05%, standard deviation within 5 to 10%. The order-of-magnitude differences in this dataset are far above the noise floor.</span></li>
+      <li><strong>Categories</strong><span>Tracks classified by coefficient of variation into four bands following Carter and von Appen: Sequenced (CV below 0.2), Click Track (CV 0.2 to 0.5), No Click (CV 0.5 to 2.0), Free or Shifting (CV above 2.0).</span></li>
+      <li><strong>Caveat</strong><span>Some post-2010 outlier years are driven by individual tracks with intentional structural tempo changes (intros at different tempos, ritardando endings). Within-section timing in those tracks is still tightly gridded; the spike reflects musical features rather than embodied performance.</span></li>
+    </ul>
+
+    <p style="margin-top: 28px; font-size: 13px; color: var(--text-secondary);">For questions about the methodology or to request the underlying dataset, contact <a href="mailto:research@musicalform.org" style="color: var(--vintage-blue);">research@musicalform.org</a>.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-text">
+        <h4>Updates from the Institute</h4>
+        <p>Standards changes, registry milestones, conference talks. Roughly monthly.</p>
+      </div>
+      <form class="footer-newsletter-form" action="https://app.kit.com/forms/6544140898/subscriptions" method="POST">
+        <input type="email" name="email_address" placeholder="your@email.com" required aria-label="Email address">
+        <input type="hidden" name="redirect_url" value="https://musicalform.org/thanks">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/img/mfi-logo-horizontal-inverted.png" alt="Musical Form Institute" class="footer-brand-logo">
+        <p>Independent certification for sound recordings. Operated by Muse Foundry LLC.</p>
+        <p>Certificate of Embodied Production &middot; Certification mark application pending.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/musicalforminstitute/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="https://bsky.app/profile/musicalform.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.4 4.5C9 6.4 11.7 10.2 12.7 12.4 13.7 10.2 16.4 6.4 19 4.5c1.9-1.4 4.9-2.5 4.9 1 0 .7-.4 5.7-.6 6.5-.7 2.8-3.6 3.5-6.2 3 4.4.8 5.5 3.2 3.1 5.7-4.6 4.7-6.6-1.2-7.1-2.7-.1-.3-.1-.4-.1-.3 0-.1 0 0-.1.3-.5 1.5-2.5 7.4-7.1 2.7-2.4-2.5-1.3-4.9 3.1-5.7-2.6.5-5.5-.2-6.2-3-.2-.8-.6-5.8-.6-6.5 0-3.5 3-2.4 4.9-1z"/></svg></a>
+          <a href="https://x.com/MusicalForm" target="_blank" rel="noopener" aria-label="X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="https://www.linkedin.com/company/musicalform" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.5 17.5V10H6v7.5h2.5zM7.25 8.85a1.45 1.45 0 1 0 0-2.9 1.45 1.45 0 0 0 0 2.9zM18 17.5v-4.3c0-2-1.07-2.95-2.5-2.95-1.15 0-1.67.63-1.96 1.07V10H11.04c.03.7 0 7.5 0 7.5h2.5v-4.19c0-.22.02-.45.08-.61.18-.45.59-.92 1.27-.92.9 0 1.26.69 1.26 1.7v4.02H18z"/></svg></a>
+          <a href="https://www.youtube.com/@MusicalFormInstitute" target="_blank" rel="noopener" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="/standards">Standards</a></li>
+          <li><a href="/csf-submission">Submit CSF</a></li>
+          <li><a href="/cep-submission">Submit CEP</a></li>
+          <li><a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a></li>
+          <li><a href="/labels">For Labels</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Institute</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:certifications@musicalform.org">certifications@musicalform.org</a></li>
+          <li><a href="tel:+15202657278">+1 520 265 7278</a></li>
+          <li>PO Box 12734<br>Tucson, AZ 85732</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Muse Foundry LLC. All rights reserved.</div>
+      <div>
+        <a href="/privacy" style="margin-right:24px">Privacy</a>
+        <a href="/terms-of-use">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  "use strict";
+
+  const ORANGE = '#DF693B';
+  const BLUE = '#5D92CD';
+  const BLACK = '#1A1A1A';
+  const GRAY = '#888';
+  const RULE = '#D4D4D4';
+
+  // Common Chart.js defaults
+  Chart.defaults.font.family = "'Poppins', -apple-system, sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = '#555';
+
+  fetch('/research/gridification/data.json')
+    .then(r => r.json())
+    .then(({ tracks }) => {
+      // ── Compute per-year stats ─────────────────────────────────
+      const byYear = {};
+      tracks.forEach(t => {
+        if (typeof t.year !== 'number') return;
+        (byYear[t.year] = byYear[t.year] || []).push(t);
+      });
+      const years = Object.keys(byYear).map(Number).sort((a, b) => a - b);
+
+      const meanStdDevByYear = years.map(y => {
+        const list = byYear[y].filter(t => typeof t.std_dev === 'number');
+        if (!list.length) return null;
+        return list.reduce((s, t) => s + t.std_dev, 0) / list.length;
+      });
+
+      const singleTempoPctByYear = years.map(y => {
+        const list = byYear[y];
+        const single = list.filter(t => (t.std_dev || 0) < 0.05).length;
+        return list.length ? (single / list.length) * 100 : 0;
+      });
+
+      const fadeOutPctByYear = years.map(y => {
+        const list = byYear[y];
+        const fades = list.filter(t => /fade/i.test(t.notes || '')).length;
+        return list.length ? (fades / list.length) * 100 : 0;
+      });
+
+      // ── Chart 1: Headline arc ─────────────────────────────────
+      const ctxHeadline = document.getElementById('chartHeadline').getContext('2d');
+      new Chart(ctxHeadline, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'Mean std dev (BPM)',
+            data: meanStdDevByYear,
+            borderColor: ORANGE,
+            backgroundColor: 'rgba(223,105,59,0.10)',
+            borderWidth: 2,
+            tension: 0.25,
+            fill: true,
+            pointRadius: 2,
+            pointHoverRadius: 5,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: items => items[0].label,
+                label: ctx => `Std dev: ${ctx.parsed.y.toFixed(2)} BPM`,
+              }
+            },
+            annotation: {}
+          },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Std dev (BPM)' } },
+            x: { ticks: { maxTicksLimit: 14 } }
+          }
+        }
+      });
+
+      // ── Chart 2: 5-year periods ───────────────────────────────
+      const periods = [];
+      for (let start = 1960; start <= 2025; start += 5) {
+        const end = Math.min(start + 4, 2025);
+        const label = `${start}-${String(end).slice(2)}`;
+        const yearsInPeriod = years.filter(y => y >= start && y <= end);
+        const allTracks = yearsInPeriod.flatMap(y => byYear[y]).filter(t => typeof t.std_dev === 'number');
+        const avg = allTracks.length ? allTracks.reduce((s, t) => s + t.std_dev, 0) / allTracks.length : null;
+        periods.push({ label, avg, n: allTracks.length });
+      }
+
+      const ctxPeriods = document.getElementById('chartPeriods').getContext('2d');
+      new Chart(ctxPeriods, {
+        type: 'bar',
+        data: {
+          labels: periods.map(p => p.label),
+          datasets: [{
+            label: 'Average std dev (BPM)',
+            data: periods.map(p => p.avg),
+            backgroundColor: periods.map(p => {
+              const start = parseInt(p.label.split('-')[0], 10);
+              return start < 2001 ? 'rgba(93,146,205,0.85)' : 'rgba(223,105,59,0.85)';
+            }),
+            borderWidth: 0,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => `Avg std dev: ${ctx.parsed.y.toFixed(2)} BPM (n=${periods[ctx.dataIndex].n})`,
+              }
+            }
+          },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Avg std dev (BPM)' } }
+          }
+        }
+      });
+
+      // ── Chart 3: Single-tempo % ──────────────────────────────
+      const ctxSingle = document.getElementById('chartSingleTempo').getContext('2d');
+      new Chart(ctxSingle, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'Zero-variance tracks (% of top 5)',
+            data: singleTempoPctByYear,
+            borderColor: BLUE,
+            backgroundColor: 'rgba(93,146,205,0.10)',
+            borderWidth: 2,
+            tension: 0.25,
+            fill: true,
+            pointRadius: 2,
+            pointHoverRadius: 5,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.parsed.y.toFixed(0)}%` } } },
+          scales: {
+            y: { beginAtZero: true, max: 100, title: { display: true, text: 'Percent of top five' } },
+            x: { ticks: { maxTicksLimit: 14 } }
+          }
+        }
+      });
+
+      // ── Chart 4: Fade-out % ──────────────────────────────────
+      const ctxFade = document.getElementById('chartFadeOut').getContext('2d');
+      new Chart(ctxFade, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'Fade-out tracks (% of top 5)',
+            data: fadeOutPctByYear,
+            borderColor: ORANGE,
+            backgroundColor: 'rgba(223,105,59,0.10)',
+            borderWidth: 2,
+            tension: 0.25,
+            fill: true,
+            pointRadius: 2,
+            pointHoverRadius: 5,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.parsed.y.toFixed(0)}%` } } },
+          scales: {
+            y: { beginAtZero: true, max: 100, title: { display: true, text: 'Percent of top five' } },
+            x: { ticks: { maxTicksLimit: 14 } }
+          }
+        }
+      });
+
+      // ── Chart 5: Same-artist trajectories ────────────────────
+      const byArtist = {};
+      tracks.forEach(t => {
+        if (typeof t.std_dev !== 'number' || !t.artist) return;
+        (byArtist[t.artist] = byArtist[t.artist] || []).push(t);
+      });
+      // Pick artists who appear in 3+ different years across at least a 10-year span
+      const interesting = Object.entries(byArtist)
+        .filter(([, ts]) => {
+          const yrs = Array.from(new Set(ts.map(t => t.year)));
+          return yrs.length >= 3 && (Math.max(...yrs) - Math.min(...yrs)) >= 10;
+        })
+        .sort((a, b) => b[1].length - a[1].length)
+        .slice(0, 6);
+
+      const palette = [ORANGE, BLUE, '#7C5295', '#2A8A6A', '#C75A30', '#3F6B9C'];
+      const datasets = interesting.map(([artist, ts], i) => {
+        const sorted = ts.sort((a, b) => a.year - b.year);
+        return {
+          label: artist,
+          data: sorted.map(t => ({ x: t.year, y: t.std_dev })),
+          borderColor: palette[i % palette.length],
+          backgroundColor: palette[i % palette.length],
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 7,
+          tension: 0,
+        };
+      });
+
+      const ctxArtists = document.getElementById('chartArtists').getContext('2d');
+      new Chart(ctxArtists, {
+        type: 'line',
+        data: { datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14 } },
+            tooltip: {
+              callbacks: {
+                title: items => `${items[0].dataset.label} — ${items[0].parsed.x}`,
+                label: ctx => `Std dev: ${ctx.parsed.y.toFixed(2)} BPM`,
+              }
+            }
+          },
+          scales: {
+            x: { type: 'linear', title: { display: true, text: 'Year' }, ticks: { stepSize: 5, callback: v => v } },
+            y: { beginAtZero: true, title: { display: true, text: 'Std dev (BPM)' } }
+          }
+        }
+      });
+
+    })
+    .catch(err => {
+      console.error('Failed to load gridification data:', err);
+    });
+})();
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
