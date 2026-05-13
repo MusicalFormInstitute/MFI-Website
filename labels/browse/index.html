@@ -151,27 +151,9 @@
     height: 36px;
     background: var(--rule);
   }
-  .browse-card-cta {
-    position: absolute;
-    bottom: 32px;
-    right: 36px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--vintage-blue);
-    letter-spacing: 0.3px;
-  }
-  .browse-card-cta::after {
-    content: '\2192';
-    transition: transform 0.18s ease;
-  }
-  .browse-card:hover .browse-card-cta::after { transform: translateX(4px); }
   @media (max-width: 760px) {
     .browse-card { padding: 32px 24px; }
     .browse-card h2 { font-size: 28px; }
-    .browse-card-cta { position: static; margin-top: 22px; }
   }
 
   .browse-footer-note {
@@ -264,7 +246,6 @@
             <div class="lbl">Latest verification</div>
           </div>
         </div>
-        <div class="browse-card-cta">View page</div>
       </a>
 
       <a href="/labels/warp-records" class="browse-card">
@@ -281,7 +262,6 @@
             <div class="lbl">Latest verification</div>
           </div>
         </div>
-        <div class="browse-card-cta">View page</div>
       </a>
 
       <a href="/labels/matador-records" class="browse-card">
@@ -298,7 +278,6 @@
             <div class="lbl">Latest verification</div>
           </div>
         </div>
-        <div class="browse-card-cta">View page</div>
       </a>
 
       <a href="/labels/merge-records" class="browse-card">
@@ -315,7 +294,6 @@
             <div class="lbl">Latest verification</div>
           </div>
         </div>
-        <div class="browse-card-cta">View page</div>
       </a>
 
     </div>
