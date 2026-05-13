@@ -116,6 +116,101 @@
 </section>
 
 <section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Featured labels</div>
+    <h2>Labels with certified recordings</h2>
+    <p class="section-intro">Each page below lists every recording from that label that has been independently certified by the Musical Form Institute, with an embedded playlist and links to each certification on the public registry. The certifications apply to the recordings, not to the label.</p>
+
+    <style>
+      .featured-labels-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 32px;
+      }
+      @media (max-width: 980px) {
+        .featured-labels-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 560px) {
+        .featured-labels-grid { grid-template-columns: 1fr; }
+      }
+      .featured-label-card {
+        display: block;
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: 4px;
+        padding: 28px 24px;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.15s ease, transform 0.15s ease;
+      }
+      .featured-label-card:hover {
+        border-color: var(--retro-orange);
+        transform: translateY(-2px);
+      }
+      .featured-label-card .fl-count {
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1;
+        color: var(--retro-orange);
+        letter-spacing: -0.8px;
+      }
+      .featured-label-card .fl-count-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+        color: var(--text-tertiary);
+        font-weight: 600;
+        margin-top: 6px;
+      }
+      .featured-label-card .fl-name {
+        font-size: 18px;
+        font-weight: 700;
+        margin-top: 22px;
+        line-height: 1.25;
+        letter-spacing: -0.2px;
+      }
+      .featured-label-card .fl-cta {
+        font-size: 12px;
+        color: var(--vintage-blue);
+        font-weight: 600;
+        margin-top: 12px;
+        letter-spacing: 0.2px;
+      }
+    </style>
+
+    <div class="featured-labels-grid">
+      <a href="/labels/sub-pop-records" class="featured-label-card">
+        <div class="fl-count">320</div>
+        <div class="fl-count-label">Certified recordings</div>
+        <div class="fl-name">Sub Pop Records</div>
+        <div class="fl-cta">View certifications &rarr;</div>
+      </a>
+      <a href="/labels/warp-records" class="featured-label-card">
+        <div class="fl-count">174</div>
+        <div class="fl-count-label">Certified recordings</div>
+        <div class="fl-name">Warp Records</div>
+        <div class="fl-cta">View certifications &rarr;</div>
+      </a>
+      <a href="/labels/matador-records" class="featured-label-card">
+        <div class="fl-count">128</div>
+        <div class="fl-count-label">Certified recordings</div>
+        <div class="fl-name">Matador Records</div>
+        <div class="fl-cta">View certifications &rarr;</div>
+      </a>
+      <a href="/labels/merge-records" class="featured-label-card">
+        <div class="fl-count">123</div>
+        <div class="fl-count-label">Certified recordings</div>
+        <div class="fl-name">Merge Records</div>
+        <div class="fl-cta">View certifications &rarr;</div>
+      </a>
+    </div>
+
+    <p style="font-size: 13px; color: var(--text-tertiary); margin-top: 24px; line-height: 1.55;">More label pages will be added as their playlists complete. The full set of certified labels (949+) is browsable on the <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" style="color: var(--vintage-blue); text-decoration: underline;">public registry</a>.</p>
+  </div>
+</section>
+
+<section class="section alt">
   <div class="container" style="text-align: center;">
     <div class="section-eyebrow">For partners</div>
     <h2>Get in touch</h2>
