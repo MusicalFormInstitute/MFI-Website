@@ -57,7 +57,139 @@
 <link rel="stylesheet" href="/styles.css">
 <script defer src="/consent.js"></script>
 <script defer src="/nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
+  .research-hero {
+    padding: 64px 0 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .research-hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 980px) {
+    .research-hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  }
+  .research-hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--retro-orange);
+    margin-bottom: 18px;
+  }
+  .research-hero h1 {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -1.4px;
+    line-height: 1.05;
+    margin-bottom: 22px;
+  }
+  .research-hero .lede {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 540px;
+  }
+  @media (max-width: 760px) {
+    .research-hero { padding: 48px 0 40px; }
+    .research-hero h1 { font-size: 36px; }
+  }
+
+  .featured-card {
+    display: block;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 28px 28px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .featured-card:hover {
+    border-color: var(--vintage-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.08);
+  }
+  .featured-card .featured-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    background: rgba(93,146,205,0.12);
+    color: var(--vintage-blue);
+    margin-bottom: 16px;
+  }
+  .featured-card .chart-preview {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+    border-radius: 4px;
+    margin-bottom: 16px;
+    padding: 8px 0;
+  }
+  .featured-card .chart-preview-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .featured-card .chart-preview canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .featured-card .chart-x-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.5px;
+    padding: 6px 4px 0;
+  }
+  .featured-card h3 {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    color: var(--black);
+  }
+  .featured-card .featured-meta {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+  }
+  .featured-card .featured-finding {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+  }
+  .featured-card .featured-finding strong {
+    color: var(--retro-orange);
+    font-weight: 700;
+  }
+  .featured-card .featured-cta {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--vintage-blue);
+    letter-spacing: 0.2px;
+  }
   .research-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
   .research-card {
     background: var(--white);
@@ -131,25 +263,33 @@
   </div>
 </header>
 
-<section class="page-hero">
+<section class="research-hero">
   <div class="container">
-    <div class="page-hero-eyebrow">Research</div>
-    <h1>Empirical and interpretive work on the structure of recorded music</h1>
-    <p>The Musical Form Institute publishes original research on how the production of popular music has changed across six decades. The work pairs measured datasets with interpretive essays. The empirical work stands on its own; the interpretive work asks what the measured shifts mean for listeners, music makers, and civic life.</p>
+    <div class="research-hero-grid">
+      <div>
+        <div class="research-hero-eyebrow">Research</div>
+        <h1>Empirical and interpretive work on the structure of recorded music</h1>
+        <p class="lede">The Musical Form Institute publishes original research on how the production of popular music has changed across six decades. The work pairs measured datasets with interpretive essays. The empirical work stands on its own; the interpretive work asks what the measured shifts mean for listeners, music makers, and civic life.</p>
+      </div>
+      <a href="/research/gridification" class="featured-card" aria-label="View the Gridification dataset and charts">
+        <span class="featured-tag">Featured dataset</span>
+        <div class="chart-preview">
+          <div class="chart-preview-loading" id="chartLoading">Loading chart&hellip;</div>
+          <canvas id="researchHeroChart" aria-label="Tempo variance trend 1960 to 2025"></canvas>
+        </div>
+        <div class="chart-x-labels"><span>1960</span><span>1985</span><span>2025</span></div>
+        <h3>The Gridification of Popular Music, 1960 through 2025</h3>
+        <div class="featured-meta">66 years &middot; 330 tracks &middot; Billboard Year-End Hot 100 Top 5</div>
+        <div class="featured-finding">Mean within-song tempo standard deviation fell from approximately <strong>1.5 BPM</strong> in the late analog era to under <strong>0.5 BPM</strong> after Pro Tools' Beat Detective shipped in 2001.</div>
+        <span class="featured-cta">View dataset and charts &rarr;</span>
+      </a>
+    </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
     <div class="research-grid">
-
-      <a href="/research/gridification" class="research-card">
-        <span class="tag dataset">Dataset and analysis</span>
-        <h3>The Gridification of Popular Music, 1960 through 2025</h3>
-        <div class="meta">66 years &middot; 330 tracks &middot; Billboard Year-End Hot 100 Top 5</div>
-        <p>A direct measurement of within-song tempo variability across the year-end top five hits of every year from 1960 through 2025. Five interactive charts, including period-by-period breakdowns and same-artist trajectories. Extends Carter and von Appen's 1966-1995 analysis published in <em>Int&eacute;gral</em> Vol. 38 (2025) through to 2025, capturing the post-2001 inflection that Pro Tools' Beat Detective made possible.</p>
-        <span class="cta">View dataset and charts &rarr;</span>
-      </a>
 
       <a href="/research/perfect-music-democracy.pdf" target="_blank" rel="noopener" class="research-card essay">
         <span class="tag essay">Companion essay</span>
@@ -243,6 +383,99 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function() {
+  // Render a minimalist preview of the gridification headline chart in the hero featured card.
+  // Loads the same data.json the full chart uses, renders only the 5-year smoothed line with
+  // zero chrome (no axes, no labels, no grid). Pure visual pull.
+  function centeredMovingAvg(data, window) {
+    var half = Math.floor(window / 2);
+    return data.map(function(_, i) {
+      var sum = 0, count = 0;
+      for (var j = Math.max(0, i - half); j <= Math.min(data.length - 1, i + half); j++) {
+        if (data[j] != null && !isNaN(data[j])) { sum += data[j]; count++; }
+      }
+      return count ? sum / count : null;
+    });
+  }
+
+  function render() {
+    var canvas = document.getElementById('researchHeroChart');
+    if (!canvas || typeof Chart === 'undefined') return;
+    fetch('/research/gridification/data.json')
+      .then(function(r) { return r.json(); })
+      .then(function(payload) {
+        var tracks = payload.tracks || [];
+        var byYear = {};
+        tracks.forEach(function(t) {
+          if (typeof t.year !== 'number' || typeof t.std_dev !== 'number') return;
+          (byYear[t.year] = byYear[t.year] || []).push(t.std_dev);
+        });
+        var years = Object.keys(byYear).map(Number).sort(function(a, b) { return a - b; });
+        var meanByYear = years.map(function(y) {
+          var arr = byYear[y];
+          return arr.reduce(function(s, v) { return s + v; }, 0) / arr.length;
+        });
+        var smoothed = centeredMovingAvg(meanByYear, 5);
+
+        var loading = document.getElementById('chartLoading');
+        if (loading) loading.style.display = 'none';
+
+        new Chart(canvas.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: years,
+            datasets: [
+              {
+                data: meanByYear,
+                borderColor: 'rgba(223,105,59,0.28)',
+                backgroundColor: 'rgba(223,105,59,0.04)',
+                borderWidth: 1,
+                tension: 0.3,
+                fill: true,
+                pointRadius: 0,
+                pointHoverRadius: 0,
+              },
+              {
+                data: smoothed,
+                borderColor: '#5D92CD',
+                backgroundColor: 'transparent',
+                borderWidth: 3,
+                tension: 0.45,
+                fill: false,
+                pointRadius: 0,
+                pointHoverRadius: 0,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 800 },
+            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+            scales: {
+              x: { display: false, grid: { display: false } },
+              y: { display: false, grid: { display: false }, beginAtZero: true },
+            },
+            interaction: { mode: null },
+          },
+        });
+      })
+      .catch(function(err) {
+        console.warn('Hero chart preview failed:', err);
+        var loading = document.getElementById('chartLoading');
+        if (loading) loading.textContent = 'Chart unavailable';
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
 
 </body>
 </html>
