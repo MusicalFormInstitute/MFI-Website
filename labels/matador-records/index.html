@@ -86,13 +86,28 @@
       <img class="header-logo" src="/img/mfi-logo-horizontal.png" alt="The Musical Form Institute">
     </a>
     <nav class="main-nav">
-      <a href="/about">About</a>
-      <a href="/standards">Standards</a>
-      <a href="/research">Research</a>
-      <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
-      <a href="/news">News</a>
-      <a href="/faq">FAQ</a>
-      <a href="/contact">Contact</a>
+      <div class="nav-item nav-has-dropdown">
+        <a href="/about" class="nav-link">About</a>
+        <div class="nav-dropdown">
+          <a href="/contact">Contact</a>
+          <a href="/news">News</a>
+          <a href="/research">Research</a>
+        </div>
+      </div>
+      <a href="/standards" class="nav-link">Standards</a>
+      <div class="nav-item nav-has-dropdown">
+        <a href="/labels" class="nav-link">Labels</a>
+        <div class="nav-dropdown">
+          <a href="/labels/browse">Browse labels</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="/labels/sub-pop-records">Sub Pop Records</a>
+          <a href="/labels/warp-records">Warp Records</a>
+          <a href="/labels/matador-records">Matador Records</a>
+          <a href="/labels/merge-records">Merge Records</a>
+        </div>
+      </div>
+      <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" class="nav-link">Registry</a>
+      <a href="/faq" class="nav-link">FAQ</a>
       <a href="/submit" class="cta">Get Certified</a>
     </nav>
   </div>
