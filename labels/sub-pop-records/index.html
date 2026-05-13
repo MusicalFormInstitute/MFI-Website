@@ -38,33 +38,6 @@
   @media (max-width: 760px) { .label-hero h1 { font-size: 40px; } .label-hero { padding: 48px 0 40px; } }
   .label-hero-playlist { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; box-shadow: 0 12px 32px rgba(0,0,0,0.10); }
   .label-hero-playlist iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  .btn-shuffle {
-    background: transparent;
-    border: 1px solid var(--text);
-    color: var(--text);
-    padding: 10px 18px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background 0.12s ease, color 0.12s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn-shuffle:hover { background: var(--text); color: var(--white); }
-  .btn-shuffle.is-shuffled {
-    background: var(--vintage-blue);
-    border-color: var(--vintage-blue);
-    color: var(--white);
-  }
-  .btn-shuffle .shuffle-icon {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 1;
-  }
   .stats-strip { background: var(--off-white); border-bottom: 1px solid var(--rule); padding: 28px 0; }
   .stats-strip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
   .stat-cell .num { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; line-height: 1.1; }
@@ -155,12 +128,11 @@
         <div class="hero-divider"></div>
         <div class="label-hero-actions">
           <a href="https://www.youtube.com/playlist?list=PLwO9_AB3wDG1nVY5O4ZUohC8iN1hvcJMf" target="_blank" rel="noopener" class="btn btn-primary">Listen on YouTube &rarr;</a>
-          <button type="button" id="shuffleBtn" class="btn-shuffle" onclick="toggleShuffle()" aria-label="Shuffle playlist"><span class="shuffle-icon">&#8635;</span><span class="shuffle-label">Shuffle</span></button>
           <a href="https://registry.musicalform.org/csf?label=Sub%20Pop%20Records" target="_blank" rel="noopener" class="btn btn-outline">View on Public Registry &rarr;</a>
         </div>
       </div>
       <div class="label-hero-playlist">
-        <iframe id="mfi-ytplayer" src="https://www.youtube.com/embed/videoseries?list=PLwO9_AB3wDG1nVY5O4ZUohC8iN1hvcJMf&enablejsapi=1&origin=https://musicalform.org"
+        <iframe src="https://www.youtube.com/embed/videoseries?list=PLwO9_AB3wDG1nVY5O4ZUohC8iN1hvcJMf"
                 title="Sub Pop Records - Verified AI-Free Playlist"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
@@ -286,44 +258,6 @@
 </footer>
 
 <script defer src="/_vercel/insights/script.js"></script>
-
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-(function() {
-  var player;
-  var shuffled = false;
-  window.onYouTubeIframeAPIReady = function() {
-    var iframe = document.getElementById('mfi-ytplayer');
-    if (!iframe) return;
-    player = new YT.Player('mfi-ytplayer');
-  };
-  window.toggleShuffle = function() {
-    var btn = document.getElementById('shuffleBtn');
-    if (!player || !player.setShuffle) {
-      // Player not ready yet; retry after a beat
-      setTimeout(window.toggleShuffle, 300);
-      return;
-    }
-    try {
-      shuffled = !shuffled;
-      player.setShuffle(shuffled);
-      if (shuffled) {
-        var pl = player.getPlaylist && player.getPlaylist();
-        if (pl && pl.length > 0) {
-          player.playVideoAt(Math.floor(Math.random() * pl.length));
-        }
-        btn.classList.add('is-shuffled');
-        btn.querySelector('.shuffle-label').textContent = 'Shuffling';
-      } else {
-        btn.classList.remove('is-shuffled');
-        btn.querySelector('.shuffle-label').textContent = 'Shuffle';
-      }
-    } catch(e) {
-      console.warn('Shuffle toggle failed:', e);
-    }
-  };
-})();
-</script>
 
 </body>
 </html>
