@@ -46,7 +46,7 @@ export default async function handler(req, res) {
         email,
         templateId: TEMPLATE_ID,
         includeListIds: [LIST_ID],
-        redirectionUrl: 'https://musicalform.org/thanks',
+        redirectionUrl: 'https://musicalform.org/confirmed',
       }),
     });
 
