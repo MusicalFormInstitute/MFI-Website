@@ -1,5 +1,7 @@
 # MFI-Website Project Notes
 
+> **STALE NOTICE (2026-05-17): the newsletter ESP is now Brevo, not Kit.** Every mention of Kit, Kit form 6544140898, `app.kit.com`, or Kit double opt-in below is obsolete. The footer signup form on all pages posts to the `api/subscribe.js` Vercel function which calls Brevo double opt-in server-side; new signups go to Brevo list #4. Submit lands on `/thanks`, email-confirm on `/confirmed`. Also: this repo must stay PUBLIC on GitHub or Vercel Hobby cannot deploy it. See `~/Desktop/MFI/SESSION_HANDOFF_2026-05-17.md` for the full current picture. The design system, brand voice, and structure notes below remain accurate; only the ESP/Kit specifics are wrong.
+
 This is the handoff document. Read this FIRST in any new Claude Code session before touching this project. It captures everything that is not obvious from the code or commit history.
 
 ## What this project is
