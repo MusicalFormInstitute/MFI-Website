@@ -98,7 +98,7 @@
         <div class="section-eyebrow">Public Record</div>
         <h3 class="marquee-title">Recently Certified</h3>
       </div>
-      <a href="https://registry.musicalform.org/csf" target="_blank" rel="noopener" class="marquee-link">Browse all <span id="marqueeBrowseCount">9,622</span> recordings &rarr;</a>
+      <a href="https://registry.musicalform.org/csf" target="_blank" rel="noopener" class="marquee-link">Browse all <span id="marqueeBrowseCount" style="display:inline-block;min-width:5.5ch;text-align:right;font-variant-numeric:tabular-nums;">&hellip;</span> recordings &rarr;</a>
     </div>
   </div>
   <div class="marquee-track-wrap">
@@ -270,6 +270,21 @@
   var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxeWRjbXByYXlkYmVwY2tjenpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNDE0MzIsImV4cCI6MjA5MDYxNzQzMn0.ew6VRo9I1EDkvDpGeVOevfR-4D9QjGRQ-rMyH1dppDg';
   var h={'apikey':KEY,'Authorization':'Bearer '+KEY};
   function fmt(n){return Number(n).toLocaleString()}
+  function rollTo(el, target){
+    if(!el) return;
+    target = Math.max(0, Number(target) || 0);
+    var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(rm || target === 0){ el.textContent = fmt(target); return; }
+    var dur = 700, t0 = null;
+    function frame(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(e * target));
+      if(p < 1){ requestAnimationFrame(frame); } else { el.textContent = fmt(target); }
+    }
+    requestAnimationFrame(frame);
+  }
   function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function ytIdFromUrl(url){if(!url)return'';var m=url.match(/[?&]v=([^&]+)/);return m?m[1]:''}
   function thumbFor(t){
@@ -282,12 +297,12 @@
   fetch(SUPA+'/v_csf_public_registry?select=csf_id',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
     .then(function(r){
       var range = r.headers.get('content-range') || '*/0';
-      var n = fmt(range.split('/')[1] || '0');
+      var cnt = parseInt(range.split('/')[1] || '0', 10);
       var el1 = document.getElementById('csfCount');
       var el2 = document.getElementById('marqueeBrowseCount');
-      if(el1) el1.textContent = n;
-      if(el2) el2.textContent = n;
-    }).catch(function(){});
+      if(el1) el1.textContent = fmt(cnt);
+      rollTo(el2, cnt);
+    }).catch(function(){ var el=document.getElementById('marqueeBrowseCount'); if(el) el.textContent='12,000+'; });
   fetch(SUPA+'/v_cep_public_registry?select=cep_id',{headers:h})
     .then(function(r){return r.json()}).then(function(d){var el=document.getElementById('cepCount');if(el)el.textContent=fmt(d.length||0)}).catch(function(){});
   fetch(SUPA+'/v_label_summary?select=label',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
