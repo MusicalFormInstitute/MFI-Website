@@ -15,171 +15,174 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://musicalform.org/">
 <meta property="og:image" content="https://musicalform.org/img/og-default.jpg">
-<link rel="canonical" href="https://musicalform.org/">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/styles-overrides.css">
+<link rel="stylesheet" href="/styles-v2.css">
+<link rel="stylesheet" href="/styles-v4.css">
 <script defer src="/consent.js"></script>
-<script defer src="/nav.js"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "The Musical Form Institute",
-  "alternateName": "Musical Form Institute",
-  "url": "https://musicalform.org",
-  "logo": "https://musicalform.org/img/mfi-logo-horizontal.png",
-  "description": "Independent certification body for sound recordings. Administers the Certificate of Embodied Production (CEP) and Certified Significant Form (CSF) certification marks. Operated by Muse Foundry LLC.",
-  "founder": { "@type": "Person", "name": "Jeffrey Anthony", "url": "https://musicalform.org/about#founder" },
-  "parentOrganization": { "@type": "Organization", "name": "Muse Foundry LLC" },
-  "sameAs": [ "https://registry.musicalform.org" ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "certifications@musicalform.org",
-    "telephone": "+1-520-265-7278",
-    "contactType": "customer service",
-    "areaServed": "Worldwide"
-  }
-}
-</script>
 </head>
-<body>
+<body class="v2">
 
-<!-- ============ UTILITY BAR ============ -->
-<div class="utility-bar">
-  <div class="container">
-    <div>Independent certification body &middot; Operated by Muse Foundry LLC</div>
-    <div><a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Public registry &rarr;</a></div>
-  </div>
-</div>
+<!-- ============ MASTHEAD ============ -->
+<header class="v2-masthead">
+  <div class="v2-wrap">
 
-<!-- ============ HEADER ============ -->
-<header class="header">
-  <div class="container">
-    <a href="/" aria-label="Musical Form Institute home">
-      <img class="header-logo" src="/img/mfi-logo-horizontal.png" alt="The Musical Form Institute">
-    </a>
-    <nav class="main-nav">
-      <div class="nav-item nav-has-dropdown">
-        <a href="/about" class="nav-link">About</a>
-        <div class="nav-dropdown">
-          <a href="/contact">Contact</a>
-          <a href="/news">News</a>
-          <a href="/research">Research</a>
-        </div>
+    <div class="v2-mast-top">
+      <div class="v2-mast-meta">
+        <span>Tucson, Arizona</span>
+        <span>Operated by Muse Foundry LLC</span>
       </div>
-      <a href="/standards" class="nav-link">Standards</a>
-      <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" class="nav-link">Registry</a>
-      <a href="/faq" class="nav-link">FAQ</a>
-      <a href="/submit" class="cta">Get Certified</a>
-    </nav>
+      <nav class="v2-mast-nav">
+        <a href="/about">About</a>
+        <a href="/standards">Standards</a>
+        <a href="/cep-submission">Submit CEP</a>
+        <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
+        <a href="/research">Research</a>
+        <a href="/news">News</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+
+    <h1 class="v2-mast-name">The Musical<br>Form Institute</h1>
+
+    <div class="v2-mast-rule"></div>
+
+    <div class="v2-mast-bottom">
+      <p class="v2-mast-manifesto">Perfect audio is now infinitely cheap. <em>Provenance is the scarcity.</em></p>
+      <div class="v2-mast-issn">Standards in force &middot; <strong>CEP v1.2</strong> &middot; <strong>CSF v2.0</strong> &middot; March 31, 2026</div>
+    </div>
+
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="container">
-    <div style="max-width: 880px;">
-      <h1>Perfect audio is now infinitely cheap<br><em>Provenance is the scarcity</em></h1>
-      <p class="hero-tagline" style="text-wrap:balance;">Independent provenance for sound recordings. We verify whether a person made it or a machine generated and corrected it, and put the proof on the public record anyone can check.</p>
-      <div class="hero-actions">
-        <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" class="btn btn-primary">View the Registry</a>
-      </div>
+<!-- ============ LEDE ============ -->
+<section class="v2-lede">
+  <div class="v2-wrap">
+    <p>The Musical Form Institute issues two certification marks for sound recordings. The <strong>Certificate of Embodied Production (CEP)</strong> certifies the absence of generative AI, grid correction, and pitch correction. <strong>Certified Significant Form (CSF)</strong> certifies the absence of generative AI.</p>
+  </div>
+</section>
+
+<!-- ============ STATUS STRIP ============ -->
+<section class="v2-status">
+  <div class="v2-wrap" style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px;">
+    <div class="v2-status-count">
+      <strong id="v2Count">…</strong><span class="unit">CSF certifications</span>
+    </div>
+    <div class="v2-status-meta">
+      <span>A new sample on each visit</span>
     </div>
   </div>
 </section>
 
-<!-- ============ RECENTLY CERTIFIED MARQUEE ============ -->
-<section class="marquee-section">
-  <div class="container">
-    <div class="marquee-header">
-      <div>
-        <div class="section-eyebrow">Public Record</div>
-        <h3 class="marquee-title">Recently Certified</h3>
-      </div>
-      <a href="https://registry.musicalform.org/csf" target="_blank" rel="noopener" class="marquee-link">Browse all <span id="marqueeBrowseCount" style="display:inline-block;min-width:5.5ch;text-align:right;font-variant-numeric:tabular-nums;">&hellip;</span> recordings &rarr;</a>
-    </div>
-  </div>
-  <div class="marquee-track-wrap">
-    <div class="marquee-track" id="marqueeTrack">
-      <!-- Tiles populated by JS, then duplicated for seamless loop -->
-    </div>
-  </div>
-</section>
+<!-- ============ FEATURED ============ -->
+<section>
+  <div class="v2-wrap">
+    <div class="v2-featured">
 
-<!-- ============ TWO PROGRAMS ============ -->
-<section class="section">
-  <div class="container">
-    <h2>Certification marks</h2>
-
-    <div class="programs-grid">
-
-      <div class="program-card">
-        <span class="program-tag csf">No Generative AI</span>
-        <h3>Certified Significant Form</h3>
-        <div class="program-version">Public Standard v2.0 &middot; March 31, 2026</div>
-        <p>Certifies that a recording was produced without generative AI. Detection uses published scoring methodology with analyst review for indeterminate results.</p>
-        <div class="program-actions">
-          <a href="/s/CSF_Public_Standard_v2_0_March_31_2026.pdf" target="_blank" rel="noopener" class="neutral-link">Read standard &darr;</a>
-          <a href="/csf-submission" class="csf-link">Submit for CSF &rarr;</a>
+      <a class="v2-feat-link v2-feat-main" id="v2FeatMain" href="https://registry.musicalform.org/" target="_blank" rel="noopener">
+        <div class="v2-feat-art"><img id="v2FeatImg" src="" alt="" loading="lazy"></div>
+        <div class="v2-feat-meta">
+          <div class="v2-feat-id" id="v2FeatId">…</div>
+          <h2 class="v2-feat-title" id="v2FeatTitle">…</h2>
+          <div class="v2-feat-artist" id="v2FeatArtist">…</div>
+          <div class="v2-feat-tail">
+            <span id="v2FeatLabel">…</span><span class="sep">·</span><span id="v2FeatDate">…</span>
+          </div>
         </div>
-      </div>
-
-      <div class="program-card">
-        <span class="program-tag cep">Process Certification</span>
-        <h3>Certificate of Embodied Production</h3>
-        <div class="program-version">Public Standard v1.2 &middot; March 31, 2026</div>
-        <p>Certifies that a recording was produced without grid correction, pitch correction, or generative AI. Each certification requires individual analyst review under published standards.</p>
-        <div class="program-actions">
-          <a href="/s/CEP_Public_Standard_v1_2_March_31_2026.pdf" target="_blank" rel="noopener" class="neutral-link">Read standard &darr;</a>
-          <a href="/cep-submission" class="cep-link">Submit for CEP &rarr;</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOW IT WORKS ============ -->
-<section class="section">
-  <div class="container">
-    <h2>How certification works</h2>
-    <div class="prose" style="max-width: 780px;">
-      <p>Submissions are scored under the methodology published in <a href="/s/CSF_Public_Standard_v2_0_March_31_2026.pdf" target="_blank" rel="noopener">CSF Public Standard v2.0</a> for the no-generative-AI mark, and <a href="/s/CEP_Public_Standard_v1_2_March_31_2026.pdf" target="_blank" rel="noopener">CEP Public Standard v1.2</a> for the stricter process certification. Ambiguous results are routed to analyst review against the published rubric. Outcomes are recorded with a unique identifier and posted to the public registry, where anyone can verify them. For CEP submissions the master audio file is deleted after review; only a SHA-256 hash is retained on the public record.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ RESEARCH ============ -->
-<section class="section alt">
-  <div class="container">
-    <div class="section-eyebrow">Research</div>
-    <h2>The gridification of popular music</h2>
-    <p class="section-intro" style="max-width: 760px;">The Institute publishes original research documenting how recorded music has changed across six decades. The lead dataset measures within-song tempo variability across every Billboard Year-End Hot 100 top-five recording from 1960 through 2025, capturing the sharp post-2001 inflection that Pro Tools' Beat Detective made possible.</p>
-    <div style="margin-top: 28px;">
-      <a href="/research/gridification" class="btn btn-primary">View the gridification dataset &rarr;</a>
-      <a href="/research" class="btn btn-outline" style="margin-left: 8px;">All research &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ NEWS ============ -->
-<section class="section">
-  <div class="container">
-    <div class="section-eyebrow">Latest</div>
-    <h2>News and announcements</h2>
-
-    <div class="news-list">
-      <a href="/news/langer-conference-2026" class="news-card">
-        <div class="news-date">May 26-29, 2026 &middot; Vienna</div>
-        <h3>Susanne K. Langer Circle Conference 2026</h3>
-        <p>Jeffrey Anthony presents "Operationalizing Langer's Presentational Symbols: The Certificate of Embodied Production as Musical Praxis."</p>
       </a>
+
+      <div class="v2-feat-list" id="v2FeatList">
+        <div class="v2-feat-list-track" id="v2FeatTrack">
+          <!-- populated by JS, duplicated for seamless vertical scroll -->
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
+<!-- ============ LEDGER TABLE ============ -->
+<section class="v2-ledger">
+  <div class="v2-wrap">
+    <div class="v2-ledger-head">
+      <div class="v2-ledger-label">From the CSF registry</div>
+      <a class="v2-ledger-more" href="https://registry.musicalform.org/" target="_blank" rel="noopener">View full registry &rarr;</a>
+    </div>
+    <table class="v2-table" id="v2Table">
+      <thead>
+        <tr>
+          <th class="col-id">Certification ID</th>
+          <th class="col-date">Date</th>
+          <th class="col-tier">Tier</th>
+          <th class="col-artist">Artist</th>
+          <th class="col-title">Title</th>
+          <th class="col-label">Label</th>
+        </tr>
+      </thead>
+      <tbody id="v2TableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ MARKS ============ -->
+<section>
+  <div class="v2-wrap">
+    <div class="v2-marks">
+
+      <div class="v2-mark cep">
+        <img class="v2-mark-badge" src="/img/cep-badge.png" alt="CEP mark">
+        <div>
+          <span class="v2-mark-tag">Process certification</span>
+          <h3>Certificate of Embodied Production</h3>
+          <div class="v2-mark-version">Public Standard v1.2 &middot; March 31, 2026</div>
+          <p>Certifies a recording was produced without generative AI, grid correction, or pitch correction. Each submission is individually reviewed by an analyst against the published standard. Master audio is deleted after review; only a SHA-256 hash is retained on the public record.</p>
+          <div class="v2-mark-actions">
+            <a class="v2-mark-link" href="/cep-submission">Submit a recording &rarr;</a>
+            <a class="v2-mark-link v2-mark-link-secondary" href="/s/CEP_Public_Standard_v1_2_March_31_2026.pdf" target="_blank" rel="noopener">Read CEP standard</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="v2-mark csf">
+        <img class="v2-mark-badge" src="/img/csf-badge.png" alt="CSF mark">
+        <div>
+          <span class="v2-mark-tag">Public registry mark</span>
+          <h3>Certified Significant Form</h3>
+          <div class="v2-mark-version">Public Standard v2.0 &middot; March 31, 2026</div>
+          <p>Certifies a recording was produced without generative AI. Awarded under a published scoring methodology, with analyst review for ambiguous results. Operated as a broader public registry mark.</p>
+          <a class="v2-mark-link" href="/s/CSF_Public_Standard_v2_0_March_31_2026.pdf" target="_blank" rel="noopener">Read CSF standard &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOTES FROM THE INSTITUTE ============ -->
+<section>
+  <div class="v2-wrap">
+    <div class="v2-notes">
+      <div class="v2-notes-label">From the Institute</div>
+      <div class="v2-notes-list">
+
+        <article class="v2-note">
+          <div class="v2-note-tag">Research</div>
+          <h3><a href="/research/gridification">The gridification of popular music</a></h3>
+          <p>Within-song tempo variability across every Billboard Year-End Hot 100 top-five recording from 1960 through 2025, capturing the sharp post-2001 inflection that Pro Tools' Beat Detective made possible.</p>
+        </article>
+
+        <article class="v2-note">
+          <div class="v2-note-tag">Upcoming &middot; May 26&ndash;29, 2026 &middot; Vienna</div>
+          <h3><a href="/news/langer-conference-2026">Susanne K. Langer Circle Conference</a></h3>
+          <p>Jeffrey Anthony presents "Operationalizing Langer's Presentational Symbols: The Certificate of Embodied Production as Musical Praxis."</p>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER (reused from main site) ============ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-newsletter">
@@ -198,13 +201,6 @@
         <img src="/img/mfi-logo-horizontal-inverted.png" alt="Musical Form Institute" class="footer-brand-logo">
         <p>Independent certification for sound recordings. Operated by Muse Foundry LLC.</p>
         <p>Certificate of Embodied Production &middot; Certification mark application pending.</p>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/musicalforminstitute/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-          <a href="https://bsky.app/profile/musicalform.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.4 4.5C9 6.4 11.7 10.2 12.7 12.4 13.7 10.2 16.4 6.4 19 4.5c1.9-1.4 4.9-2.5 4.9 1 0 .7-.4 5.7-.6 6.5-.7 2.8-3.6 3.5-6.2 3 4.4.8 5.5 3.2 3.1 5.7-4.6 4.7-6.6-1.2-7.1-2.7-.1-.3-.1-.4-.1-.3 0-.1 0 0-.1.3-.5 1.5-2.5 7.4-7.1 2.7-2.4-2.5-1.3-4.9 3.1-5.7-2.6.5-5.5-.2-6.2-3-.2-.8-.6-5.8-.6-6.5 0-3.5 3-2.4 4.9-1z"/></svg></a>
-          <a href="https://x.com/MusicalForm" target="_blank" rel="noopener" aria-label="X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-          <a href="https://www.linkedin.com/company/musicalform" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.5 17.5V10H6v7.5h2.5zM7.25 8.85a1.45 1.45 0 1 0 0-2.9 1.45 1.45 0 0 0 0 2.9zM18 17.5v-4.3c0-2-1.07-2.95-2.5-2.95-1.15 0-1.67.63-1.96 1.07V10H11.04c.03.7 0 7.5 0 7.5h2.5v-4.19c0-.22.02-.45.08-.61.18-.45.59-.92 1.27-.92.9 0 1.26.69 1.26 1.7v4.02H18z"/></svg></a>
-          <a href="https://www.youtube.com/@MusicalFormInstitute" target="_blank" rel="noopener" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-        </div>
       </div>
       <div class="footer-col">
         <h4>Programs</h4>
@@ -244,78 +240,124 @@
   </div>
 </footer>
 
+<!-- ============ LIVE DATA ============ -->
 <script>
 (function(){
   var SUPA='https://vqydcmpraydbepckczzd.supabase.co/rest/v1';
   var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxeWRjbXByYXlkYmVwY2tjenpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNDE0MzIsImV4cCI6MjA5MDYxNzQzMn0.ew6VRo9I1EDkvDpGeVOevfR-4D9QjGRQ-rMyH1dppDg';
   var h={'apikey':KEY,'Authorization':'Bearer '+KEY};
   function fmt(n){return Number(n).toLocaleString()}
-  function rollTo(el, target){
-    if(!el) return;
-    target = Math.max(0, Number(target) || 0);
-    var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(rm || target === 0){ el.textContent = fmt(target); return; }
-    var dur = 700, t0 = null;
-    function frame(ts){
-      if(t0 === null) t0 = ts;
-      var p = Math.min((ts - t0) / dur, 1);
-      var e = 1 - Math.pow(1 - p, 3);
-      el.textContent = fmt(Math.round(e * target));
-      if(p < 1){ requestAnimationFrame(frame); } else { el.textContent = fmt(target); }
-    }
-    requestAnimationFrame(frame);
-  }
-  function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-  function ytIdFromUrl(url){if(!url)return'';var m=url.match(/[?&]v=([^&]+)/);return m?m[1]:''}
-  function thumbFor(t){
+  function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function ytId(url){if(!url)return'';var m=url.match(/[?&]v=([^&]+)/);return m?m[1]:''}
+  function thumb(t){
     if(t.cover_art && t.cover_art.indexOf('softr')===-1) return t.cover_art;
-    var ytId = ytIdFromUrl(t.source_url);
-    if(ytId) return 'https://img.youtube.com/vi/'+ytId+'/hqdefault.jpg';
+    var y=ytId(t.source_url);
+    if(y) return 'https://img.youtube.com/vi/'+y+'/hqdefault.jpg';
     return '';
   }
-
-  fetch(SUPA+'/v_csf_public_registry?select=csf_id',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
-    .then(function(r){
-      var range = r.headers.get('content-range') || '*/0';
-      var cnt = parseInt(range.split('/')[1] || '0', 10);
-      var el1 = document.getElementById('csfCount');
-      var el2 = document.getElementById('marqueeBrowseCount');
-      if(el1) el1.textContent = fmt(cnt);
-      rollTo(el2, cnt);
-    }).catch(function(){ var el=document.getElementById('marqueeBrowseCount'); if(el) el.textContent='12,000+'; });
-  fetch(SUPA+'/v_cep_public_registry?select=cep_id',{headers:h})
-    .then(function(r){return r.json()}).then(function(d){var el=document.getElementById('cepCount');if(el)el.textContent=fmt(d.length||0)}).catch(function(){});
-  fetch(SUPA+'/v_label_summary?select=label',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
-    .then(function(r){var range=r.headers.get('content-range')||'*/0';var el=document.getElementById('labelCount');if(el)el.textContent=fmt(range.split('/')[1]||'0')}).catch(function(){});
-
-  function renderMarqueeTile(t){
-    var thumb = thumbFor(t);
-    var a = document.createElement('a');
-    a.className = 'marquee-tile';
-    a.href = 'https://registry.musicalform.org/csf/' + encodeURIComponent(t.csf_id || '');
-    a.target = '_blank';
-    a.rel = 'noopener';
-    a.innerHTML =
-      '<div class="marquee-tile-art">'
-      + (thumb ? '<img src="'+escapeHtml(thumb)+'" alt="" loading="lazy">' : '<div class="registry-tile-art-empty">&#9834;</div>')
-      + '</div>'
-      + '<div class="marquee-tile-info">'
-      + '<div class="marquee-tile-track">'+escapeHtml(t.track_title||'')+'</div>'
-      + '<div class="marquee-tile-artist">'+escapeHtml(t.primary_artist||'')+'</div>'
-      + '</div>';
-    return a;
+  function tierClass(t){
+    var x=String(t||'').toLowerCase();
+    if(x.indexOf('verified')>-1) return 'v';
+    if(x.indexOf('confident')>-1) return 'c';
+    if(x.indexOf('probable')>-1) return 'p';
+    if(x.indexOf('attestation')>-1) return 'a';
+    return 'v';
+  }
+  function shortDate(s){
+    if(!s) return '';
+    var d=new Date(s); if(isNaN(d)) return s;
+    var mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return mo[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+  }
+  function relTime(s){
+    if(!s) return '';
+    var d=new Date(s); if(isNaN(d)) return '';
+    var diff=(Date.now()-d.getTime())/1000;
+    if(diff<60) return Math.max(1,Math.round(diff))+'s ago';
+    if(diff<3600) return Math.round(diff/60)+'m ago';
+    if(diff<86400) return Math.round(diff/3600)+'h ago';
+    return Math.round(diff/86400)+'d ago';
   }
 
-  fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,cover_art,source_url&order=certification_date.desc&limit=200',{headers:h})
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+  // Fetch count first, then fetch a random window of the registry.
+  // Featured + side list + table are all populated from a shuffled sample.
+  fetch(SUPA+'/v_csf_public_registry?select=csf_id',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
+    .then(function(r){
+      var range=r.headers.get('content-range')||'*/0';
+      var cnt=parseInt(range.split('/')[1]||'0',10);
+      var el=document.getElementById('v2Count');
+      if(el) el.textContent=fmt(cnt);
+
+      var poolSize=60;
+      var maxOffset=Math.max(0,cnt-poolSize);
+      var offset=Math.floor(Math.random()*(maxOffset+1));
+
+      return fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,label,cover_art,source_url,certification_date,tier&order=certification_date.desc&limit='+poolSize+'&offset='+offset,{headers:h});
+    })
     .then(function(r){return r.json()})
     .then(function(d){
-      var track = document.getElementById('marqueeTrack');
-      if(!track || !d || !d.length){ return; }
-      var withThumb = d.filter(function(t){ return !!thumbFor(t); }).slice(0, 30);
-      if(!withThumb.length){ return; }
-      track.innerHTML = '';
-      withThumb.forEach(function(t){ track.appendChild(renderMarqueeTile(t)); });
-      withThumb.forEach(function(t){ track.appendChild(renderMarqueeTile(t)); });
+      if(!d || !d.length) return;
+      shuffle(d);
+
+      var withThumb=d.filter(function(t){return !!thumb(t)});
+      var feat=withThumb[0]||d[0];
+      var side=withThumb.slice(1,31);
+      var rest=d.slice(0,15);
+
+      // Featured
+      if(feat){
+        var img=document.getElementById('v2FeatImg'); if(img){img.src=thumb(feat)||''; img.alt=feat.track_title||''}
+        document.getElementById('v2FeatId').textContent=feat.csf_id||'';
+        document.getElementById('v2FeatTitle').textContent=feat.track_title||'';
+        document.getElementById('v2FeatArtist').textContent=feat.primary_artist||'';
+        document.getElementById('v2FeatLabel').textContent=feat.label||'';
+        document.getElementById('v2FeatDate').textContent=shortDate(feat.certification_date);
+        var link=document.getElementById('v2FeatMain');
+        if(link) link.href='https://registry.musicalform.org/csf/'+encodeURIComponent(feat.csf_id||'');
+      }
+
+      // Side list: 30 items rendered into the marquee track, then duplicated
+      // for seamless vertical scroll (translateY(-50%) loops one full set).
+      var track=document.getElementById('v2FeatTrack');
+      if(track){
+        track.innerHTML='';
+        function renderRow(t){
+          var a=document.createElement('a');
+          a.className='v2-feat-row';
+          a.href='https://registry.musicalform.org/csf/'+encodeURIComponent(t.csf_id||'');
+          a.target='_blank'; a.rel='noopener';
+          a.innerHTML=
+            '<div class="art"><img src="'+esc(thumb(t))+'" alt="" loading="lazy"></div>'+
+            '<div class="meta">'+
+              '<div class="row-id">'+esc(t.csf_id||'')+'</div>'+
+              '<div class="row-title">'+esc(t.track_title||'')+'</div>'+
+              '<div class="row-artist">'+esc(t.primary_artist||'')+'</div>'+
+            '</div>';
+          return a;
+        }
+        side.forEach(function(t){ track.appendChild(renderRow(t)); });
+        side.forEach(function(t){ track.appendChild(renderRow(t)); });
+      }
+
+      // Table
+      var tb=document.getElementById('v2TableBody');
+      if(tb){
+        tb.innerHTML='';
+        rest.forEach(function(t){
+          var tr=document.createElement('tr');
+          var tc=tierClass(t.tier);
+          tr.innerHTML=
+            '<td class="col-id"><a href="https://registry.musicalform.org/csf/'+encodeURIComponent(t.csf_id||'')+'" target="_blank" rel="noopener">'+esc(t.csf_id||'')+'</a></td>'+
+            '<td class="col-date">'+esc(shortDate(t.certification_date))+'</td>'+
+            '<td class="col-tier"><span class="pill '+tc+'">'+esc(t.tier||'')+'</span></td>'+
+            '<td class="col-artist">'+esc(t.primary_artist||'')+'</td>'+
+            '<td class="col-title">'+esc(t.track_title||'')+'</td>'+
+            '<td class="col-label">'+esc(t.label||'')+'</td>';
+          tb.appendChild(tr);
+        });
+      }
     }).catch(function(){});
 })();
 </script>
