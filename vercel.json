@@ -11,6 +11,9 @@
     { "source": "/submit", "destination": "/cep-submission", "permanent": false },
     { "source": "/certificate-of-embodied-production-cep", "destination": "/standards", "permanent": true },
     { "source": "/certified-significant-form", "destination": "/standards", "permanent": true },
-    { "source": "/why-it-matters", "destination": "/about", "permanent": true }
+    { "source": "/why-it-matters", "destination": "/about", "permanent": true },
+    { "source": "/research/perfect-music-democracy.pdf", "destination": "/research/perfect-music-democracy", "permanent": true },
+    { "source": "/research/listening-to-ai-25-years.pdf", "destination": "/research/listening-to-aimusic-25-years", "permanent": true },
+    { "source": "/research/listening-to-ai-25-years", "destination": "/research/listening-to-aimusic-25-years", "permanent": true }
   ]
 }
