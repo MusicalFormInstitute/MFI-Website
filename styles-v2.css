@@ -358,6 +358,7 @@ body.v2 > .header { display: none; }
   vertical-align: top;
   line-height: 1.4;
 }
+.v2-table tbody tr { cursor: pointer; }
 .v2-table tbody tr:hover { background: rgba(0,0,0,0.025); }
 .v2-table .col-id {
   width: 168px;

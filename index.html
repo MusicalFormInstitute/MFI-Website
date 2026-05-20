@@ -348,13 +348,16 @@
         rest.forEach(function(t){
           var tr=document.createElement('tr');
           var tc=tierClass(t.tier);
+          var href='https://registry.musicalform.org/csf/'+encodeURIComponent(t.csf_id||'');
+          tr.dataset.href=href;
           tr.innerHTML=
-            '<td class="col-id"><a href="https://registry.musicalform.org/csf/'+encodeURIComponent(t.csf_id||'')+'" target="_blank" rel="noopener">'+esc(t.csf_id||'')+'</a></td>'+
+            '<td class="col-id">'+esc(t.csf_id||'')+'</td>'+
             '<td class="col-date">'+esc(shortDate(t.certification_date))+'</td>'+
             '<td class="col-tier"><span class="pill '+tc+'">'+esc(t.tier||'')+'</span></td>'+
             '<td class="col-artist">'+esc(t.primary_artist||'')+'</td>'+
             '<td class="col-title">'+esc(t.track_title||'')+'</td>'+
             '<td class="col-label">'+esc(t.label||'')+'</td>';
+          tr.addEventListener('click', function(){ window.open(href, '_blank', 'noopener'); });
           tb.appendChild(tr);
         });
       }
