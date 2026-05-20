@@ -358,8 +358,17 @@ body.v2 > .header { display: none; }
   vertical-align: top;
   line-height: 1.4;
 }
-.v2-table tbody tr { cursor: pointer; }
-.v2-table tbody tr:hover { background: rgba(0,0,0,0.025); }
+.v2-table tbody tr {
+  cursor: pointer;
+  transition: background 0.12s, box-shadow 0.12s;
+}
+.v2-table tbody tr:hover {
+  background: #F5F5F5;
+  box-shadow: inset 3px 0 0 var(--orange);
+}
+.v2-table tbody tr:hover .col-id { color: var(--orange); }
+.v2-table tbody tr:hover .col-artist,
+.v2-table tbody tr:hover .col-title { color: var(--ink); }
 .v2-table .col-id {
   width: 168px;
   font-weight: 600;
