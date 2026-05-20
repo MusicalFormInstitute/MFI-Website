@@ -1,0 +1,450 @@
+/* ============================================================
+   MFI Website — V4 sub-page chrome (preview)
+   Loaded by sub-pages alongside styles.css. Activates when
+   <body> has class "v4". Provides:
+     - Hidden legacy utility bar + header
+     - Condensed dark masthead (wordmark + nav, no big nameplate)
+     - Brand ribbon at bottom of masthead
+     - V4 typography/section overrides
+     - Square buttons and inputs
+     - Strict palette: brand 4 + Mist (#F5F5F5) + Slate (#5C5C5C)
+   ============================================================ */
+
+body.v4 {
+  --paper:      #FFFFFF;
+  --paper-line: rgba(0,0,0,0.1);
+  --ink:        #1A1A1A;
+  --ink-soft:   #5C5C5C;
+  --ink-quiet:  rgba(0,0,0,0.55);
+  --mist:       #F5F5F5;
+  --orange:     #DF693B;
+  --blue:       #5D92CD;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Hide legacy chrome on v4 pages */
+body.v4 .utility-bar { display: none !important; }
+body.v4 > .header { display: none !important; }
+
+/* ============================================================
+   V4 CONDENSED MASTHEAD
+   ============================================================ */
+.v4-mast {
+  background: var(--ink);
+  color: #FFFFFF;
+  border-bottom: 6px solid var(--orange);
+  position: relative;
+}
+.v4-mast::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 6px;
+  background: linear-gradient(to right, var(--orange) 0%, var(--orange) 60%, var(--blue) 60%, var(--blue) 100%);
+}
+.v4-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.v4-mast .v4-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.v4-mast-mark {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.v4-mast-mark:hover { color: var(--orange); }
+.v4-mast-nav {
+  display: flex;
+  gap: 22px;
+  font-size: 13px;
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+.v4-mast-nav a {
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.v4-mast-nav a:hover { color: #FFFFFF; }
+.v4-mast-nav a.is-current { color: #FFFFFF; border-bottom: 1px solid var(--orange); padding-bottom: 1px; }
+
+@media (max-width: 700px) {
+  .v4-wrap { padding: 0 22px; }
+  .v4-mast .v4-wrap { padding-top: 16px; padding-bottom: 16px; }
+  .v4-mast-nav { gap: 14px; font-size: 12px; }
+}
+
+/* ============================================================
+   PAGE HERO: simpler, plain, no eyebrow tracking
+   ============================================================ */
+body.v4 .page-hero {
+  padding: 72px 0 48px;
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper);
+}
+body.v4 .page-hero .container {
+  max-width: 1320px;
+  padding: 0 40px;
+}
+body.v4 .page-hero-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  color: var(--ink-quiet);
+  margin-bottom: 12px;
+}
+body.v4 .page-hero h1 {
+  font-size: clamp(34px, 4.4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  color: var(--ink);
+  margin-bottom: 18px;
+  max-width: 880px;
+}
+body.v4 .page-hero p {
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 760px;
+}
+
+/* ============================================================
+   SECTIONS: hairline seams, no alt background fills
+   ============================================================ */
+body.v4 .section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper) !important;
+}
+body.v4 .section.alt { background: var(--paper) !important; }
+body.v4 .section .container {
+  max-width: 1320px;
+  padding: 0 40px;
+}
+body.v4 .section-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: none !important;
+  color: var(--ink-quiet);
+  margin-bottom: 10px;
+}
+body.v4 .section h2 {
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+body.v4 .section-intro {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+
+/* ============================================================
+   BUTTONS: square corners, plain treatment
+   ============================================================ */
+body.v4 .btn {
+  border-radius: 0 !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 12px 22px;
+}
+body.v4 .btn-primary {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #FFFFFF;
+}
+body.v4 .btn-primary:hover {
+  background: #C95A30;
+  border-color: #C95A30;
+}
+body.v4 .btn-outline {
+  background: transparent;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+body.v4 .btn-outline:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+body.v4 .btn-blue {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #FFFFFF;
+}
+body.v4 .btn-blue:hover {
+  background: #3A6FA5;
+  border-color: #3A6FA5;
+}
+body.v4 .btn-blue-outline {
+  background: transparent;
+  border-color: var(--blue);
+  color: var(--blue);
+}
+body.v4 .btn-blue-outline:hover {
+  background: var(--blue);
+  color: #FFFFFF;
+}
+
+/* ============================================================
+   STANDARDS PAGE: remove card chrome, sequential blocks
+   ============================================================ */
+body.v4 .standards-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 56px;
+  align-items: start;
+}
+@media (max-width: 980px) {
+  body.v4 .standards-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+body.v4 .standards-hero-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+body.v4 .standards-hero-cards .standard-card {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--paper-line) !important;
+  border-radius: 0 !important;
+  padding: 28px 0 !important;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 24px;
+  margin: 0;
+  align-items: start;
+}
+body.v4 .standards-hero-cards .standard-card:last-child { border-bottom: 0 !important; }
+body.v4 .standards-hero-cards .standard-badge {
+  max-width: 110px;
+}
+body.v4 .standard-tag {
+  background: transparent !important;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0 !important;
+  padding: 0 0 2px 0 !important;
+  text-transform: none !important;
+  letter-spacing: 0.03em !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  margin-bottom: 12px !important;
+}
+body.v4 .standard-tag.csf { color: var(--orange); }
+body.v4 .standard-tag.cep { color: var(--blue); }
+body.v4 .standards-hero-cards .standard-card h3 {
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em !important;
+  color: var(--ink);
+  margin-bottom: 4px !important;
+}
+body.v4 .standards-hero-cards .standard-version {
+  font-size: 12px !important;
+  color: var(--ink-quiet);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 12px !important;
+}
+body.v4 .standards-hero-cards .standard-card p {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+body.v4 .standard-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+body.v4 .standard-card-actions .btn {
+  padding: 10px 18px;
+  font-size: 13px;
+}
+
+/* ============================================================
+   VERSION TABLE: clean, document-style
+   ============================================================ */
+body.v4 .version-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+body.v4 .version-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-quiet);
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid var(--ink);
+}
+body.v4 .version-table td {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--paper-line);
+  color: var(--ink);
+  vertical-align: top;
+  font-variant-numeric: tabular-nums;
+}
+body.v4 .version-table tr:hover { background: var(--mist); }
+body.v4 .v-mark.csf { color: var(--orange); font-weight: 600; }
+body.v4 .v-mark.cep { color: var(--blue); font-weight: 600; }
+body.v4 .version-table a {
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--orange);
+  text-decoration: none;
+}
+body.v4 .version-table a:hover { color: var(--orange); }
+
+/* ============================================================
+   STEPS: plain sequential blocks, no SaaS eyebrows
+   ============================================================ */
+body.v4 .steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 16px;
+}
+@media (max-width: 880px) {
+  body.v4 .steps { grid-template-columns: 1fr; gap: 28px; }
+}
+body.v4 .step-num {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  color: var(--ink-quiet);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--paper-line);
+}
+body.v4 .step h3 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+body.v4 .step p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   PROSE: long-form text
+   ============================================================ */
+body.v4 .prose {
+  max-width: 760px;
+  color: var(--ink);
+}
+body.v4 .prose p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+body.v4 .prose a {
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--orange);
+  text-decoration: none;
+}
+body.v4 .prose a:hover { color: var(--orange); }
+body.v4 .pullquote {
+  border-color: var(--ink) !important;
+  color: var(--ink) !important;
+  font-style: italic;
+}
+
+/* ============================================================
+   ABOUT GRID: photo + content
+   ============================================================ */
+body.v4 .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  body.v4 .about-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+body.v4 .about-photo {
+  border: 1px solid var(--paper-line);
+  border-radius: 0;
+  background: var(--mist);
+}
+
+/* ============================================================
+   KV LIST: clean key-value pairs
+   ============================================================ */
+body.v4 .kv-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+}
+body.v4 .kv-list li {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--paper-line);
+}
+body.v4 .kv-list strong {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  color: var(--ink-quiet);
+}
+body.v4 .kv-list span {
+  font-size: 15px;
+  color: var(--ink);
+}
+@media (max-width: 600px) {
+  body.v4 .kv-list li { grid-template-columns: 1fr; gap: 4px; }
+}
+
+/* ============================================================
+   FOOTER: square corners, palette harmony
+   ============================================================ */
+body.v4 .footer { background: var(--ink); }
+body.v4 .footer-newsletter-form input[type=email],
+body.v4 .footer-newsletter-form button {
+  border-radius: 0 !important;
+}
+body.v4 .footer-newsletter-form button {
+  background: var(--orange);
+}
+body.v4 .footer-newsletter-form button:hover {
+  background: #C95A30;
+}
+
+/* ============================================================
+   CEP SUBMISSION PAGE: lighten the form container chrome
+   The form itself uses scoped .mfi-cep-form styles which we
+   leave alone. We just style the wrapper section below.
+   ============================================================ */
+body.v4 .cep-form-section {
+  padding: 56px 0 80px;
+  background: var(--paper);
+}
