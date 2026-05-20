@@ -1,0 +1,28 @@
+/* ============================================================
+   MFI Website — V3 home (preview, Option C: warm paper)
+   Loaded by index-v3.html AFTER styles-v2.css.
+   Only overrides the neutral palette. All v2 layout/structure
+   is inherited as-is.
+
+   Proposed brand extension: a small named neutral set with
+   intentional warmth, tied to the printed-document character.
+   ============================================================ */
+
+:root {
+  --paper:      #EFE5C8;   /* warm cream / manila body */
+  --paper-line: #D9CDA6;   /* warm tan hairline */
+  --ink:        #1A1A1A;   /* text and dark surfaces (same as B) */
+  --ink-soft:   #6B6354;   /* secondary text, warm gray */
+  --ink-quiet:  #8E8470;   /* tertiary text, warm gray */
+}
+
+/* Re-tune the masthead's translucent rgba values so the cream
+   on dark matches the new warm body. */
+body.v2 .v2-masthead { color: var(--paper); }
+body.v2 .v2-mast-top { border-bottom-color: rgba(239,229,200,0.22); }
+body.v2 .v2-mast-meta { color: rgba(239,229,200,0.72); }
+body.v2 .v2-mast-nav a { color: rgba(239,229,200,0.8); }
+body.v2 .v2-mast-nav a:hover { color: var(--paper); }
+body.v2 .v2-mast-rule { background: rgba(239,229,200,0.42); }
+body.v2 .v2-mast-manifesto { color: rgba(239,229,200,0.94); }
+body.v2 .v2-mast-issn { color: rgba(239,229,200,0.58); }

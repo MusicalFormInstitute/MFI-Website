@@ -1,0 +1,100 @@
+/* ============================================================
+   MFI Website — V4 home (preview, strict palette)
+   Loaded by index-v4.html AFTER styles-v2.css.
+
+   Constraint: only the four official brand colors plus
+   exactly two named neutral shades. Other neutrals derived
+   from pure black at opacity.
+
+   Official brand:
+     #5D92CD  vintage blue
+     #DF693B  retro orange
+     #000000  black
+     #FFFFFF  white
+
+   Proposed shades (this preview):
+     #F5F5F5  Mist  — light neutral surface accent
+     #5C5C5C  Slate — mid neutral for secondary text
+   ============================================================ */
+
+:root {
+  --paper:      #FFFFFF;            /* pure white body */
+  --paper-line: rgba(0,0,0,0.1);    /* hairlines from black at 10% */
+  --ink:        #000000;            /* pure black: masthead surface, primary text */
+  --ink-soft:   #5C5C5C;            /* Slate (shade 2) for secondary text */
+  --ink-quiet:  rgba(0,0,0,0.55);   /* tertiary text from black at 55% */
+}
+
+/* Masthead text was tuned for off-white #FAFAF7. Retune for pure white. */
+body.v2 .v2-masthead { color: var(--paper); }
+body.v2 .v2-mast-top { border-bottom-color: rgba(255,255,255,0.18); }
+body.v2 .v2-mast-meta { color: rgba(255,255,255,0.68); }
+body.v2 .v2-mast-nav a { color: rgba(255,255,255,0.78); }
+body.v2 .v2-mast-nav a:hover { color: var(--paper); }
+body.v2 .v2-mast-rule { background: rgba(255,255,255,0.4); }
+body.v2 .v2-mast-manifesto { color: rgba(255,255,255,0.92); }
+body.v2 .v2-mast-issn { color: rgba(255,255,255,0.55); }
+
+/* Use Mist (#F5F5F5) for the table-row hover so it reads more clearly
+   on pure white than the previous rgba(0,0,0,0.025). */
+body.v2 .v2-table tbody tr:hover { background: #F5F5F5; }
+
+/* Use Mist as a soft section accent for the status strip background,
+   which gives the page some tonal break without leaving the palette. */
+body.v2 .v2-status { background: #F5F5F5; }
+
+/* ============================================================
+   V4: Featured tile capped to the height of ~5 side-list rows.
+   Side list is a vertical auto-scrolling marquee of 30 randomized
+   covers, with only ~5 visible at a time.
+
+   Each side row is roughly 96px art + meta + 14px gap = ~110px.
+   Five visible rows + 4 gaps = ~550px. Container set to ~580px
+   to leave a small fade-mask area at top and bottom.
+   ============================================================ */
+body.v2 .v2-featured {
+  grid-template-columns: 1fr 1.4fr;
+  align-items: start;
+}
+
+/* Cap the featured art so the whole tile is ~580px tall total:
+   460px square art + ~120px meta below. */
+body.v2 .v2-feat-main .v2-feat-art {
+  aspect-ratio: 1 / 1;
+  max-width: 460px;
+  max-height: 460px;
+  width: 100%;
+}
+
+/* Side list: fixed-height container showing exactly ~5 rows,
+   contents auto-scroll through all 30. */
+body.v2 .v2-feat-list {
+  height: 580px;
+  overflow: hidden;
+  position: relative;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+}
+body.v2 .v2-feat-list-track {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: v4-scroll-y 60s linear infinite;
+}
+body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; }
+@keyframes v4-scroll-y {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@media (max-width: 880px) {
+  body.v2 .v2-featured { grid-template-columns: 1fr; }
+  body.v2 .v2-feat-main .v2-feat-art { max-width: 100%; max-height: none; }
+  body.v2 .v2-feat-list {
+    height: auto;
+    max-height: 480px;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  body.v2 .v2-feat-list-track { animation: none; }
+}

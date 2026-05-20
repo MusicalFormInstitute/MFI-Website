@@ -18,6 +18,7 @@
 <link rel="canonical" href="https://musicalform.org/">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles-overrides.css">
 <script defer src="/consent.js"></script>
 <script defer src="/nav.js"></script>
 <script type="application/ld+json">
@@ -78,13 +79,11 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="container">
-    <div style="max-width: 820px; margin: 0 auto; text-align: center;">
-      <div class="hero-eyebrow">The Musical Form Institute</div>
-      <h1 style="font-size: clamp(26px, 4.5vw, 40px);">Perfect audio is now infinitely cheap<br><em>Provenance is the scarcity</em></h1>
-      <p class="hero-tagline" style="margin-left:auto;margin-right:auto;text-wrap:balance;">Independent provenance for sound recordings. We verify whether a person made it or a machine generated and corrected it, and put the proof on the public record anyone can check.</p>
-      <div class="hero-actions" style="justify-content:center;">
+    <div style="max-width: 880px;">
+      <h1>Perfect audio is now infinitely cheap<br><em>Provenance is the scarcity</em></h1>
+      <p class="hero-tagline" style="text-wrap:balance;">Independent provenance for sound recordings. We verify whether a person made it or a machine generated and corrected it, and put the proof on the public record anyone can check.</p>
+      <div class="hero-actions">
         <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" class="btn btn-primary">View the Registry</a>
-        <a href="/cep-submission" class="btn btn-outline">Submit a Recording</a>
       </div>
     </div>
   </div>
@@ -111,9 +110,7 @@
 <!-- ============ TWO PROGRAMS ============ -->
 <section class="section">
   <div class="container">
-    <div class="section-eyebrow">Two Certifications</div>
-    <h2>What the Musical Form Institute certifies</h2>
-    <p class="section-intro">Both marks are issued under published standards and reviewed independently. Choose the one that matches what you want certified.</p>
+    <h2>Certification marks</h2>
 
     <div class="programs-grid">
 
@@ -144,28 +141,11 @@
 </section>
 
 <!-- ============ HOW IT WORKS ============ -->
-<section class="section alt">
+<section class="section">
   <div class="container">
-    <div class="section-eyebrow">Process</div>
     <h2>How certification works</h2>
-    <p class="section-intro">Three steps from submission to public record.</p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01 &middot; SUBMIT</div>
-        <h3>Submit a recording</h3>
-        <p>Send a YouTube Music playlist link for CSF, or upload a master audio file for CEP. Currently free.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02 &middot; REVIEW</div>
-        <h3>Independent analyst review</h3>
-        <p>Trained analysts assess the recording against the published standard. CSF combines AI detection with human review on edge cases. Every CEP submission is individually reviewed.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03 &middot; CERTIFIED</div>
-        <h3>Public record</h3>
-        <p>Certified recordings receive a unique ID and appear in the public registry, visible and verifiable to anyone. For CEP submissions, the master audio file is deleted after review and only a SHA-256 hash is retained.</p>
-      </div>
+    <div class="prose" style="max-width: 780px;">
+      <p>Submissions are scored under the methodology published in <a href="/s/CSF_Public_Standard_v2_0_March_31_2026.pdf" target="_blank" rel="noopener">CSF Public Standard v2.0</a> for the no-generative-AI mark, and <a href="/s/CEP_Public_Standard_v1_2_March_31_2026.pdf" target="_blank" rel="noopener">CEP Public Standard v1.2</a> for the stricter process certification. Ambiguous results are routed to analyst review against the published rubric. Outcomes are recorded with a unique identifier and posted to the public registry, where anyone can verify them. For CEP submissions the master audio file is deleted after review; only a SHA-256 hash is retained on the public record.</p>
     </div>
   </div>
 </section>
