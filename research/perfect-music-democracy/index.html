@@ -48,13 +48,9 @@
   .related-callout h4 { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 12px; }
   .related-callout a { display: block; font-size: 15px; font-weight: 600; color: #1A1A1A; text-decoration: none; padding: 6px 0; }
   .related-callout a:hover { color: var(--vintage-blue, #5D92CD); }
-  /* Embedded video pair (Opalite + Dreams) */
-  .video-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 28px 0 36px; max-width: 720px; }
-  .video-figure { margin: 0; }
+  /* Embedded YouTube video figures (Opalite, Dreams) */
   .video-frame { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
   .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-  .video-figure figcaption { font-size: 13px; color: #666; margin-top: 10px; text-align: center; font-style: italic; }
-  @media (max-width: 700px) { .video-pair { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body class="v4">
@@ -111,20 +107,19 @@
 
       <h2>Opalite by Taylor Swift</h2>
 
-      <div class="video-pair">
-        <figure class="video-figure">
-          <div class="video-frame"><iframe src="https://www.youtube.com/embed/4FUIEcnvT04" title="Opalite by Taylor Swift" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <figcaption>Taylor Swift &mdash; <em>Opalite</em> (2025)</figcaption>
-        </figure>
-        <figure class="video-figure">
-          <div class="video-frame"><iframe src="https://www.youtube.com/embed/PgagPdVM7bk" title="Dreams by Fleetwood Mac" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <figcaption>Fleetwood Mac &mdash; <em>Dreams</em> (1977)</figcaption>
-        </figure>
-      </div>
+      <figure class="video-figure">
+        <div class="video-frame"><iframe src="https://www.youtube.com/embed/4FUIEcnvT04" title="Opalite by Taylor Swift" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
+        <figcaption><em>Opalite</em> by Taylor Swift.</figcaption>
+      </figure>
 
       <p>After the chorus-drenched electric guitar intro, the vocal pickup comes in on the &amp;-of-2 &mdash; &ldquo;I had a bad habit&rdquo; &mdash; with the drums and bass entering on beat one of the verse. Three beats in, my body screams: <strong>FLEETWOOD MAC</strong>.</p>
 
       <p>I love Fleetwood Mac. One of my earliest memories is sitting in the living room of my childhood home, watching my mom and dad play backgammon while <em>Dreams</em> played on the record player. The album <em>Rumours</em> was released the year I was born, and so many of my earliest memories are saturated with their music. So when I hear the first few notes of the verse in Taylor Swift&rsquo;s song, my body reacts.</p>
+
+      <figure class="video-figure">
+        <div class="video-frame"><iframe src="https://www.youtube.com/embed/PgagPdVM7bk" title="Dreams by Fleetwood Mac" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
+        <figcaption><em>Dreams</em> by Fleetwood Mac.</figcaption>
+      </figure>
 
       <p>After vibing out to this for four minutes, that perfection in <em>Opalite</em> really started to stand out. Being a former professional session drummer, I zero in on the drums. They sound real, but they&rsquo;re quantized &mdash; locked to a grid. Every hit lands exactly where the software dictates, with no human variance.</p>
 
@@ -155,8 +150,9 @@
 
       <p><em>Opalite</em> has eight tempo transitions. However, looking closely at these results &mdash; 125.0232 to 124.9896 to 124.9892 to 125.0069 &mdash; it&rsquo;s clear these tiny variations are not meaningful tempo changes. They reflect the limits of Logic&rsquo;s tempo analysis algorithm, which can waver when it encounters non-percussive elements such as when the drums drop out for a section, or reverb tails on the vocals for instance.</p>
 
+      <p>Let&rsquo;s look at <em>Dreams</em> by Fleetwood Mac:</p>
+
       <h3>Partial tempo map for Fleetwood Mac&rsquo;s &lsquo;Dreams&rsquo;</h3>
-      <p>The full tempo map for <em>Dreams</em> contains 87 tempo transitions. A sample of the first dozen is shown below.</p>
       <table>
         <thead><tr><th>Bar</th><th class="num">Tempo (BPM)</th><th class="num">Time</th></tr></thead>
         <tbody>
@@ -172,8 +168,85 @@
           <tr><td>14 1 1</td><td class="num">119.3633</td><td class="num">00:25:19.35</td></tr>
           <tr><td>15 1 1</td><td class="num">120.7654</td><td class="num">00:27:19.56</td></tr>
           <tr><td>19 1 1</td><td class="num">121.0417</td><td class="num">00:35:18.35</td></tr>
+          <tr><td>23 1 1</td><td class="num">120.7863</td><td class="num">00:43:16.57</td></tr>
+          <tr><td>25 1 1</td><td class="num">121.281</td><td class="num">00:47:16.05</td></tr>
+          <tr><td>26 1 1</td><td class="num">120.2429</td><td class="num">00:49:15.43</td></tr>
+          <tr><td>27 1 1</td><td class="num">122.7216</td><td class="num">00:51:15.35</td></tr>
+          <tr><td>28 1 1</td><td class="num">120.5096</td><td class="num">00:53:14.26</td></tr>
+          <tr><td>29 1 1</td><td class="num">121.5779</td><td class="num">00:55:14.09</td></tr>
+          <tr><td>30 1 1</td><td class="num">120.2624</td><td class="num">00:57:13.37</td></tr>
+          <tr><td>32 1 1</td><td class="num">120.1689</td><td class="num">01:01:13.20</td></tr>
+          <tr><td>33 1 1</td><td class="num">120.7047</td><td class="num">01:03:13.14</td></tr>
+          <tr><td>35 1 1</td><td class="num">119.5274</td><td class="num">01:07:12.47</td></tr>
+          <tr><td>37 1 1</td><td class="num">121.1891</td><td class="num">01:11:12.79</td></tr>
+          <tr><td>39 1 1</td><td class="num">120.2166</td><td class="num">01:15:12.00</td></tr>
+          <tr><td>41 1 1</td><td class="num">123.0874</td><td class="num">01:19:11.66</td></tr>
+          <tr><td>42 1 1</td><td class="num">120.5998</td><td class="num">01:21:10.46</td></tr>
+          <tr><td>44 1 1</td><td class="num">118.5136</td><td class="num">01:25:10.06</td></tr>
+          <tr><td>45 1 1</td><td class="num">120.8066</td><td class="num">01:27:10.56</td></tr>
+          <tr><td>47 1 1</td><td class="num">119.4816</td><td class="num">01:31:10.03</td></tr>
+          <tr><td>49 1 1</td><td class="num">120.0106</td><td class="num">01:35:10.37</td></tr>
+          <tr><td>51 1 1</td><td class="num">121.2491</td><td class="num">01:39:10.37</td></tr>
+          <tr><td>52 1 1</td><td class="num">120.0725</td><td class="num">01:41:09.75</td></tr>
+          <tr><td>53 1 1</td><td class="num">121.2312</td><td class="num">01:43:09.73</td></tr>
+          <tr><td>54 1 1</td><td class="num">119.2114</td><td class="num">01:45:09.32</td></tr>
+          <tr><td>56 1 1</td><td class="num">117.742</td><td class="num">01:49:10.05</td></tr>
+          <tr><td>58 1 1</td><td class="num">119.2509</td><td class="num">01:53:11.79</td></tr>
+          <tr><td>59 1 1</td><td class="num">117.5072</td><td class="num">01:55:12.24</td></tr>
+          <tr><td>61 1 1</td><td class="num">120.5563</td><td class="num">01:59:14.34</td></tr>
+          <tr><td>62 1 1</td><td class="num">119.2398</td><td class="num">02:01:14.15</td></tr>
+          <tr><td>63 1 1</td><td class="num">120.8421</td><td class="num">02:03:14.41</td></tr>
+          <tr><td>64 1 1</td><td class="num">119.1864</td><td class="num">02:05:14.13</td></tr>
+          <tr><td>68 1 1</td><td class="num">119.1744</td><td class="num">02:13:15.42</td></tr>
+          <tr><td>69 1 1</td><td class="num">120.2869</td><td class="num">02:15:15.70</td></tr>
+          <tr><td>71 1 1</td><td class="num">120.799</td><td class="num">02:19:15.51</td></tr>
+          <tr><td>72 1 1</td><td class="num">121.9705</td><td class="num">02:21:15.24</td></tr>
+          <tr><td>73 1 1</td><td class="num">120.675</td><td class="num">02:23:14.40</td></tr>
+          <tr><td>74 1 1</td><td class="num">119.6559</td><td class="num">02:25:14.17</td></tr>
+          <tr><td>75 1 1</td><td class="num">121.0503</td><td class="num">02:27:14.29</td></tr>
+          <tr><td>76 1 1</td><td class="num">119.6684</td><td class="num">02:29:13.74</td></tr>
+          <tr><td>77 1 1</td><td class="num">120.837</td><td class="num">02:31:14.05</td></tr>
+          <tr><td>79 1 1</td><td class="num">120.0982</td><td class="num">02:35:13.30</td></tr>
+          <tr><td>83 1 1</td><td class="num">119.4481</td><td class="num">02:43:13.17</td></tr>
+          <tr><td>85 1 1</td><td class="num">121.0745</td><td class="num">02:47:13.54</td></tr>
+          <tr><td>86 1 1</td><td class="num">119.9906</td><td class="num">02:49:13.18</td></tr>
+          <tr><td>88 1 1</td><td class="num">119.2077</td><td class="num">02:53:13.19</td></tr>
+          <tr><td>89 1 1</td><td class="num">122.0351</td><td class="num">02:55:13.45</td></tr>
+          <tr><td>90 1 1</td><td class="num">120.5418</td><td class="num">02:57:12.59</td></tr>
+          <tr><td>92 1 1</td><td class="num">119.799</td><td class="num">03:01:12.23</td></tr>
+          <tr><td>93 1 1</td><td class="num">121.5382</td><td class="num">03:03:12.29</td></tr>
+          <tr><td>94 1 1</td><td class="num">120.2944</td><td class="num">03:05:11.59</td></tr>
+          <tr><td>96 1 1</td><td class="num">119.2966</td><td class="num">03:09:11.39</td></tr>
+          <tr><td>97 1 1</td><td class="num">121.1713</td><td class="num">03:11:11.63</td></tr>
+          <tr><td>97 3 1</td><td class="num">127.4392</td><td class="num">03:12:11.43</td></tr>
+          <tr><td>97 4 1</td><td class="num">131.7173</td><td class="num">03:12:23.25</td></tr>
+          <tr><td>98 1 1</td><td class="num">119.1794</td><td class="num">03:13:09.56</td></tr>
+          <tr><td>99 1 1</td><td class="num">120.7629</td><td class="num">03:15:10.04</td></tr>
+          <tr><td>101 1 1</td><td class="num">122.1944</td><td class="num">03:19:09.33</td></tr>
+          <tr><td>102 1 1</td><td class="num">120.3158</td><td class="num">03:21:08.41</td></tr>
+          <tr><td>103 1 1</td><td class="num">121.5702</td><td class="num">03:23:08.31</td></tr>
+          <tr><td>104 1 1</td><td class="num">120.1696</td><td class="num">03:25:07.59</td></tr>
+          <tr><td>108 1 1</td><td class="num">120.526</td><td class="num">03:33:07.36</td></tr>
+          <tr><td>109 1 1</td><td class="num">122.9337</td><td class="num">03:35:07.19</td></tr>
+          <tr><td>110 1 1</td><td class="num">119.6162</td><td class="num">03:37:06.04</td></tr>
+          <tr><td>112 1 1</td><td class="num">119.1313</td><td class="num">03:41:06.29</td></tr>
+          <tr><td>113 1 1</td><td class="num">120.6459</td><td class="num">03:43:06.58</td></tr>
+          <tr><td>115 1 1</td><td class="num">119.2213</td><td class="num">03:47:06.16</td></tr>
+          <tr><td>117 1 1</td><td class="num">119.1054</td><td class="num">03:51:06.68</td></tr>
+          <tr><td>118 1 1</td><td class="num">120.9042</td><td class="num">03:53:07.18</td></tr>
+          <tr><td>119 1 1</td><td class="num">119.2645</td><td class="num">03:55:06.68</td></tr>
+          <tr><td>120 1 1</td><td class="num">120.3108</td><td class="num">03:57:07.13</td></tr>
+          <tr><td>121 1 1</td><td class="num">121.5587</td><td class="num">03:59:07.02</td></tr>
+          <tr><td>122 1 1</td><td class="num">119.8414</td><td class="num">04:01:06.31</td></tr>
+          <tr><td>123 1 1</td><td class="num">118.3286</td><td class="num">04:03:06.36</td></tr>
+          <tr><td>124 1 1</td><td class="num">119.4847</td><td class="num">04:05:07.13</td></tr>
+          <tr><td>125 1 1</td><td class="num">117.3247</td><td class="num">04:07:07.30</td></tr>
+          <tr><td>126 1 1</td><td class="num">120.1276</td><td class="num">04:09:08.41</td></tr>
+          <tr><td>127 1 1</td><td class="num">117.6927</td><td class="num">04:11:08.37</td></tr>
         </tbody>
       </table>
+
+      <p>Did you count all those transitions? There are 87 tempo transitions.</p>
 
       <figure>
         <img src="/img/research/perfect-music-democracy/normalized-tempo-deviation.jpg" alt="Chart comparing normalized tempo deviation over time for &lsquo;Dreams&rsquo; and &lsquo;Opalite&rsquo;. The Dreams line oscillates throughout with a large spike near 3:12; the Opalite line is essentially flat.">
