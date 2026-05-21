@@ -65,6 +65,7 @@
       <nav class="v2-mast-nav">
         <a href="/about">About</a>
         <a href="/standards">Standards</a>
+        <a href="/cep">CEP</a>
         <a href="/cep-submission">Submit CEP</a>
         <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
         <a href="/research">Research</a>
@@ -159,28 +160,28 @@
   <div class="v2-wrap">
     <div class="v2-marks">
 
-      <div class="v2-mark cep">
+      <div class="v2-mark cep" data-href="/cep" role="link" tabindex="0" aria-label="Read more about the Certificate of Embodied Production">
         <img class="v2-mark-badge" src="/img/cep-badge.png" alt="CEP mark">
         <div>
           <span class="v2-mark-tag">Process certification</span>
-          <h3>Certificate of Embodied Production</h3>
+          <h3><a href="/cep">Certificate of Embodied Production</a></h3>
           <div class="v2-mark-version">Public Standard v1.2 &middot; March 31, 2026</div>
           <p>Certifies a recording was produced without generative AI, grid correction, or pitch correction. Each submission is individually reviewed by an analyst against the published standard. Master audio is deleted after review; only a SHA-256 hash is retained on the public record.</p>
           <div class="v2-mark-actions">
-            <a class="v2-mark-link" href="/cep-submission">Submit a recording &rarr;</a>
-            <a class="v2-mark-link v2-mark-link-secondary" href="/s/CEP_Public_Standard_v1_2_March_31_2026.pdf" target="_blank" rel="noopener">Read CEP standard</a>
+            <a class="v2-mark-link" href="/cep">Learn more about CEP &rarr;</a>
+            <a class="v2-mark-link v2-mark-link-secondary" href="/cep-submission">Submit a recording</a>
           </div>
         </div>
       </div>
 
-      <div class="v2-mark csf">
+      <div class="v2-mark csf" data-href="/csf" role="link" tabindex="0" aria-label="Read more about Certified Significant Form">
         <img class="v2-mark-badge" src="/img/csf-badge.png" alt="CSF mark">
         <div>
           <span class="v2-mark-tag">Public registry mark</span>
-          <h3>Certified Significant Form</h3>
+          <h3><a href="/csf">Certified Significant Form</a></h3>
           <div class="v2-mark-version">Public Standard v2.0 &middot; March 31, 2026</div>
           <p>Certifies a recording was produced without generative AI. Awarded under a published scoring methodology, with analyst review for ambiguous results. Operated as a broader public registry mark.</p>
-          <a class="v2-mark-link" href="/s/CSF_Public_Standard_v2_0_March_31_2026.pdf" target="_blank" rel="noopener">Read CSF standard &rarr;</a>
+          <a class="v2-mark-link" href="/csf">Learn more about CSF &rarr;</a>
         </div>
       </div>
 
@@ -392,6 +393,24 @@
         });
       }
     }).catch(function(){});
+})();
+
+// Click-anywhere on the Marks blocks navigates to the landing page.
+// Inner anchors and buttons handle their own clicks (the closest() check
+// stops the block-level handler from firing).
+(function(){
+  document.querySelectorAll('.v2-mark[data-href]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      if (e.target.closest('a, button')) return;
+      window.location.href = el.dataset.href;
+    });
+    el.addEventListener('keydown', function(e){
+      if ((e.key === 'Enter' || e.key === ' ') && e.target === el) {
+        e.preventDefault();
+        window.location.href = el.dataset.href;
+      }
+    });
+  });
 })();
 </script>
 
