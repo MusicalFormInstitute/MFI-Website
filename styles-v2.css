@@ -137,9 +137,10 @@ body.v2 > .header { display: none; }
   font-size: clamp(19px, 1.6vw, 22px);
   line-height: 1.55;
   color: var(--ink);
-  max-width: 880px;
-  margin: 0 0 18px;
+  max-width: 820px;
+  margin: 0 auto 18px;
   font-weight: 400;
+  text-align: center;
 }
 .v2-lede p:last-child { margin-bottom: 0; }
 .v2-lede p strong { font-weight: 600; }
