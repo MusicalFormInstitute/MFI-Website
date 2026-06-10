@@ -2,6 +2,16 @@
   "rewrites": [
     { "source": "/beta", "destination": "/submit/index.html" }
   ],
+  "headers": [
+    {
+      "source": "/cep-badge-kit",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/cep-badge-kit/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
+  ],
   "redirects": [
     { "source": "/about-jeffrey-anthony", "destination": "/about#founder", "permanent": true },
     { "source": "/founder", "destination": "/about#founder", "permanent": true },
