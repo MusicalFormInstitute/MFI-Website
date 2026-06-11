@@ -9,9 +9,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <title>The Musical Form Institute</title>
-<meta name="description" content="The Musical Form Institute is an independent certification body for sound recordings. Two marks. Published standards. Public registry.">
+<meta name="description" content="The Musical Form Institute is an independent certification body for sound recordings. It certifies how recordings are made. Published standards. Public registry.">
 <meta property="og:title" content="The Musical Form Institute">
-<meta property="og:description" content="Independent certification for sound recordings. Two marks. Published standards. Public registry.">
+<meta property="og:description" content="Independent certification of how recordings are made. Published standards. Public registry.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://musicalform.org/">
 <meta property="og:image" content="https://musicalform.org/img/og-default.jpg">
@@ -89,8 +89,8 @@
 <section class="v2-lede">
   <div class="v2-wrap">
     <p>The Musical Form Institute certifies recordings by how they were made.</p>
-    <p>The <strong>Certificate of Embodied Production (CEP)</strong> verifies that recordings were produced without generative AI, grid correction, or pitch correction. <strong>Certified Significant Form (CSF)</strong> verifies that recordings were produced without generative AI.</p>
-    <p>Both standards make provenance visible in a market where perfect audio is cheap, claims are easy, and the act behind a recording can no longer be verified from the recording alone.</p>
+    <p>The <strong>Certificate of Embodied Production (CEP)</strong> is the Institute&rsquo;s lead certification. It verifies that a recording was produced without grid correction, pitch correction, or generative AI, with every submission individually reviewed by an analyst. Beneath it sits <strong>Certified Significant Form (CSF)</strong>, the baseline layer, which verifies that a recording was produced without generative AI. Every CEP-certified recording meets the CSF standard by definition.</p>
+    <p>Watermarking and fingerprinting track what a file is. The Institute certifies how a recording was made. That is production provenance, made visible in a market where perfect audio is cheap, claims are easy, and the act behind a recording can no longer be verified from the recording alone.</p>
   </div>
 </section>
 
@@ -98,7 +98,7 @@
 <section class="v2-status">
   <div class="v2-wrap" style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px;">
     <div class="v2-status-count">
-      <strong id="v2Count">…</strong><span class="unit">CSF certifications</span>
+      <strong id="v2Count">…</strong><span class="unit">certified recordings on the public registry</span>
     </div>
     <div class="v2-status-meta">
       <span>A new sample on each visit</span>
@@ -137,7 +137,7 @@
 <section class="v2-ledger">
   <div class="v2-wrap">
     <div class="v2-ledger-head">
-      <div class="v2-ledger-label">From the CSF registry</div>
+      <div class="v2-ledger-label">From the registry</div>
       <a class="v2-ledger-more" href="https://registry.musicalform.org/" target="_blank" rel="noopener">View full registry &rarr;</a>
     </div>
     <table class="v2-table" id="v2Table">
@@ -145,7 +145,6 @@
         <tr>
           <th class="col-id">Certification ID</th>
           <th class="col-date">Date</th>
-          <th class="col-tier">Tier</th>
           <th class="col-artist">Artist</th>
           <th class="col-title">Title</th>
           <th class="col-label">Label</th>
@@ -178,10 +177,10 @@
       <div class="v2-mark csf" data-href="/csf" role="link" tabindex="0" aria-label="Read more about Certified Significant Form">
         <img class="v2-mark-badge" src="/img/csf-badge.png" alt="CSF mark">
         <div>
-          <span class="v2-mark-tag">Public registry mark</span>
+          <span class="v2-mark-tag">The baseline layer</span>
           <h3><a href="/csf">Certified Significant Form</a></h3>
           <div class="v2-mark-version">Public Standard v2.0 &middot; March 31, 2026</div>
-          <p>Certifies a recording was produced without generative AI. Awarded under a published scoring methodology, with analyst review for ambiguous results. Operated as a broader public registry mark.</p>
+          <p>Certifies a recording was produced without generative AI. The baseline layer of the Institute&rsquo;s certification ladder, operated as a public registry at scale. Every CEP-certified recording meets this standard by definition.</p>
           <a class="v2-mark-link" href="/csf">Learn more about CSF &rarr;</a>
         </div>
       </div>
@@ -287,14 +286,6 @@
     if(y) return 'https://img.youtube.com/vi/'+y+'/hqdefault.jpg';
     return '';
   }
-  function tierClass(t){
-    var x=String(t||'').toLowerCase();
-    if(x.indexOf('verified')>-1) return 'v';
-    if(x.indexOf('confident')>-1) return 'c';
-    if(x.indexOf('probable')>-1) return 'p';
-    if(x.indexOf('attestation')>-1) return 'a';
-    return 'v';
-  }
   function shortDate(s){
     if(!s) return '';
     var d=new Date(s); if(isNaN(d)) return s;
@@ -326,7 +317,7 @@
       var maxOffset=Math.max(0,cnt-poolSize);
       var offset=Math.floor(Math.random()*(maxOffset+1));
 
-      return fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,label,cover_art,source_url,certification_date,tier&order=certification_date.desc&limit='+poolSize+'&offset='+offset,{headers:h});
+      return fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,label,cover_art,source_url,certification_date&order=certification_date.desc&limit='+poolSize+'&offset='+offset,{headers:h});
     })
     .then(function(r){return r.json()})
     .then(function(d){
@@ -379,13 +370,11 @@
         tb.innerHTML='';
         rest.forEach(function(t){
           var tr=document.createElement('tr');
-          var tc=tierClass(t.tier);
           var href='https://registry.musicalform.org/csf/'+encodeURIComponent(t.csf_id||'');
           tr.dataset.href=href;
           tr.innerHTML=
             '<td class="col-id">'+esc(t.csf_id||'')+'</td>'+
             '<td class="col-date">'+esc(shortDate(t.certification_date))+'</td>'+
-            '<td class="col-tier"><span class="pill '+tc+'">'+esc(t.tier||'')+'</span></td>'+
             '<td class="col-artist">'+esc(t.primary_artist||'')+'</td>'+
             '<td class="col-title">'+esc(t.track_title||'')+'</td>'+
             '<td class="col-label">'+esc(t.label||'')+'</td>';

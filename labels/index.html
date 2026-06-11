@@ -42,7 +42,7 @@
 <section class="page-hero">
   <div class="container">
     <div class="page-hero-eyebrow">For Labels</div>
-    <h1>Two certifications. One trust layer for your catalog</h1>
+    <h1>Two marks, one ladder. One trust layer for your catalog</h1>
     <p>Independent verification of how the music was made, on the public record. Built for indie labels, distributors, and rights organizations who want a credential that does not depend on any one platform.</p>
     <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
       <a href="mailto:certifications@musicalform.org?subject=Label%20Portal%20Access%20Request" class="btn btn-primary">Request Portal Access</a>
@@ -57,14 +57,10 @@
     <h2>The current scale</h2>
     <p class="section-intro">Live counts from the public registry, updated every time a new record is certified.</p>
     <div class="hero-stats" style="max-width: 800px;">
-      <div class="hero-stats-list" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="hero-stats-list" style="grid-template-columns: repeat(3, 1fr);">
         <div>
-          <div class="hero-stat-value" id="csfCount">9,622</div>
-          <div class="hero-stat-label">CSF Verified</div>
-        </div>
-        <div>
-          <div class="hero-stat-value" id="cepCount">1</div>
-          <div class="hero-stat-label">CEP Certified</div>
+          <div class="hero-stat-value" id="csfCount">12,900+</div>
+          <div class="hero-stat-label">CSF Certifications</div>
         </div>
         <div>
           <div class="hero-stat-value" id="labelCount">235+</div>
@@ -72,7 +68,7 @@
         </div>
         <div>
           <div class="hero-stat-value" id="artistCount">1,278</div>
-          <div class="hero-stat-label">Artists Certified</div>
+          <div class="hero-stat-label">Artists Represented</div>
         </div>
       </div>
     </div>
@@ -186,8 +182,6 @@
   function fmt(n){return Number(n).toLocaleString()}
   fetch(SUPA+'/v_csf_public_registry?select=csf_id',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
     .then(function(r){var range=r.headers.get('content-range')||'*/0';var el=document.getElementById('csfCount');if(el)el.textContent=fmt(range.split('/')[1]||'0')}).catch(function(){});
-  fetch(SUPA+'/v_cep_public_registry?select=cep_id',{headers:h})
-    .then(function(r){return r.json()}).then(function(d){var el=document.getElementById('cepCount');if(el)el.textContent=fmt(d.length||0)}).catch(function(){});
   fetch(SUPA+'/v_label_summary?select=label',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
     .then(function(r){var range=r.headers.get('content-range')||'*/0';var el=document.getElementById('labelCount');if(el)el.textContent=fmt(range.split('/')[1]||'0')}).catch(function(){});
   // Distinct artist count
