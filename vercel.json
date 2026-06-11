@@ -1,7 +1,5 @@
 {
-  "rewrites": [
-    { "source": "/beta", "destination": "/submit/index.html" }
-  ],
+  "rewrites": [],
   "headers": [
     {
       "source": "/cep-badge-kit",
@@ -19,6 +17,7 @@
     { "source": "/get-certified", "destination": "/cep-submission", "permanent": true },
     { "source": "/apply-for-certification", "destination": "/cep-submission", "permanent": true },
     { "source": "/submit", "destination": "/cep-submission", "permanent": false },
+    { "source": "/beta", "destination": "/cep-submission", "permanent": false },
     { "source": "/certificate-of-embodied-production-cep", "destination": "/standards", "permanent": true },
     { "source": "/certified-significant-form", "destination": "/standards", "permanent": true },
     { "source": "/why-it-matters", "destination": "/about", "permanent": true },
