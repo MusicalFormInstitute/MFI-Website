@@ -8,37 +8,38 @@
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<title>About Jeffrey Anthony, Founder | The Musical Form Institute</title>
-<meta name="description" content="The Musical Form Institute is an independent certification body for sound recordings, founded by Jeffrey Anthony. Former session and touring drummer (Sheryl Crow, Chuck Prophet, Tony Furtado) and 17-year music analyst at Pandora's Music Genome Project.">
-<meta property="og:title" content="About Jeffrey Anthony, Founder | The Musical Form Institute">
-<meta property="og:description" content="Independent certification body for sound recordings. Founded by Jeffrey Anthony, former session drummer and 17-year Pandora music analyst. Operated by Muse Foundry LLC.">
-<meta property="og:type" content="profile">
-<meta property="og:image" content="https://musicalform.org/img/jeffrey-anthony.jpg">
+<title>About | The Musical Form Institute</title>
+<meta name="description" content="The Musical Form Institute is an independent certification body for sound recordings. It administers two certification marks, the Certificate of Embodied Production and Certified Significant Form, under published standards, and operates the public registry. Operated by Muse Foundry LLC.">
+<meta property="og:title" content="About | The Musical Form Institute">
+<meta property="og:description" content="An independent certification body for sound recordings. Two marks, published standards, a public registry. Operated by Muse Foundry LLC.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://musicalform.org/img/og-default.jpg">
 <meta property="og:url" content="https://musicalform.org/about">
 <link rel="canonical" href="https://musicalform.org/about">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": "https://musicalform.org/about#founder",
-  "name": "Jeffrey Anthony",
-  "jobTitle": "Founder and Director",
-  "worksFor": {
-    "@type": "Organization",
-    "name": "The Musical Form Institute",
-    "url": "https://musicalform.org",
-    "sameAs": "https://registry.musicalform.org"
+  "@type": "Organization",
+  "name": "The Musical Form Institute",
+  "alternateName": "MFI",
+  "url": "https://musicalform.org",
+  "description": "An independent certification body for sound recordings. Administers the Certificate of Embodied Production (CEP) and Certified Significant Form (CSF) certification marks under published standards, and operates the public registry. Operated by Muse Foundry LLC.",
+  "parentOrganization": { "@type": "Organization", "name": "Muse Foundry LLC" },
+  "founder": {
+    "@type": "Person",
+    "@id": "https://musicalform.org/about#founder",
+    "name": "Jeffrey Anthony",
+    "url": "https://www.thetakematters.com/",
+    "sameAs": ["https://www.thetakematters.com/"]
   },
-  "image": "https://musicalform.org/img/jeffrey-anthony.jpg",
-  "url": "https://musicalform.org/about#founder",
-  "description": "Founder and Director of the Musical Form Institute. Session and touring drummer for 25+ years (Sheryl Crow, Chuck Prophet, Tony Furtado, Eric McFadden). Music analyst at Pandora's Music Genome Project for 17 years, analyzing over 100,000 songs across every recorded genre.",
-  "sameAs": [
-    "https://www.thetakematters.com/"
-  ],
-  "alumniOf": [
-    { "@type": "EducationalOrganization", "name": "University of Arizona", "description": "Master of Public Administration" },
-    { "@type": "EducationalOrganization", "name": "University of Miami", "description": "Bachelor of Music in Studio Music and Jazz Drumset" }
-  ]
+  "sameAs": ["https://registry.musicalform.org"],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "certifications@musicalform.org",
+    "telephone": "+1-520-265-7278",
+    "contactType": "customer service",
+    "areaServed": "Worldwide"
+  }
 }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -46,111 +47,124 @@
 <link rel="stylesheet" href="/styles-v4-pages.css">
 <script defer src="/consent.js"></script>
 <style>
-  /* Page-specific: pull quote treatment */
-  .pullquote {
-    max-width: 720px;
-    margin: 32px auto;
-    padding: 32px 0;
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-    text-align: center;
-    font-size: 18px;
-    font-style: italic;
-    line-height: 1.6;
-    color: var(--text);
-  }
-  @media (max-width: 700px) {
-    .pullquote { font-size: 16px; padding: 24px 0; }
-  }
+  /* slim masthead bar (matches home and registry) */
+  .mf-bar{background:#141414;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:62px}
+  .mf-bar-mark{font-weight:700;font-size:15px;letter-spacing:.02em;color:#fff;text-decoration:none}
+  .mf-bar-nav{display:flex;gap:22px;flex-wrap:wrap}
+  .mf-bar-nav a{color:rgba(255,255,255,.72);text-decoration:none;font-size:13px;font-weight:500}
+  .mf-bar-nav a:hover{color:#fff}
+  .mf-bar-nav a.cur{color:#fff}
+
+  /* dark about hero */
+  .ab-hero{background:#101010;color:#fff;padding:clamp(56px,9vw,108px) 32px}
+  .ab-hero-in{max-width:920px;margin:0 auto}
+  .ab-eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5D92CD;margin-bottom:18px}
+  .ab-hero h1{font-size:clamp(32px,4.6vw,54px);font-weight:700;line-height:1.07;letter-spacing:-.025em;max-width:18ch;color:#fff}
+  .ab-hero p{margin-top:24px;font-size:clamp(16px,1.5vw,20px);line-height:1.6;color:rgba(255,255,255,.8);max-width:60ch}
+
+  /* editorial body */
+  .ab-wrap{max-width:920px;margin:0 auto;padding:0 32px}
+  .ab-sec{padding:52px 0;border-bottom:1px solid #E5E5E2}
+  .ab-sec:last-of-type{border-bottom:0}
+  .ab-kicker{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#DF693B;margin-bottom:14px}
+  .ab-sec h2{font-size:26px;font-weight:700;letter-spacing:-.015em;margin-bottom:16px;color:#1A1A1A}
+  .ab-sec p{font-size:16px;line-height:1.7;color:#555;margin-bottom:14px;max-width:70ch}
+  .ab-sec p strong{color:#1A1A1A;font-weight:600}
+  .ab-sec p a{color:#1A1A1A;border-bottom:1.5px solid #DF693B;text-decoration:none;padding-bottom:1px}
+
+  .ab-marks{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+  .ab-mark{background:#fff;border:1px solid #E5E5E2;border-top:3px solid #5D92CD;padding:24px}
+  .ab-mark.csf{border-top-color:#DF693B}
+  .ab-mark .tag{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:10px;display:block}
+  .ab-mark h3{font-size:19px;font-weight:700;margin-bottom:8px;color:#1A1A1A}
+  .ab-mark p{font-size:14.5px;line-height:1.6;color:#555;margin:0;max-width:none}
+
+  .ab-kv{list-style:none;padding:0;margin:14px 0 0}
+  .ab-kv li{display:flex;gap:16px;padding:11px 0;border-bottom:1px solid #E5E5E2;font-size:15px}
+  .ab-kv li:last-child{border-bottom:0}
+  .ab-kv strong{flex:0 0 150px;color:#1A1A1A;font-weight:600}
+  .ab-kv span{color:#555}
+  .ab-kv a{color:#1A1A1A;border-bottom:1.5px solid #DF693B;text-decoration:none}
+
+  @media(max-width:700px){.mf-bar-nav{display:none}.ab-marks{grid-template-columns:1fr}.ab-kv strong{flex-basis:110px}}
 </style>
 </head>
 <body class="v4">
 
-<header class="v4-mast">
-  <div class="v4-wrap">
-    <a href="/" class="v4-mast-mark">The Musical Form Institute</a>
-    <nav class="v4-mast-nav">
-      <a href="/about" class="is-current">About</a>
-      <a href="/standards">Standards</a>
-      <a href="/cep">CEP</a>
-      <a href="/cep-submission">Submit CEP</a>
-      <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
-      <a href="/research">Research</a>
-      <a href="/news">News</a>
-      <a href="/contact">Contact</a>
-    </nav>
-  </div>
+<header class="mf-bar">
+  <a class="mf-bar-mark" href="/">The Musical Form Institute</a>
+  <nav class="mf-bar-nav">
+    <a href="/about" class="cur">About</a>
+    <a href="/standards">Standards</a>
+    <a href="/cep">CEP</a>
+    <a href="/cep-submission">Submit CEP</a>
+    <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
+    <a href="/research">Research</a>
+    <a href="/news">News</a>
+    <a href="/contact">Contact</a>
+  </nav>
 </header>
 
-<section class="page-hero">
-  <div class="container">
-    <div class="page-hero-eyebrow">About</div>
-    <h1>About the Musical Form Institute</h1>
-    <p>The Musical Form Institute is an independent certification body for sound recordings, operated by Muse Foundry LLC. The Institute administers two certification marks: the Certificate of Embodied Production, which verifies that a recording was produced without grid correction, pitch correction, or generative AI, and Certified Significant Form, which verifies that a recording was performed, not generated.</p>
+<section class="ab-hero">
+  <div class="ab-hero-in">
+    <div class="ab-eyebrow">About the Institute</div>
+    <h1>Independent certification for sound recordings</h1>
+    <p>The Musical Form Institute certifies recordings by how they were made, under published standards, on a public record. It administers two certification marks and operates the registry where any certified recording can be verified.</p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="pullquote">
-      The Certificate of Embodied Production certifies how the music was made.<br>
-      Certified Significant Form certifies that it was made.
-    </div>
-  </div>
-</section>
+<div class="ab-wrap">
 
-<section class="section alt">
-  <div class="container">
-    <div class="section-eyebrow">What We Do</div>
-    <h2>Two marks. One ladder</h2>
-    <div class="prose" style="margin-top: 24px;">
-      <p>The Certificate of Embodied Production is the Institute&rsquo;s lead mark and it is process-based: it verifies how a recording was made, not whether it is "good," commercially viable, or aesthetically aligned with any genre norm. Certification decisions are based solely on whether the recording meets the published standard. Each recording is individually reviewed by a trained analyst, combining artist attestation, production analysis, and, where warranted, review of session documentation.</p>
-      <p>Certified Significant Form is the baseline layer beneath the CEP. It verifies that a recording was produced without generative AI, using automated evaluation with analyst review for indeterminate results. CSF operates at scale, building a public registry of certified recordings that labels, distributors, and digital service providers can reference. Every CEP-certified recording meets the CSF standard by definition.</p>
-      <p>Every certification is tied to the recording's ISRC. Anyone can verify a recording's certification status through the public registry at <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">registry.musicalform.org</a>.</p>
-      <p>The Institute also publishes original research on the <a href="/research/gridification" style="color: var(--vintage-blue); border-bottom: 1px solid currentColor; text-decoration: none;">gridification of popular music</a> &mdash; a documented shift across six decades from embodied human timing to machine-locked grid alignment in the production of popular recordings. The empirical work documents at scale what the certification programs verify at the recording level.</p>
-    </div>
-  </div>
-</section>
+  <section class="ab-sec">
+    <div class="ab-kicker">What the Institute does</div>
+    <h2>Certification of the recording, not the artist</h2>
+    <p>The Institute administers two certification marks and issues them to <strong>individual sound recordings</strong>, never to artists, labels, producers, or studios. Each certification is tied to the recording&rsquo;s ISRC and is publicly verifiable in the registry.</p>
+    <p>The marks form one ladder. The Certificate of Embodied Production is the lead mark; Certified Significant Form is the baseline layer beneath it. Every recording certified under the higher mark satisfies the lower one by definition.</p>
+  </section>
 
-<section class="section" id="founder">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-photo">
-        <img src="/img/jeffrey-anthony.jpg" alt="Jeffrey Anthony, Founder and Director of the Musical Form Institute">
+  <section class="ab-sec">
+    <div class="ab-kicker">The two marks</div>
+    <h2>One ladder, two standards</h2>
+    <div class="ab-marks">
+      <div class="ab-mark cep">
+        <span class="tag">Process certification &middot; Lead mark</span>
+        <h3>Certificate of Embodied Production</h3>
+        <p>Verifies a recording was produced without grid correction, pitch correction, or generative AI. Each submission is individually reviewed by an analyst against the published standard.</p>
       </div>
-      <div>
-        <div class="section-eyebrow">Founder</div>
-        <h2 style="margin-bottom: 6px;">Jeffrey Anthony</h2>
-        <div style="font-size: 13px; color: var(--vintage-blue); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;">Founder and Director</div>
-
-        <div class="prose">
-          <p>Jeffrey Anthony is the founder and director of the Musical Form Institute, an independent certification body for sound recordings.</p>
-
-          <p>Jeffrey built the foundation for this work across two careers. As a session and touring drummer for more than 25 years, he recorded and performed with artists including Sheryl Crow, Chuck Prophet, Tony Furtado, Eric McFadden, and dozens of other artists, working through the transition from tape to Pro Tools as grid correction and post-production reconstruction became normalized. As a music analyst at Pandora's Music Genome Project for 17 years, he analyzed over 100,000 songs across every recorded genre, developing a structural understanding of how production decisions shape what listeners hear. That combination of studio experience and large-scale analytical work is the basis of the Institute's review methodology.</p>
-
-          <p>The philosophical framework behind the certification draws on the work of Susanne K. Langer, whose account of music as a presentational form clarifies what recordings lose when performance is treated as raw material for correction. Jeffrey has been invited to present this framework at an international philosophy conference in Vienna in May 2026.</p>
-
-          <p>Jeffrey holds a Master of Public Administration from the University of Arizona, with subsequent work in governance, compliance, and standards infrastructure. He holds a Bachelor's degree in Studio Music and Jazz Drumset from the University of Miami.</p>
-        </div>
+      <div class="ab-mark csf">
+        <span class="tag">The baseline layer</span>
+        <h3>Certified Significant Form</h3>
+        <p>Verifies a recording was produced without generative AI. Automated evaluation with analyst review for indeterminate results. Operates at scale across catalogs.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section alt">
-  <div class="container">
-    <div class="section-eyebrow">Operating Entity</div>
+  <section class="ab-sec">
+    <div class="ab-kicker">Standards and the public record</div>
+    <h2>Published, versioned, and verifiable</h2>
+    <p>Both marks are issued under <a href="/standards">public standards</a> that anyone can read, cite, or audit a certification against. CEP requires individual analyst review; CSF uses automated evaluation under a documented methodology. Certified recordings are published to the <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">public registry</a>, the authoritative record of every active certification.</p>
+  </section>
+
+  <section class="ab-sec">
+    <div class="ab-kicker">Research</div>
+    <h2>The empirical basis</h2>
+    <p>The Institute publishes original research on the <a href="/research/gridification">gridification of popular music</a>: within-song tempo variability across six decades of Billboard year-end top-five recordings, from 1960 through 2025. The empirical work documents at scale what the certifications verify at the level of a single recording.</p>
+  </section>
+
+  <section class="ab-sec" id="founder">
+    <div class="ab-kicker">Operating entity</div>
     <h2>Muse Foundry LLC</h2>
-    <p class="section-intro">The Musical Form Institute is administered by Muse Foundry LLC. The Institute's two certification marks are property of Muse Foundry LLC. The Certificate of Embodied Production certification mark application is pending with the United States Patent and Trademark Office.</p>
-
-    <ul class="kv-list">
-      <li><strong>Legal Entity</strong><span>Muse Foundry LLC</span></li>
-      <li><strong>Mailing Address</strong><span>PO Box 12734, Tucson, AZ 85732</span></li>
-      <li><strong>Email</strong><span><a href="mailto:certifications@musicalform.org" style="color:var(--vintage-blue)">certifications@musicalform.org</a></span></li>
-      <li><strong>Phone</strong><span><a href="tel:+15202657278" style="color:var(--vintage-blue)">+1 520 265 7278</a></span></li>
+    <p>The Musical Form Institute is operated by Muse Foundry LLC. The Institute&rsquo;s certification marks are property of Muse Foundry LLC, with applications pending before the United States Patent and Trademark Office.</p>
+    <ul class="ab-kv">
+      <li><strong>Legal entity</strong><span>Muse Foundry LLC, Tucson, Arizona</span></li>
+      <li><strong>Founded by</strong><span><a href="https://www.thetakematters.com/" target="_blank" rel="noopener">Jeffrey Anthony</a></span></li>
+      <li><strong>Email</strong><span><a href="mailto:certifications@musicalform.org">certifications@musicalform.org</a></span></li>
+      <li><strong>Phone</strong><span><a href="tel:+15202657278">+1 520 265 7278</a></span></li>
+      <li><strong>Mail</strong><span>PO Box 12734, Tucson, AZ 85732</span></li>
     </ul>
-  </div>
-</section>
+  </section>
+
+</div>
 
 <footer class="footer">
   <div class="container">
