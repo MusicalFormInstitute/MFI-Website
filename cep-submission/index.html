@@ -92,27 +92,35 @@
 
   .mfi-cep-form .hidden { display: none !important; }
 
-  /* Split layout: form-first conversion design.
-     Desktop: info text on the left, form card on the right, side by side.
-     Mobile: form first, info text below, single column. */
-  .cep-split-section { background: #fff; }
-  .cep-split { display: grid; grid-template-columns: 2fr 3fr; gap: 56px; align-items: start; padding: 48px 0 64px; }
-  .cep-split-info { font-family: 'Poppins', sans-serif; }
-  .cep-split-info .page-hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #6B7280; margin-bottom: 14px; }
-  .cep-split-info h1 { font-size: 38px; font-weight: 800; line-height: 1.12; color: #0F4761; margin: 0 0 16px; letter-spacing: -.01em; }
-  .cep-split-info p { font-size: 16px; color: #444; line-height: 1.6; margin: 0 0 24px; }
-  .cep-split-info .price-pill { display: inline-block; margin: 0 0 16px; padding: 9px 22px; background: #F0F8F1; border: 1px solid #C7E8CD; border-radius: 100px; font-size: 13px; font-weight: 700; color: #1F6B33; }
-  .cep-split-info .cross-link { display: block; padding: 14px 18px; background: rgba(93, 146, 205, 0.07); border: 1px solid rgba(93, 146, 205, 0.20); border-radius: 8px; font-size: 13px; color: #555; line-height: 1.55; }
-  .cep-split-info .cross-link a { color: #DF693B; font-weight: 600; text-decoration: none; border-bottom: 1px solid #DF693B; padding-bottom: 1px; }
-  .cep-split-info .cross-link a:hover { color: #c75a30; border-color: #c75a30; }
-  .cep-split-form { width: 100%; }
-  .cep-split-form .mfi-cep-form { max-width: none; margin: 0; }
+  /* Ad landing page: full-width education hero, then the form below. */
+  .cep-edu-hero { background: #fff; padding: 52px 0 46px; text-align: center; border-bottom: 1px solid #E5E7EB; }
+  .cep-edu-hero .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #5D92CD; margin-bottom: 14px; }
+  .cep-edu-hero h1 { font-size: clamp(25px, 3.4vw, 40px); font-weight: 800; line-height: 1.13; color: #0F4761; letter-spacing: -.015em; max-width: 880px; margin: 0 auto 18px; }
+  .cep-edu-hero .offer { font-size: 17px; line-height: 1.55; color: #444; max-width: 600px; margin: 0 auto 12px; }
+  .cep-edu-hero .offer strong { color: #0F4761; }
+  .cep-edu-hero .specs { font-size: 14px; font-weight: 600; color: #5D92CD; margin: 0 auto 24px; }
+  .cep-chip-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 680px; margin: 0 auto 26px; }
+  .cep-chip { display: inline-flex; align-items: center; background: #F0F8F1; border: 1px solid #C7E8CD; color: #1F6B33; border-radius: 100px; padding: 10px 22px; font-size: 14px; font-weight: 600; }
+  .cep-edu-hero .hero-cta { display: inline-block; background: #DF693B; color: #fff; padding: 15px 34px; border-radius: 6px; font-size: 15px; font-weight: 600; text-decoration: none; transition: background .15s; }
+  .cep-edu-hero .hero-cta:hover { background: #c75a30; }
 
-  @media (max-width: 900px) {
-    .cep-split { grid-template-columns: 1fr; gap: 32px; padding: 28px 0 48px; }
-    .cep-split-form { order: 1; }
-    .cep-split-info { order: 2; }
-    .cep-split-info h1 { font-size: 30px; }
+  .cep-submit-section { background: #fff; padding: 48px 0 64px; }
+  .cep-submit-head { text-align: center; max-width: 620px; margin: 0 auto 28px; }
+  .cep-submit-head h2 { font-size: 26px; font-weight: 800; color: #0F4761; letter-spacing: -.01em; margin: 0 0 8px; }
+  .cep-submit-head p { font-size: 15px; color: #6B7280; line-height: 1.55; margin: 0; }
+  .cep-secondary { max-width: 620px; margin: 26px auto 0; text-align: center; font-size: 13px; color: #6B7280; line-height: 2; }
+  .cep-secondary > * { display: block; }
+  .cep-secondary a { color: #DF693B; font-weight: 600; text-decoration: none; border-bottom: 1px solid #DF693B; padding-bottom: 1px; }
+  .cep-secondary a:hover { color: #c75a30; border-color: #c75a30; }
+
+  @media (max-width: 600px) {
+    .cep-edu-hero { padding: 34px 0 26px; }
+    .cep-edu-hero h1 { font-size: 23px; line-height: 1.18; margin-bottom: 14px; }
+    .cep-edu-hero .offer { font-size: 16px; margin-bottom: 10px; }
+    .cep-edu-hero .specs { margin-bottom: 18px; }
+    .cep-chip-row { gap: 8px; margin-bottom: 20px; }
+    .cep-chip { padding: 8px 16px; font-size: 13px; }
+    .cep-submit-section { padding: 32px 0 48px; }
   }
 </style>
 </head>
@@ -133,27 +141,28 @@
   </div>
 </header>
 
-<section class="cep-split-section">
+<section class="cep-edu-hero">
   <div class="container">
-    <div class="cep-split">
+    <div class="eyebrow">Certificate of Embodied Production</div>
+    <h1>When you grid your takes and tune your vocals, you are not making music for people anymore. You are making it for machines.</h1>
+    <p class="offer"><strong>We need your voice.</strong> The Certificate of Embodied Production is here for you.</p>
+    <p class="specs">Human-reviewed &middot; Listed in a public registry &middot; Free during the beta</p>
+    <div class="cep-chip-row">
+      <span class="cep-chip">No generative AI</span>
+      <span class="cep-chip">No pitch correction</span>
+      <span class="cep-chip">No grid correction</span>
+    </div>
+    <a class="hero-cta" href="#submitForm">Submit your recording &darr;</a>
+  </div>
+</section>
 
-      <div class="cep-split-info">
-        <div class="page-hero-eyebrow">Submit for Certification</div>
-        <h1>Certificate of Embodied Production</h1>
-        <p>Submit your recording for CEP certification. We verify production was done without grid correction, pitch correction, or generative AI.</p>
-        <div class="price-pill">Currently offered at no charge</div>
-        <div class="cross-link">
-          Only need the no-generative-AI baseline?
-          <a href="/csf-submission">Submit for Certified Significant Form &rarr;</a>
-        </div>
-        <div class="cross-link" style="margin-top:12px">
-          Submitting a full album, EP, or label catalog?
-          <a href="mailto:certifications@musicalform.org?subject=Label%20Portal%20Access%20Request">Request label portal access &rarr;</a>
-        </div>
-      </div>
-
-      <div class="cep-split-form">
-        <div class="mfi-cep-form">
+<section class="cep-submit-section" id="submitForm">
+  <div class="container">
+    <div class="cep-submit-head">
+      <h2>Submit your recording</h2>
+      <p>An analyst reviews your master against the published standard. Free during the public beta.</p>
+    </div>
+    <div class="mfi-cep-form">
 
       <div id="formCard" class="form-card">
 
@@ -236,10 +245,14 @@
         </div>
       </div>
 
-        </div>
-      </div>
-
     </div>
+
+    <div class="cep-secondary">
+      <a href="/cep">Read what CEP is, in full &rarr;</a>
+      <span>Only need the no-generative-AI baseline? <a href="/csf-submission">Submit for CSF &rarr;</a></span>
+      <span>Submitting an album, EP, or label catalog? <a href="mailto:certifications@musicalform.org?subject=Label%20Portal%20Access%20Request">Request label portal access &rarr;</a></span>
+    </div>
+
   </div>
 </section>
 
