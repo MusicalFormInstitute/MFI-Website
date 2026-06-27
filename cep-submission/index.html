@@ -201,6 +201,25 @@
         <div class="err" id="e_file" style="margin-top:8px">WAV file required</div>
         <div class="hint" style="margin-top:10px;font-size:12px;color:#6B7280;line-height:1.5">Audio is uploaded to encrypted storage and automatically deleted after 14 days. Only a cryptographic hash (SHA-256) is kept as part of the permanent certification record.</div>
 
+        <div class="section-h">Cover Art <span style="color:#9CA3AF;font-weight:600">(optional)</span></div>
+        <div class="upload-zone" id="artZone">
+          <input type="file" id="artInput" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" style="display:none">
+          <div id="artEmpty">
+            <div style="font-size:28px;margin-bottom:8px;opacity:.5">&#128444;</div>
+            <div class="prompt">Click to add cover art</div>
+            <div class="sub">Square JPG, PNG, or WebP &middot; appears with your listing if certified</div>
+            <div class="dnd">or drag &amp; drop here</div>
+          </div>
+          <div id="artFilled" class="hidden">
+            <div style="font-size:28px;margin-bottom:8px;color:#2A8A4F">&#10003;</div>
+            <div class="fname" id="artName"></div>
+            <div class="fsize" id="artSize"></div>
+            <div class="fchange">Click to change image</div>
+          </div>
+        </div>
+        <div class="err" id="e_art" style="margin-top:8px">Use a JPG, PNG, or WebP image under 15 MB</div>
+        <div class="hint" style="margin-top:10px;font-size:12px;color:#6B7280;line-height:1.5">Optional. You can add it now or send it later. If you don&rsquo;t, we may use the cover art from your release.</div>
+
         <div class="attest-box">
           <div class="attest-box-title">Attestation</div>
           <label class="check-row">
@@ -331,6 +350,8 @@
   "use strict";
   var WORKER_URL = "https://mfi-worker-production.up.railway.app";
   var selectedFile = null;
+  var selectedArt = null;
+  var artAttached = false;
 
   var eDomain = "musicalform.org";
   var eCerts = "certifications" + String.fromCharCode(64) + eDomain;
@@ -429,9 +450,65 @@
     }
   });
 
+  // ── COVER ART (optional) ────────────────────────────────────────
+  // Content type must match between the artwork-url request and the S3 PUT,
+  // or the presigned signature is rejected.
+  function artContentType(file) {
+    var t = (file.type || "").toLowerCase();
+    if (t === "image/png" || t === "image/webp") return t;
+    if (t === "image/jpeg" || t === "image/jpg") return "image/jpeg";
+    var ext = (file.name.split(".").pop() || "").toLowerCase();
+    if (ext === "png") return "image/png";
+    if (ext === "webp") return "image/webp";
+    return "image/jpeg";
+  }
+  function isAllowedArt(file) {
+    var ext = (file.name.split(".").pop() || "").toLowerCase();
+    var okExt = ["jpg", "jpeg", "png", "webp"].indexOf(ext) >= 0;
+    var okType = /^image\/(jpeg|jpg|png|webp)$/.test((file.type || "").toLowerCase());
+    return okExt || okType;
+  }
+
+  $("artZone").addEventListener("click", function() { $("artInput").click(); });
+  $("artInput").addEventListener("change", function() {
+    if (!this.files.length) return;
+    var f = this.files[0];
+    if (!isAllowedArt(f) || f.size > 15 * 1024 * 1024) {
+      selectedArt = null;
+      $("artEmpty").classList.remove("hidden");
+      $("artFilled").classList.add("hidden");
+      $("artZone").classList.remove("has-file");
+      showErr("e_art");
+      return;
+    }
+    clearErr("e_art");
+    selectedArt = f;
+    $("artEmpty").classList.add("hidden");
+    $("artFilled").classList.remove("hidden");
+    $("artZone").classList.add("has-file");
+    $("artName").textContent = f.name;
+    $("artSize").textContent = (f.size / (1024 * 1024)).toFixed(1) + " MB";
+    trackEvent("cep_art_selected", { size_mb: +(f.size / (1024 * 1024)).toFixed(1), filename_ext: (f.name.split(".").pop() || "").toLowerCase() });
+  });
+
+  var artZone = $("artZone");
+  ["dragover", "dragenter"].forEach(function(ev) {
+    artZone.addEventListener(ev, function(e) { e.preventDefault(); artZone.style.borderColor = "#5D92CD"; });
+  });
+  artZone.addEventListener("dragleave", function() { if (!selectedArt) artZone.style.borderColor = "#D4DDE8"; });
+  artZone.addEventListener("drop", function(e) {
+    e.preventDefault();
+    if (e.dataTransfer.files.length > 0) {
+      var dt = new DataTransfer();
+      dt.items.add(e.dataTransfer.files[0]);
+      $("artInput").files = dt.files;
+      $("artInput").dispatchEvent(new Event("change"));
+    }
+  });
+
   function validateAll() {
     var ok = true;
-    ["e_name", "e_email", "e_artist", "e_title", "e_file", "e_check", "e_legal"].forEach(clearErr);
+    ["e_name", "e_email", "e_artist", "e_title", "e_file", "e_art", "e_check", "e_legal"].forEach(clearErr);
     if (!val("f_name")) { showErr("e_name"); ok = false; }
     if (!val("f_email") || val("f_email").indexOf("@") < 0) { showErr("e_email"); ok = false; }
     if (!val("f_artist")) { showErr("e_artist"); ok = false; }
@@ -510,6 +587,30 @@
       });
     })
     .then(function(completeData) {
+      // Cover art is optional and non-blocking: if it fails, the submission still stands.
+      if (!selectedArt) return completeData;
+      setProgress(90, "Attaching cover art...");
+      var ct = artContentType(selectedArt);
+      return fetch(WORKER_URL + "/cep/public/artwork-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ case_number: caseNumber, content_type: ct })
+      })
+      .then(function(res) { if (!res.ok) throw new Error("artwork-url failed"); return res.json(); })
+      .then(function(artData) {
+        return new Promise(function(resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.addEventListener("load", function() { (xhr.status >= 200 && xhr.status < 300) ? resolve() : reject(new Error("art upload failed")); });
+          xhr.addEventListener("error", function() { reject(new Error("art upload failed")); });
+          xhr.open("PUT", artData.upload_url);
+          xhr.setRequestHeader("Content-Type", ct);
+          xhr.send(selectedArt);
+        });
+      })
+      .then(function() { artAttached = true; trackEvent("cep_art_attached", { case_number: caseNumber }); return completeData; })
+      .catch(function() { trackEvent("cep_art_failed", { case_number: caseNumber }); return completeData; });
+    })
+    .then(function(completeData) {
       setProgress(100, "Complete.");
       try {
         if (typeof window.gtag === "function") {
@@ -527,6 +628,7 @@
         "<strong>Case Number:</strong> " + caseNumber + "<br>" +
         "<strong>Artist:</strong> " + val("f_artist") + "<br>" +
         "<strong>Track:</strong> " + val("f_title") + "<br>" +
+        (artAttached ? "<strong>Cover Art:</strong> received<br>" : "") +
         "<strong>SHA-256:</strong> <span class='hash'>" + completeData.sha256 + "</span>";
       $("confirmDetails").innerHTML = detailsHtml;
       $("confirmEmail").textContent = val("f_email");
