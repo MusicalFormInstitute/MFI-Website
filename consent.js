@@ -1,17 +1,22 @@
 /* ============================================================
    MFI Cookie Consent + Google Analytics + Google Ads loader
-   - Loads Google tags (GA + Google Ads) on every page that
-     includes this script.
-   - Uses Google Consent Mode v2: storage and ad signals load
-     denied by default, then upgrade to granted together when
-     the user clicks Accept on the cookie banner.
-   - User choice (granted | denied) is persisted in localStorage
-     so the banner only appears once per device.
-   - Respects the browser's Global Privacy Control (GPC) signal:
-     if GPC is on, the banner does not appear and consent stays
-     denied (matches the Privacy Policy section 7).
-   - Self-contained: no external CSS, builds banner HTML at
-     runtime, attaches to body.
+   - Loads Google tags (GA + Google Ads) via Consent Mode v2.
+   - REGION-AWARE consent (added 2026-06):
+       * EEA + UK  -> opt-IN required (GDPR / ePrivacy). Analytics and
+         ad signals default DENIED, the cookie banner is shown, and they
+         upgrade to granted only when the user clicks Accept.
+       * US / Canada / rest of world -> opt-OUT regimes. Analytics and ad
+         signals default GRANTED with no banner, so analytics and Ads
+         conversion measurement work without a gate.
+   - Global Privacy Control (GPC) is honored EVERYWHERE as an opt-out:
+     if GPC is on and the user has not explicitly accepted, consent is
+     forced denied and the banner is skipped (CCPA/CPRA).
+   - The legally-critical TAG behavior is enforced by Consent Mode's
+     region-scoped defaults below, which use Google's OWN geolocation.
+     The timezone check is used ONLY to decide whether to render the
+     banner UI, so an imperfect timezone read can never cause a
+     non-consented cookie in the EEA (Google still defaults it denied).
+   - User choice persists in localStorage so the banner appears once.
    ============================================================ */
 (function() {
   'use strict';
@@ -22,38 +27,73 @@
   var ACCEPT = 'granted';
   var DENY = 'denied';
 
+  // EEA member states + EEA-EFTA (Iceland, Liechtenstein, Norway) + UK.
+  // Used for the Consent Mode region-scoped default below.
+  var EEA_UK_REGIONS = [
+    'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE',
+    'IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+    'IS','LI','NO','GB'
+  ];
+
   // dataLayer + gtag stub must exist before gtag.js loads.
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = gtag;
 
-  // Read prior choice (if any) from localStorage.
+  function consentObj(state, extra) {
+    var o = {
+      'analytics_storage': state,
+      'ad_storage': state,
+      'ad_user_data': state,
+      'ad_personalization': state
+    };
+    if (extra) { for (var k in extra) { o[k] = extra[k]; } }
+    return o;
+  }
+
+  // Best-effort region check, used for BANNER visibility ONLY (see header).
+  // EEA is almost entirely Europe/* timezones; UK is Europe/London;
+  // Atlantic/* covers EEA island territories (Azores, Canary, Madeira, Faroe)
+  // and Iceland (Atlantic/Reykjavik).
+  function inConsentRequiredRegion() {
+    try {
+      var tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+      if (/^Europe\//.test(tz)) return true;
+      if (/^Atlantic\/(Azores|Canary|Madeira|Faroe|Reykjavik)/.test(tz)) return true;
+      return false;
+    } catch (e) {
+      return true; // unknown -> be safe, show the banner
+    }
+  }
+
+  // Prior choice (if any) from localStorage.
   var savedChoice = null;
   try { savedChoice = localStorage.getItem(STORAGE_KEY); } catch (e) {}
 
-  // Honor Global Privacy Control: if GPC signal is on and the user
-  // has not explicitly accepted yet, treat as a deny choice and skip
-  // the banner entirely.
+  // Global Privacy Control: if on and not explicitly accepted, force deny
+  // everywhere and skip the banner.
   var gpcOn = (typeof navigator !== 'undefined' && navigator.globalPrivacyControl === true);
   if (gpcOn && savedChoice !== ACCEPT) {
     savedChoice = DENY;
     try { localStorage.setItem(STORAGE_KEY, DENY); } catch (e) {}
   }
 
-  // Initial consent state. Accept grants both analytics and ad signals
-  // together; Reject (or no choice yet) keeps both denied.
-  var initialState = (savedChoice === ACCEPT) ? ACCEPT : DENY;
+  // --- Consent Mode v2 defaults (set BEFORE gtag.js loads) ---
+  if (savedChoice === ACCEPT) {
+    gtag('consent', 'default', consentObj(ACCEPT));            // user opted in everywhere
+  } else if (savedChoice === DENY) {
+    gtag('consent', 'default', consentObj(DENY));              // explicit reject / GPC, deny everywhere
+  } else {
+    // No choice yet. Region-specific first (EEA/UK denied), then the
+    // catch-all granted for US / Canada / rest of world.
+    gtag('consent', 'default', consentObj(DENY, {
+      'region': EEA_UK_REGIONS,
+      'wait_for_update': 500
+    }));
+    gtag('consent', 'default', consentObj(ACCEPT));
+  }
 
-  // Set Consent Mode default BEFORE loading gtag.js.
-  gtag('consent', 'default', {
-    'analytics_storage': initialState,
-    'ad_storage': initialState,
-    'ad_user_data': initialState,
-    'ad_personalization': initialState,
-    'wait_for_update': 500
-  });
-
-  // A single gtag.js load services both the GA and Google Ads tags.
+  // Single gtag.js load services both GA and Google Ads.
   var s = document.createElement('script');
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
@@ -63,8 +103,10 @@
   gtag('config', GA_ID, { 'anonymize_ip': true });
   gtag('config', AW_ID);
 
-  // If the user has already chosen, do not render the banner.
+  // Banner: render ONLY where opt-in is required (EEA/UK) and there is no
+  // prior choice. US / Canada / rest of world get no gate (already granted).
   if (savedChoice === ACCEPT || savedChoice === DENY) return;
+  if (!inConsentRequiredRegion()) return;
 
   // Build banner styles + HTML and append to body when DOM is ready.
   function showBanner() {
