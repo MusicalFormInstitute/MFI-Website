@@ -59,8 +59,10 @@
 <script defer src="/consent.js"></script>
 <style>
   .cep-hero { padding: 64px 0 44px; border-bottom: 1px solid var(--paper-line); }
-  .cep-hero-grid { display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: start; }
-  .cep-hero-badge img { width: auto; height: 240px; display: block; }
+  .cep-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .cep-hero-video { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; box-shadow: 0 10px 40px rgba(0,0,0,0.12); }
+  .cep-hero-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .cep-hero-badge img { width: auto; height: 96px; display: block; margin-bottom: 18px; }
   .cep-hero h1 { font-size: clamp(34px, 4vw, 48px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.06; color: var(--ink); margin-bottom: 12px; }
   .cep-hero .tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: var(--blue); padding: 0 0 2px 0; border-bottom: 1px solid currentColor; margin-bottom: 14px; }
   .cep-hero .version { font-size: 13px; color: var(--ink-quiet); font-variant-numeric: tabular-nums; margin-bottom: 18px; }
@@ -73,9 +75,9 @@
   .cep-hero-actions .pdf-link:hover { color: var(--blue); }
   .cep-hero-actions .registry-link { font-size: 14px; font-weight: 600; color: var(--ink); text-decoration: none; border-bottom: 1.5px solid var(--orange); padding-bottom: 1px; }
   .cep-hero-actions .registry-link:hover { color: var(--orange); }
-  @media (max-width: 800px) {
-    .cep-hero-grid { grid-template-columns: auto 1fr; gap: 24px; }
-    .cep-hero-badge img { width: auto; height: 150px; }
+  @media (max-width: 860px) {
+    .cep-hero-grid { grid-template-columns: 1fr; gap: 28px; }
+    .cep-hero-badge img { height: 84px; }
   }
   .cep-body { max-width: 760px; }
   .cep-body h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin: 56px 0 14px; }
@@ -115,10 +117,13 @@
 <section class="cep-hero">
   <div class="container">
     <div class="cep-hero-grid">
-      <div class="cep-hero-badge">
-        <img src="/img/cep-badge.png" alt="Certificate of Embodied Production mark">
+      <div class="cep-hero-video">
+        <iframe src="https://www.youtube.com/embed/SOlIA0T66cg?rel=0" title="Certificate of Embodied Production" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
       </div>
-      <div>
+      <div class="cep-hero-content">
+        <div class="cep-hero-badge">
+          <img src="/img/cep-badge.png" alt="Certificate of Embodied Production mark">
+        </div>
         <span class="tag">Process certification</span>
         <h1>Certificate of Embodied Production</h1>
         <div class="version">Public Standard v1.3 &middot; June 11, 2026</div>
