@@ -213,7 +213,7 @@
           <div id="uploadEmpty">
             <div style="font-size:28px;margin-bottom:8px;opacity:.5">&#9835;</div>
             <div class="prompt">Click to select your WAV file</div>
-            <div class="sub">Final stereo master &middot; 48kHz / 24-bit preferred</div>
+            <div class="sub"><strong style="color:#DF693B">Final stereo master, .WAV only. No MP3.</strong> &middot; 48kHz / 24-bit preferred</div>
             <div class="dnd">or drag &amp; drop here</div>
           </div>
           <div id="uploadFilled" class="hidden">
@@ -223,7 +223,7 @@
             <div class="fchange">Click to change file</div>
           </div>
         </div>
-        <div class="err" id="e_file" style="margin-top:8px">WAV file required</div>
+        <div class="err" id="e_file" style="margin-top:8px">Upload the final mastered .wav. MP3 is not accepted.</div>
         <div class="hint" style="margin-top:10px;font-size:12px;color:#6B7280;line-height:1.5">Audio is uploaded to encrypted storage and deleted after review. Only a cryptographic hash (SHA-256) is kept as part of the permanent certification record.</div>
 
         <div class="section-h">Cover Art <span style="color:#9CA3AF;font-weight:600">(optional)</span></div>
@@ -450,16 +450,33 @@
   });
 
   $("uploadZone").addEventListener("click", function() { $("fileInput").click(); });
+  function isWavFile(file) {
+    var ext = (file.name.split(".").pop() || "").toLowerCase();
+    var typeOk = /^audio\/(wav|x-wav|wave|vnd\.wave)$/.test((file.type || "").toLowerCase());
+    return ext === "wav" || typeOk;
+  }
   $("fileInput").addEventListener("change", function() {
     if (this.files.length > 0) {
-      selectedFile = this.files[0];
+      var f = this.files[0];
+      var ext = (f.name.split(".").pop() || "").toLowerCase();
+      if (!isWavFile(f)) {
+        selectedFile = null;
+        this.value = "";
+        $("uploadEmpty").classList.remove("hidden");
+        $("uploadFilled").classList.add("hidden");
+        $("uploadZone").classList.remove("has-file");
+        showErr("e_file");
+        trackEvent("cep_file_rejected", { filename_ext: ext });
+        return;
+      }
+      selectedFile = f;
       $("uploadEmpty").classList.add("hidden");
       $("uploadFilled").classList.remove("hidden");
       $("uploadZone").classList.add("has-file");
-      $("fileName").textContent = selectedFile.name;
-      $("fileSize").textContent = (selectedFile.size / (1024 * 1024)).toFixed(1) + " MB";
+      $("fileName").textContent = f.name;
+      $("fileSize").textContent = (f.size / (1024 * 1024)).toFixed(1) + " MB";
       clearErr("e_file");
-      trackEvent("cep_file_uploaded", { size_mb: +(selectedFile.size / (1024 * 1024)).toFixed(1), filename_ext: (selectedFile.name.split(".").pop() || "").toLowerCase() });
+      trackEvent("cep_file_uploaded", { size_mb: +(f.size / (1024 * 1024)).toFixed(1), filename_ext: ext });
     }
   });
 
