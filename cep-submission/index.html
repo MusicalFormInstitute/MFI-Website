@@ -155,7 +155,7 @@
     <h1>Certificate of Embodied Production</h1>
     <img class="cep-hero-badge" src="/img/cep-badge.png" alt="Certificate of Embodied Production mark">
     <p class="voice-line">We need your voice.</p>
-    <p class="offer">We provide the independent certification that your recording was performed by you, not algorithmically corrected for machines.</p>
+    <p class="offer">We independently certify that a specific recording was made without grid correction, pitch correction, or generative AI.</p>
     <p class="specs">Human-reviewed &middot; Listed in a public registry &middot; Free during the beta</p>
     <div class="cep-chip-row">
       <span class="cep-chip">No generative AI</span>
@@ -212,6 +212,11 @@
           <div class="hint">The 12-character code from your distributor, if you have one.</div>
         </div>
 
+        <div class="field">
+          <label>Genre <span style="color:#9CA3AF;font-weight:600">(optional)</span></label>
+          <input id="f_genre" placeholder="e.g. Indie Rock, Jazz, Hip-Hop" autocomplete="off">
+        </div>
+
         <label class="check-row" style="margin:0 0 14px">
           <input type="checkbox" id="f_unreleased">
           <span>This recording isn&rsquo;t released yet</span>
@@ -228,6 +233,7 @@
           <label>Link to the release <span style="color:#9CA3AF;font-weight:600">(optional)</span></label>
           <input id="f_link" placeholder="Spotify, Apple Music, YouTube, etc." autocomplete="off">
           <div class="hint">A public page for this exact recording, if it&rsquo;s out. This is how we verify and review it.</div>
+          <div class="err" id="e_isrc_link">Provide an ISRC or public release link, or mark the recording as unreleased.</div>
         </div>
 
         <div class="section-h">Master Audio File</div>
@@ -247,7 +253,7 @@
           </div>
         </div>
         <div class="err" id="e_file" style="margin-top:8px">Upload the final mastered .wav. MP3 is not accepted.</div>
-        <div class="hint" style="margin-top:10px;font-size:12px;color:#6B7280;line-height:1.5">Audio is uploaded to encrypted storage and deleted after review. Only a cryptographic hash (SHA-256) is kept as part of the permanent certification record.</div>
+        <div class="hint" style="margin-top:10px;font-size:12px;color:#6B7280;line-height:1.5">Audio is stored securely and automatically deleted no later than 90 days after upload. A SHA-256 hash is retained as part of the case record.</div>
 
         <div class="section-h">Cover Art <span style="color:#9CA3AF;font-weight:600">(optional)</span></div>
         <div class="upload-zone" id="artZone">
@@ -476,7 +482,7 @@
   function isWavFile(file) {
     var ext = (file.name.split(".").pop() || "").toLowerCase();
     var typeOk = /^audio\/(wav|x-wav|wave|vnd\.wave)$/.test((file.type || "").toLowerCase());
-    return ext === "wav" || typeOk;
+    return ext === "wav" && (!file.type || typeOk);
   }
   $("fileInput").addEventListener("change", function() {
     if (this.files.length > 0) {
@@ -597,7 +603,7 @@
 
   function validateAll() {
     var ok = true;
-    ["e_name", "e_email", "e_role", "e_role_other", "e_artist", "e_title", "e_reldate", "e_file", "e_art", "e_check", "e_legal"].forEach(clearErr);
+    ["e_name", "e_email", "e_role", "e_role_other", "e_artist", "e_title", "e_reldate", "e_isrc_link", "e_file", "e_art", "e_check", "e_legal"].forEach(clearErr);
     if (!val("f_name")) { showErr("e_name"); ok = false; }
     if (!val("f_email") || val("f_email").indexOf("@") < 0) { showErr("e_email"); ok = false; }
     if (!val("f_role")) { showErr("e_role"); ok = false; }
@@ -605,6 +611,7 @@
     if (!val("f_artist")) { showErr("e_artist"); ok = false; }
     if (!val("f_title")) { showErr("e_title"); ok = false; }
     if (!val("f_reldate")) { showErr("e_reldate"); ok = false; }
+    if (!unreleasedEl.checked && !val("f_isrc") && !val("f_link")) { showErr("e_isrc_link"); ok = false; }
     if (!selectedFile) { showErr("e_file"); ok = false; }
     if (!$("f_check1").checked || !$("f_check2").checked) { showErr("e_check"); ok = false; }
     if (!val("f_legal")) { showErr("e_legal"); ok = false; }
@@ -637,6 +644,7 @@
         submitter_role: ($("f_role").value === "Other" ? ("Other: " + val("f_role_other")) : val("f_role")),
         contact_email: val("f_email"),
         isrc: val("f_isrc"),
+        genre: val("f_genre"),
         link_to_track: $("f_unreleased").checked ? "" : val("f_link"),
         release_date: val("f_reldate") || null,
         not_released: $("f_unreleased").checked,
