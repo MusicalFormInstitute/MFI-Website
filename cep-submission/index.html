@@ -182,6 +182,31 @@
           <div class="field"><label>Track Title <span class="req">*</span></label><input id="f_title" placeholder="Song title"><div class="err" id="e_title">Required</div></div>
         </div>
 
+        <div class="section-h">Release Details</div>
+        <div class="field">
+          <label>ISRC <span style="color:#9CA3AF;font-weight:600">(optional)</span></label>
+          <input id="f_isrc" placeholder="e.g. USABC2400123" autocomplete="off">
+          <div class="hint">The 12-character code from your distributor, if you have one.</div>
+        </div>
+
+        <label class="check-row" style="margin:0 0 14px">
+          <input type="checkbox" id="f_unreleased">
+          <span>This recording isn&rsquo;t released yet</span>
+        </label>
+
+        <div class="field">
+          <label>Release date <span class="req">*</span></label>
+          <input id="f_reldate" type="date" autocomplete="off">
+          <div class="hint">If it isn&rsquo;t released yet, use the planned or expected date.</div>
+          <div class="err" id="e_reldate">A release date is required</div>
+        </div>
+
+        <div id="linkField" class="field">
+          <label>Link to the release <span style="color:#9CA3AF;font-weight:600">(optional)</span></label>
+          <input id="f_link" placeholder="Spotify, Apple Music, YouTube, Bandcamp, etc." autocomplete="off">
+          <div class="hint">A public page for this exact recording, if it&rsquo;s out. This is how we verify and review it.</div>
+        </div>
+
         <div class="section-h">Master Audio File</div>
         <div class="upload-zone" id="uploadZone">
           <input type="file" id="fileInput" accept=".wav,audio/wav" style="display:none">
@@ -393,6 +418,8 @@
   trackFieldComplete("f_email","email");
   trackFieldComplete("f_artist","artist");
   trackFieldComplete("f_title","title");
+  trackFieldComplete("f_isrc","isrc");
+  trackFieldComplete("f_link","release_link");
 
   ["f_check1","f_check2"].forEach(function(id) {
     var el = $(id);
@@ -507,13 +534,27 @@
     }
   });
 
+  // ── RELEASE DETAILS (date always required; optional link hidden when unreleased) ──
+  var unreleasedEl = $("f_unreleased");
+  function syncReleasedFields() {
+    var notYet = unreleasedEl.checked;
+    $("linkField").style.display = notYet ? "none" : "";
+    if (notYet) { $("f_link").value = ""; }
+  }
+  unreleasedEl.addEventListener("change", function() {
+    syncReleasedFields();
+    trackEvent("cep_unreleased_toggled", { not_released: unreleasedEl.checked });
+  });
+  syncReleasedFields();
+
   function validateAll() {
     var ok = true;
-    ["e_name", "e_email", "e_artist", "e_title", "e_file", "e_art", "e_check", "e_legal"].forEach(clearErr);
+    ["e_name", "e_email", "e_artist", "e_title", "e_reldate", "e_file", "e_art", "e_check", "e_legal"].forEach(clearErr);
     if (!val("f_name")) { showErr("e_name"); ok = false; }
     if (!val("f_email") || val("f_email").indexOf("@") < 0) { showErr("e_email"); ok = false; }
     if (!val("f_artist")) { showErr("e_artist"); ok = false; }
     if (!val("f_title")) { showErr("e_title"); ok = false; }
+    if (!val("f_reldate")) { showErr("e_reldate"); ok = false; }
     if (!selectedFile) { showErr("e_file"); ok = false; }
     if (!$("f_check1").checked || !$("f_check2").checked) { showErr("e_check"); ok = false; }
     if (!val("f_legal")) { showErr("e_legal"); ok = false; }
@@ -545,6 +586,10 @@
         submitter_name: val("f_name"),
         submitter_role: "Artist",
         contact_email: val("f_email"),
+        isrc: val("f_isrc"),
+        link_to_track: $("f_unreleased").checked ? "" : val("f_link"),
+        release_date: val("f_reldate") || null,
+        not_released: $("f_unreleased").checked,
         filename: selectedFile.name,
         content_type: "audio/wav",
         legal_name: val("f_legal"),
