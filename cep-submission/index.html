@@ -40,6 +40,8 @@
   .mfi-cep-form .field .req { color: #DF693B; margin-left: 3px; }
   .mfi-cep-form .field input { width: 100%; padding: 11px 14px; border: 1.5px solid #D4DDE8; border-radius: 6px; font-size: 15px; font-family: 'Poppins', sans-serif; color: #1a1a1a; background: #fff; outline: none; transition: border-color .15s; }
   .mfi-cep-form .field input:focus { border-color: #5D92CD; }
+  .mfi-cep-form .field select { width: 100%; padding: 11px 14px; border: 1.5px solid #D4DDE8; border-radius: 6px; font-size: 15px; font-family: 'Poppins', sans-serif; color: #1a1a1a; background: #fff; outline: none; transition: border-color .15s; }
+  .mfi-cep-form .field select:focus { border-color: #5D92CD; }
   .mfi-cep-form .field .hint { font-size: 12px; color: #888; margin-top: 6px; }
   .mfi-cep-form .err { color: #DC2626; font-size: 12px; margin-top: 4px; display: none; }
   .mfi-cep-form .err.show { display: block; }
@@ -174,6 +176,27 @@
         <div class="row row-2">
           <div class="field"><label>Your Name <span class="req">*</span></label><input id="f_name" placeholder="Full name" autocomplete="name"><div class="err" id="e_name">Required</div></div>
           <div class="field"><label>Email <span class="req">*</span></label><input id="f_email" type="email" placeholder="you@example.com" autocomplete="email"><div class="err" id="e_email">Valid email required</div></div>
+        </div>
+
+        <div class="field">
+          <label>Your Role <span class="req">*</span></label>
+          <select id="f_role">
+            <option value="">Select your role or relationship...</option>
+            <option value="Credited artist">Credited artist</option>
+            <option value="Band member">Band member</option>
+            <option value="Manager or authorized representative">Manager or authorized representative</option>
+            <option value="Label representative">Label representative</option>
+            <option value="Producer">Producer</option>
+            <option value="Master-rights owner">Master-rights owner</option>
+            <option value="Other">Other</option>
+          </select>
+          <div class="hint">Your relationship to the credited artist on this recording.</div>
+          <div class="err" id="e_role">Select your role</div>
+        </div>
+        <div class="field hidden" id="roleOtherWrap">
+          <label>Please describe your role <span class="req">*</span></label>
+          <input id="f_role_other" placeholder="Your relationship to the artist" autocomplete="off">
+          <div class="err" id="e_role_other">Please describe your role</div>
         </div>
 
         <div class="section-h">About the Recording</div>
@@ -564,11 +587,21 @@
   });
   syncReleasedFields();
 
+  // ── ROLE ("Other" reveals a short explanation field) ──
+  var roleEl = $("f_role");
+  roleEl.addEventListener("change", function() {
+    var isOther = roleEl.value === "Other";
+    $("roleOtherWrap").classList.toggle("hidden", !isOther);
+    if (!isOther) { $("f_role_other").value = ""; clearErr("e_role_other"); }
+  });
+
   function validateAll() {
     var ok = true;
-    ["e_name", "e_email", "e_artist", "e_title", "e_reldate", "e_file", "e_art", "e_check", "e_legal"].forEach(clearErr);
+    ["e_name", "e_email", "e_role", "e_role_other", "e_artist", "e_title", "e_reldate", "e_file", "e_art", "e_check", "e_legal"].forEach(clearErr);
     if (!val("f_name")) { showErr("e_name"); ok = false; }
     if (!val("f_email") || val("f_email").indexOf("@") < 0) { showErr("e_email"); ok = false; }
+    if (!val("f_role")) { showErr("e_role"); ok = false; }
+    if (val("f_role") === "Other" && !val("f_role_other")) { showErr("e_role_other"); ok = false; }
     if (!val("f_artist")) { showErr("e_artist"); ok = false; }
     if (!val("f_title")) { showErr("e_title"); ok = false; }
     if (!val("f_reldate")) { showErr("e_reldate"); ok = false; }
@@ -601,7 +634,7 @@
         track_title: val("f_title"),
         release_title: val("f_title"),
         submitter_name: val("f_name"),
-        submitter_role: "Artist",
+        submitter_role: ($("f_role").value === "Other" ? ("Other: " + val("f_role_other")) : val("f_role")),
         contact_email: val("f_email"),
         isrc: val("f_isrc"),
         link_to_track: $("f_unreleased").checked ? "" : val("f_link"),
