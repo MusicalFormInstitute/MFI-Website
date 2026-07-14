@@ -24,6 +24,11 @@
     { "source": "/a2im", "destination": "/", "permanent": false },
     { "source": "/research/perfect-music-democracy.pdf", "destination": "/research/perfect-music-democracy", "permanent": true },
     { "source": "/research/listening-to-ai-25-years.pdf", "destination": "/research/listening-to-aimusic-25-years", "permanent": true },
-    { "source": "/research/listening-to-ai-25-years", "destination": "/research/listening-to-aimusic-25-years", "permanent": true }
+    { "source": "/research/listening-to-ai-25-years", "destination": "/research/listening-to-aimusic-25-years", "permanent": true },
+    { "source": "/labels/browse", "destination": "/labels", "permanent": true },
+    { "source": "/labels/sub-pop-records", "destination": "/labels", "permanent": true },
+    { "source": "/labels/warp-records", "destination": "/labels", "permanent": true },
+    { "source": "/labels/matador-records", "destination": "/labels", "permanent": true },
+    { "source": "/labels/merge-records", "destination": "/labels", "permanent": true }
   ]
 }
