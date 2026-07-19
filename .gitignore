@@ -35,3 +35,6 @@ package-lock.json
 # OS thumbnails
 Thumbs.db
 ehthumbs.db
+
+# Hero photo source original (13MB). The optimized img/hero.jpg is what ships.
+img/3.png

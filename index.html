@@ -773,9 +773,10 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
 .mf-wall{position:absolute;inset:0;display:grid;grid-template-columns:repeat(9,1fr);grid-auto-rows:1fr}
 .mf-wall img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05)}
 .mf-wall .ph{width:100%;height:100%;background:#1c1c1c}
-.mf-scrim{position:absolute;inset:0;background:
-  linear-gradient(90deg, rgba(16,16,16,.96) 0%, rgba(16,16,16,.88) 30%, rgba(16,16,16,.45) 52%, rgba(16,16,16,.08) 78%, rgba(16,16,16,0) 100%),
-  linear-gradient(0deg, rgba(16,16,16,.45) 0%, rgba(16,16,16,0) 38%)}
+.mf-hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.mf-scrim{position:absolute;inset:0;z-index:1;background:
+  linear-gradient(90deg, rgba(12,12,14,.94) 0%, rgba(12,12,14,.85) 30%, rgba(12,12,14,.62) 60%, rgba(12,12,14,.52) 100%),
+  linear-gradient(0deg, rgba(12,12,14,.55) 0%, rgba(12,12,14,0) 45%)}
 .mf-hero-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(40px,7vw,88px) 32px;min-height:82vh;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,60px);align-items:center}
 .mf-tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5D92CD;margin-bottom:20px}
 .mf-hero h1{font-size:clamp(38px,5.4vw,68px);font-weight:700;line-height:1.04;letter-spacing:-.025em;color:#fff;max-width:15ch;margin:0}
@@ -852,73 +853,8 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
 
 <!-- ============ MUSIC-FIRST HERO ============ -->
 <section class="mf-hero">
-  <!-- Fixed cover wall: 63 certified recordings, baked at build so the hero needs no API call.
-       One tile per artist, thumbs verified live. To swap a cover, replace an <img> line. -->
-  <div class="mf-wall" id="mfWall">
-    <img src="https://img.youtube.com/vi/TZicjJSmLcs/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/Tdk3f88gdvY/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/Qukks60Vwfs/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/4NcNs83xwKg/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/Lz2aC0nkZG8/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/nfSDtga0PjE/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/MVhY4mQJwnY/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/xF6nQjxUJPk/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/t_CgKR79QHo/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/Z1gMbMO_cYA/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/MnQuAlClnCE/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/RaookJbMLTU/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/ui-dt-kqQ68/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/zQx9qedkCCM/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/nndd_4zdOmk/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/77O8GNbHp98/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/tEiG8gYHRlQ/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/JTXMF6y9gMs/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/PnyJJiGTe6M/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/KVyt_aMNL5I/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/Y6hSHciIV2Q/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/R-wEV_wiCko/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/-7C8xip2AZ8/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/HSJETSHoweI/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/4xYYAk45fKU/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/5GKaJ9bqO3s/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/kH7a4LYgkG8/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/TmdSIqnlnv0/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/2K-fGhDbjMY/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/wCYt0HNNe94/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/euvZdu0ttIM/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/MvbzZqo6BPM/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/dN7058M6GBU/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/n7Bs7ZlfiMM/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/4BjoBccjYB0/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/ZiQqNWubm4Y/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/l_6P503OkTU/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/JerQ1sviUlw/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/7BGaTIQFCjE/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/NWVtxflgGo8/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/vkCer4Te98U/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/cSLpSbn_SBY/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/7gTjc__x4fs/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/hnf1syJrx1Y/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/2QVcfC-0xis/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/vte6V8C38II/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/aTrEQ3WQRpU/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://i.scdn.co/image/ab67616d00001e02dd5b1c817a0bda16189f0abf" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/oN0NO0Tg-bo/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/WlNTbJeCp1g/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/al_rt_-AWlg/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/vNeS3L-mavk/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/XBvYfN3mW4Q/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/EnCg01S0Jqg/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/h0ZMFQRsN98/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/QfwOeAhsBJ0/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/FE7PD4d1Fvw/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/2aQ-4NVbeig/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/0oSjgoKl8TE/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/98wH4Pttm3g/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/_t6YvY7R8So/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/hnRjtY0OiXw/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/X-VOn44m5H4/mqdefault.jpg" loading="lazy" decoding="async" alt="">
-  </div>
+  <!-- Hero background: single owned photo (source img/3.png), optimized to img/hero.jpg. Replaced the 63-thumbnail cover wall. -->
+  <img class="mf-hero-photo" src="/img/hero.jpg" alt="" fetchpriority="high" decoding="async">
   <div class="mf-scrim"></div>
   <div class="mf-hero-inner">
     <div class="mf-hero-copy">
