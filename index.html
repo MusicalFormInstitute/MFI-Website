@@ -776,7 +776,7 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
 .mf-scrim{position:absolute;inset:0;background:
   linear-gradient(90deg, rgba(16,16,16,.96) 0%, rgba(16,16,16,.88) 30%, rgba(16,16,16,.45) 52%, rgba(16,16,16,.08) 78%, rgba(16,16,16,0) 100%),
   linear-gradient(0deg, rgba(16,16,16,.45) 0%, rgba(16,16,16,0) 38%)}
-.mf-hero-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(40px,7vw,92px) 32px;min-height:82vh;display:flex;flex-direction:column;justify-content:center}
+.mf-hero-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(40px,7vw,88px) 32px;min-height:82vh;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,60px);align-items:center}
 .mf-tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5D92CD;margin-bottom:20px}
 .mf-hero h1{font-size:clamp(38px,5.4vw,68px);font-weight:700;line-height:1.04;letter-spacing:-.025em;color:#fff;max-width:15ch;margin:0}
 .mf-hero h1 em{font-style:italic;color:#DF693B}
@@ -789,6 +789,41 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
 .mf-btn-ghost:hover{border-color:#fff}
 .mf-count{margin-top:30px;display:flex;align-items:baseline;gap:10px;color:rgba(255,255,255,.7);font-size:14px}
 .mf-count strong{font-size:22px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+
+/* Hero CEP intake: light form card sitting on the cover wall (right column). */
+.mf-hero-copy{max-width:600px}
+.mf-hero-links{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap}
+.mf-hero-links a{color:rgba(255,255,255,.82);font-size:14px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.32);padding-bottom:2px}
+.mf-hero-links a:hover{color:#fff;border-color:#fff}
+.mf-cep-card,.mf-cep-done{background:#fff;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.42);max-width:440px;margin-left:auto;width:100%;box-sizing:border-box}
+.mf-cep-card{padding:26px 26px 20px}
+.mf-cep-eyebrow{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#5D92CD;margin-bottom:12px}
+.mf-cep-eyebrow img{width:26px;height:auto;display:block}
+.mf-cep-card h2{font-size:22px;font-weight:800;color:#0F4761;letter-spacing:-.01em;margin:0 0 4px}
+.mf-cep-sub{font-size:13.5px;color:#6B7280;line-height:1.5;margin:0 0 18px}
+.mf-cep-field{margin-bottom:12px}
+.mf-cep-field label{display:block;font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:#0F4761;margin-bottom:5px}
+.mf-cep-field input{width:100%;box-sizing:border-box;padding:11px 13px;border:1.5px solid #E5E7EB;border-radius:7px;font-size:15px;font-family:'Poppins',sans-serif;color:#1a1a1a;background:#fff;outline:none;transition:border-color .15s}
+.mf-cep-field input:focus{border-color:#5D92CD}
+.mf-cep-err{color:#DC2626;font-size:12.5px;margin:0 0 8px;display:none}
+.mf-cep-err.show{display:block}
+.mf-cep-submit{width:100%;padding:13px;border:none;border-radius:7px;background:#DF693B;color:#fff;font-size:15px;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:background .15s;margin-top:6px}
+.mf-cep-submit:hover:not(:disabled){background:#c95a30}
+.mf-cep-submit:disabled{opacity:.6;cursor:not-allowed}
+.mf-cep-foot{font-size:12.5px;color:#6B7280;text-align:center;margin:13px 0 0}
+.mf-cep-foot a{color:#DF693B;font-weight:600;text-decoration:none}
+.mf-cep-foot a:hover{text-decoration:underline}
+.mf-cep-done{padding:34px 28px;text-align:center}
+.mf-cep-done .ok{font-size:44px;color:#2A8A4F;line-height:1;margin-bottom:8px}
+.mf-cep-done h2{font-size:20px;color:#0F4761;margin:0 0 8px}
+.mf-cep-done p{font-size:14px;color:#555;line-height:1.55;margin:0}
+@media(max-width:900px){
+  .mf-hero-inner{grid-template-columns:1fr;gap:26px;padding-top:44px;padding-bottom:44px}
+  .mf-hero-copy{max-width:none}
+  .mf-cep-card,.mf-cep-done{margin-left:0;max-width:none}
+  /* Stacked layout: switch the scrim to a top-down darken so the copy stays readable over the wall. */
+  .mf-scrim{background:linear-gradient(180deg, rgba(16,16,16,.9) 0%, rgba(16,16,16,.82) 55%, rgba(16,16,16,.86) 100%)}
+}
 
 .mf-lede{background:#FAFAF7;border-bottom:1px solid #E5E5E2;padding:0}
 .mf-lede-wrap{max-width:1280px;margin:0 auto;padding:46px 32px;display:grid;grid-template-columns:1fr 1fr;gap:44px}
@@ -886,16 +921,67 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
   </div>
   <div class="mf-scrim"></div>
   <div class="mf-hero-inner">
-    <span class="mf-tag">Independent certification for sound recordings</span>
-    <h1>Beyond fidelity to the signal. <em>Fidelity to the act.</em></h1>
-    <p class="mf-hero-lede">The Musical Form Institute certifies recordings by how they were made. Every cover here is on the public record.</p>
-    <div class="mf-actions">
-      <a class="mf-btn mf-btn-primary" href="https://registry.musicalform.org/" target="_blank" rel="noopener">Explore the registry</a>
-      <a class="mf-btn mf-btn-ghost" href="/standards">The two marks</a>
+    <div class="mf-hero-copy">
+      <span class="mf-tag">Independent certification for sound recordings</span>
+      <h1>Beyond fidelity to the signal. <em>Fidelity to the act.</em></h1>
+      <p class="mf-hero-lede">The Musical Form Institute certifies recordings by how they were made. Every cover here is on the public record.</p>
+      <div class="mf-count"><strong id="v2Count">&hellip;</strong><span>certified recordings, and counting</span></div>
+      <div class="mf-hero-links">
+        <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Explore the registry &rarr;</a>
+        <a href="/standards">The two marks &rarr;</a>
+      </div>
     </div>
-    <div class="mf-count"><strong id="v2Count">&hellip;</strong><span>certified recordings, and counting</span></div>
+
+    <div class="mf-cep">
+      <form class="mf-cep-card" id="heroCepForm" novalidate>
+        <div class="mf-cep-eyebrow"><img src="/img/cep-badge-sm.png" width="280" height="269" alt=""><span>Certificate of Embodied Production</span></div>
+        <h2>Submit your recording</h2>
+        <p class="mf-cep-sub">Free during the beta. Tell us where to hear it and a human reviewer takes it from there.</p>
+        <div class="mf-cep-field"><label for="hcName">Your name</label><input id="hcName" autocomplete="name" placeholder="Full name"></div>
+        <div class="mf-cep-field"><label for="hcEmail">Email</label><input id="hcEmail" type="email" autocomplete="email" placeholder="you@example.com"></div>
+        <div class="mf-cep-field"><label for="hcLink">Link to your release</label><input id="hcLink" placeholder="Spotify, Apple Music, YouTube&hellip;"></div>
+        <div class="mf-cep-err" id="hcErr"></div>
+        <button type="submit" class="mf-cep-submit" id="hcBtn">Submit for CEP certification</button>
+        <p class="mf-cep-foot">Not on streaming yet? <a href="/cep-submission">Upload your master &rarr;</a></p>
+      </form>
+      <div class="mf-cep-done" id="hcDone" hidden>
+        <div class="ok">&#10003;</div>
+        <h2>Submission received</h2>
+        <p id="hcDoneMsg">You&rsquo;ll hear from a human reviewer by email.</p>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+(function(){
+  var WORKER="https://mfi-worker-production.up.railway.app";
+  var form=document.getElementById("heroCepForm");
+  if(!form) return;
+  var btn=document.getElementById("hcBtn"), err=document.getElementById("hcErr");
+  function v(id){var e=document.getElementById(id);return e?e.value.trim():"";}
+  function fail(m){err.textContent=m;err.classList.add("show");}
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    err.classList.remove("show");
+    var name=v("hcName"), email=v("hcEmail"), link=v("hcLink");
+    if(!name){return fail("Add your name.");}
+    if(!email||email.indexOf("@")<0){return fail("Enter a valid email.");}
+    if(!link){return fail("Add a link to your release.");}
+    btn.disabled=true; btn.textContent="Sending…";
+    fetch(WORKER+"/cep/submit-streaming",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({submitter_name:name,contact_email:email,link_to_track:link})})
+    .then(function(r){if(!r.ok)return r.json().then(function(x){throw new Error(x.detail||"Submission failed");});return r.json();})
+    .then(function(d){
+      try{if(typeof window.gtag==="function")window.gtag("event","form_submit",{form_type:"cep_streaming_hero",case_number:d&&d.case_number,value:1});}catch(e){}
+      var done=document.getElementById("hcDone"), msg=document.getElementById("hcDoneMsg");
+      if(d&&d.case_number){msg.innerHTML="Case <strong>"+d.case_number+"</strong>. We&rsquo;ll pull your track details and email "+email+".";}
+      form.hidden=true; done.hidden=false;
+    })
+    .catch(function(x){btn.disabled=false;btn.textContent="Submit for CEP certification";fail(x.message);});
+  });
+})();
+</script>
 
 <!-- ============ LEDE (substance, left-aligned) ============ -->
 <section class="mf-lede">
