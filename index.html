@@ -820,11 +820,11 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
   <!-- Fixed cover wall: 63 certified recordings, baked at build so the hero needs no API call.
        One tile per artist, thumbs verified live. To swap a cover, replace an <img> line. -->
   <div class="mf-wall" id="mfWall">
-    <img src="https://img.youtube.com/vi/TZicjJSmLcs/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/Tdk3f88gdvY/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/Qukks60Vwfs/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/4NcNs83xwKg/mqdefault.jpg" decoding="async" alt="">
-    <img src="https://img.youtube.com/vi/Lz2aC0nkZG8/mqdefault.jpg" decoding="async" alt="">
+    <img src="https://img.youtube.com/vi/TZicjJSmLcs/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
+    <img src="https://img.youtube.com/vi/Tdk3f88gdvY/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
+    <img src="https://img.youtube.com/vi/Qukks60Vwfs/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
+    <img src="https://img.youtube.com/vi/4NcNs83xwKg/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
+    <img src="https://img.youtube.com/vi/Lz2aC0nkZG8/mqdefault.jpg" fetchpriority="high" decoding="async" alt="">
     <img src="https://img.youtube.com/vi/nfSDtga0PjE/mqdefault.jpg" decoding="async" alt="">
     <img src="https://img.youtube.com/vi/MVhY4mQJwnY/mqdefault.jpg" decoding="async" alt="">
     <img src="https://img.youtube.com/vi/xF6nQjxUJPk/mqdefault.jpg" decoding="async" alt="">
@@ -1127,7 +1127,7 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
 
       // Featured
       if(feat){
-        var img=document.getElementById('v2FeatImg'); if(img){img.src=thumb(feat)||''; img.alt=feat.track_title||''}
+        var img=document.getElementById('v2FeatImg'); if(img){img.removeAttribute('loading'); img.setAttribute('fetchpriority','high'); img.src=thumb(feat)||''; img.alt=feat.track_title||''}
         document.getElementById('v2FeatId').textContent=feat.csf_id||'';
         document.getElementById('v2FeatTitle').textContent=feat.track_title||'';
         document.getElementById('v2FeatArtist').textContent=feat.primary_artist||'';
