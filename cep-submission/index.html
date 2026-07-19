@@ -178,6 +178,26 @@
           <div class="field"><label>Email <span class="req">*</span></label><input id="f_email" type="email" placeholder="you@example.com" autocomplete="email"><div class="err" id="e_email">Valid email required</div></div>
         </div>
 
+        <div id="lightRecording">
+          <div class="section-h">About the Recording</div>
+          <div class="row row-2">
+            <div class="field"><label>Artist / Band Name <span class="req">*</span></label><input id="f_l_artist" placeholder="Artist or band name" autocomplete="off"><div class="err" id="e_l_artist">Required</div></div>
+            <div class="field"><label>Track / Release Title <span class="req">*</span></label><input id="f_l_title" placeholder="Song or release title" autocomplete="off"><div class="err" id="e_l_title">Required</div></div>
+          </div>
+          <div class="field">
+            <label>Link to your release <span class="req">*</span></label>
+            <input id="f_l_link" placeholder="Spotify, Apple Music, YouTube, etc." autocomplete="off">
+            <div class="hint">A public page for this recording. We pull your track details and analyze it from here, no upload needed.</div>
+            <div class="err" id="e_l_link">A public release link is required</div>
+          </div>
+        </div>
+
+        <label class="check-row" style="margin:4px 0 20px;padding:12px 14px;border:1px solid #E5E7EB;border-radius:8px">
+          <input type="checkbox" id="f_not_streaming">
+          <span><strong>My music isn&rsquo;t on streaming yet.</strong> Check this to upload your master file and enter the full details instead.</span>
+        </label>
+
+        <div id="fullForm" class="hidden">
         <div class="field">
           <label>Your Role <span class="req">*</span></label>
           <select id="f_role">
@@ -292,6 +312,7 @@
           <input id="f_legal" placeholder="Full legal name" autocomplete="off">
           <div class="legal-hint">This serves as your electronic signature on the attestation above.</div>
           <div class="err" id="e_legal">Type your full legal name</div>
+        </div>
         </div>
 
         <button class="submit-btn" id="btn_submit" style="margin-top:20px">Submit for Certification</button>
@@ -603,6 +624,16 @@
 
   function validateAll() {
     var ok = true;
+    // Light (streaming) path: released music, link-based, no master or attestation.
+    if (!$("f_not_streaming").checked) {
+      ["e_name", "e_email", "e_l_artist", "e_l_title", "e_l_link"].forEach(clearErr);
+      if (!val("f_name")) { showErr("e_name"); ok = false; }
+      if (!val("f_email") || val("f_email").indexOf("@") < 0) { showErr("e_email"); ok = false; }
+      if (!val("f_l_artist")) { showErr("e_l_artist"); ok = false; }
+      if (!val("f_l_title")) { showErr("e_l_title"); ok = false; }
+      if (!val("f_l_link")) { showErr("e_l_link"); ok = false; }
+      return ok;
+    }
     ["e_name", "e_email", "e_role", "e_role_other", "e_artist", "e_title", "e_reldate", "e_isrc_link", "e_file", "e_art", "e_check", "e_legal"].forEach(clearErr);
     if (!val("f_name")) { showErr("e_name"); ok = false; }
     if (!val("f_email") || val("f_email").indexOf("@") < 0) { showErr("e_email"); ok = false; }
@@ -623,9 +654,50 @@
     $("progressLabel").textContent = label;
   }
 
+  // Toggle the full master-upload form when the artist says it isn't on streaming yet.
+  $("f_not_streaming").addEventListener("change", function() {
+    var full = this.checked;
+    $("fullForm").classList.toggle("hidden", !full);
+    $("lightRecording").classList.toggle("hidden", full);
+  });
+
+  // Light (streaming) submission: no upload, no attestation. Lands a track in the queue.
+  function submitStreaming() {
+    $("btn_submit").disabled = true;
+    $("progressBox").classList.add("show");
+    setProgress(40, "Sending your submission...");
+    fetch(WORKER_URL + "/cep/submit-streaming", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        primary_artist: val("f_l_artist"),
+        track_title: val("f_l_title"),
+        submitter_name: val("f_name"),
+        contact_email: val("f_email"),
+        link_to_track: val("f_l_link")
+      })
+    })
+    .then(function(res) { if (!res.ok) return res.json().then(function(e) { throw new Error(e.detail || "Submission failed"); }); return res.json(); })
+    .then(function(data) {
+      setProgress(100, "Received.");
+      try { if (typeof window.gtag === "function") window.gtag("event", "form_submit", { form_type: "cep_streaming", case_number: data.case_number, value: 1 }); _formSubmittedOk = true; } catch (e) {}
+      $("confirmDetails").innerHTML =
+        "<strong>Case Number:</strong> " + data.case_number + "<br>" +
+        "<strong>Artist:</strong> " + val("f_l_artist") + "<br>" +
+        "<strong>Track:</strong> " + val("f_l_title") + "<br><br>" +
+        "We&rsquo;ll pull your track details, analyze your music, and email you a quick attestation to sign. Certification follows.";
+      $("confirmEmail").textContent = val("f_email");
+      setTimeout(function() { $("formCard").classList.add("hidden"); $("confirmCard").classList.remove("hidden"); window.scrollTo(0, 0); }, 400);
+    })
+    .catch(function(err) { $("submitError").textContent = err.message; $("submitError").classList.add("show"); $("btn_submit").disabled = false; $("progressBox").classList.remove("show"); });
+  }
+
   $("btn_submit").addEventListener("click", function() {
     $("submitError").classList.remove("show");
     if (!validateAll()) return;
+
+    // Released path: no upload, no inline attestation.
+    if (!$("f_not_streaming").checked) { submitStreaming(); return; }
 
     $("btn_submit").disabled = true;
     $("progressBox").classList.add("show");
