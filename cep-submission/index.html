@@ -179,15 +179,11 @@
         </div>
 
         <div id="lightRecording">
-          <div class="section-h">About the Recording</div>
-          <div class="row row-2">
-            <div class="field"><label>Artist / Band Name <span class="req">*</span></label><input id="f_l_artist" placeholder="Artist or band name" autocomplete="off"><div class="err" id="e_l_artist">Required</div></div>
-            <div class="field"><label>Track / Release Title <span class="req">*</span></label><input id="f_l_title" placeholder="Song or release title" autocomplete="off"><div class="err" id="e_l_title">Required</div></div>
-          </div>
+          <div class="section-h">Your Release</div>
           <div class="field">
             <label>Link to your release <span class="req">*</span></label>
             <input id="f_l_link" placeholder="Spotify, Apple Music, YouTube, etc." autocomplete="off">
-            <div class="hint">A public page for this recording. We pull your track details and analyze it from here, no upload needed.</div>
+            <div class="hint">A public page for this recording. We pull the artist, title, and details from here and analyze it, no upload needed.</div>
             <div class="err" id="e_l_link">A public release link is required</div>
           </div>
         </div>
@@ -626,11 +622,9 @@
     var ok = true;
     // Light (streaming) path: released music, link-based, no master or attestation.
     if (!$("f_not_streaming").checked) {
-      ["e_name", "e_email", "e_l_artist", "e_l_title", "e_l_link"].forEach(clearErr);
+      ["e_name", "e_email", "e_l_link"].forEach(clearErr);
       if (!val("f_name")) { showErr("e_name"); ok = false; }
       if (!val("f_email") || val("f_email").indexOf("@") < 0) { showErr("e_email"); ok = false; }
-      if (!val("f_l_artist")) { showErr("e_l_artist"); ok = false; }
-      if (!val("f_l_title")) { showErr("e_l_title"); ok = false; }
       if (!val("f_l_link")) { showErr("e_l_link"); ok = false; }
       return ok;
     }
@@ -670,8 +664,6 @@
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        primary_artist: val("f_l_artist"),
-        track_title: val("f_l_title"),
         submitter_name: val("f_name"),
         contact_email: val("f_email"),
         link_to_track: val("f_l_link")
@@ -683,8 +675,7 @@
       try { if (typeof window.gtag === "function") window.gtag("event", "form_submit", { form_type: "cep_streaming", case_number: data.case_number, value: 1 }); _formSubmittedOk = true; } catch (e) {}
       $("confirmDetails").innerHTML =
         "<strong>Case Number:</strong> " + data.case_number + "<br>" +
-        "<strong>Artist:</strong> " + val("f_l_artist") + "<br>" +
-        "<strong>Track:</strong> " + val("f_l_title") + "<br><br>" +
+        "<strong>Release:</strong> " + val("f_l_link") + "<br><br>" +
         "We&rsquo;ll pull your track details, analyze your music, and email you a quick attestation to sign. Certification follows.";
       $("confirmEmail").textContent = val("f_email");
       setTimeout(function() { $("formCard").classList.add("hidden"); $("confirmCard").classList.remove("hidden"); window.scrollTo(0, 0); }, 400);
