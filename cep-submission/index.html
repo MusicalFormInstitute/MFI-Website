@@ -16,7 +16,10 @@
 <meta property="og:url" content="https://musicalform.org/cep-submission">
 <meta property="og:image" content="https://musicalform.org/img/og-default.jpg">
 <link rel="canonical" href="https://musicalform.org/cep-submission">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"></noscript>
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/styles-v4-pages.css">
 <script defer src="/consent.js"></script>
@@ -153,7 +156,7 @@
   <div class="container cep-split-wrap">
 
     <div class="cep-split-pitch">
-      <img class="cep-hero-badge" src="/img/cep-badge.png" alt="Certificate of Embodied Production mark">
+      <img class="cep-hero-badge" src="/img/cep-badge.png" alt="Certificate of Embodied Production mark" width="712" height="685">
       <h1>Certificate of Embodied Production</h1>
       <p class="voice-line">We need your voice.</p>
       <p class="offer">We independently certify that a specific recording was made without grid correction, pitch correction, or generative AI.</p>
@@ -357,7 +360,7 @@
     </div>
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="/img/mfi-logo-horizontal-inverted.png" alt="Musical Form Institute" class="footer-brand-logo">
+        <img src="/img/mfi-logo-horizontal-inverted.png" alt="Musical Form Institute" class="footer-brand-logo" width="480" height="299">
         <p>Independent certification for sound recordings. Operated by Muse Foundry LLC.</p>
         <p>CEP and CSF certification mark applications pending.</p>
         <p>The Musical Form Institute is an Associate Member of A2IM.</p>
@@ -464,12 +467,18 @@
     });
   });
 
-  // Scroll depth: fires once per threshold
+  // Scroll depth: fires once per threshold. Height is cached and remeasured
+  // outside the scroll handler so scrolling never forces a layout pass.
   var _scrollFired = {};
+  var _docH = 0;
+  function _measureDocH() { _docH = document.documentElement.scrollHeight - window.innerHeight; }
+  _measureDocH();
+  window.addEventListener("load", _measureDocH);
+  window.addEventListener("resize", _measureDocH, { passive: true });
+  if (window.ResizeObserver) new ResizeObserver(_measureDocH).observe(document.body);
   window.addEventListener("scroll", function() {
-    var docH = document.documentElement.scrollHeight - window.innerHeight;
-    if (docH <= 0) return;
-    var pct = Math.round((window.scrollY / docH) * 100);
+    if (_docH <= 0) return;
+    var pct = Math.round((window.scrollY / _docH) * 100);
     [25,50,75,100].forEach(function(d) {
       if (pct >= d && !_scrollFired[d]) {
         _scrollFired[d] = true;
