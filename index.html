@@ -912,8 +912,8 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
         <div class="mf-choose-note">If a recording does not meet the CEP standard, it is reviewed for CSF.</div>
 
         <div class="mf-cep-field"><label for="hcName">Your name</label><input id="hcName" autocomplete="name"></div>
-        <div class="mf-cep-field"><label for="hcEmail">Email</label><input id="hcEmail" type="email" autocomplete="email" placeholder="you@example.com"></div>
-        <div class="mf-cep-field"><label for="hcLink">Link to your release</label><input id="hcLink" placeholder="Spotify, Apple Music, YouTube&hellip;"></div>
+        <div class="mf-cep-field"><label for="hcEmail">Email <span style="color:#DC2626">*</span></label><input id="hcEmail" type="email" autocomplete="email" placeholder="you@example.com"></div>
+        <div class="mf-cep-field"><label for="hcLink">Link to your release <span style="color:#DC2626">*</span></label><input id="hcLink" placeholder="Spotify, Apple Music, YouTube&hellip;"></div>
         <div class="mf-cep-err" id="hcErr"></div>
         <button type="submit" class="mf-cep-submit" id="hcBtn">Submit for review</button>
         <p class="mf-cep-foot">Not on streaming yet? <a href="/cep-submission">Upload your master &rarr;</a></p>
@@ -953,7 +953,6 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
     e.preventDefault();
     err.classList.remove("show");
     var name=v("hcName"), email=v("hcEmail"), link=v("hcLink");
-    if(!name){return fail("Add your name.");}
     if(!email||email.indexOf("@")<0){return fail("Enter a valid email.");}
     if(!link){return fail("Add a link to your release.");}
     btn.disabled=true; btn.textContent="Sending…";
