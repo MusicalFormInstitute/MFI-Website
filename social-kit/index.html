@@ -638,13 +638,13 @@
 
     var t = { title:38, artist:23, artistGap:18, stmt:17, stmtGap:16, stmtW:640 };
     var footTop = H - 44 - 40 - Math.round(15 * 1.45) - 15;
+    var artGap = 58;   /* the title was sitting too close under the artwork */
     var copyH = cardCopy(ctx, cw, prog, rec, cx, 0, right - left, t, true);
-    var blockH = 440 + 26 + copyH;
-    /* Biased above centre: Jeffrey wants the art sitting higher than a
-       straight vertical centre puts it. */
-    var top = headBottom + (footTop - headBottom - blockH) / 2 - 44;
+    var blockH = 440 + artGap + copyH;
+    /* Biased above centre so the art sits high in the card. */
+    var top = headBottom + (footTop - headBottom - blockH) / 2 - 24;
     cardArt(ctx, cw, art, cx, top, 440);
-    cardCopy(ctx, cw, prog, rec, cx, top + 440 + 26, right - left, t, false);
+    cardCopy(ctx, cw, prog, rec, cx, top + 440 + artGap, right - left, t, false);
     cardFooter(ctx, cw, prog, id, cx, left, right, footTop, 15);
   }
 
@@ -670,14 +670,18 @@
 
     var t = { title:52, artist:31, artistGap:26, stmt:23, stmtGap:24, stmtW:840 };
     var footTop = H - 52 - 56 - Math.round(20 * 1.45) - 20;
-    var sealH = 190;
+    /* Larger seal and a wider gap under the art: the seal was leaving a big
+       empty band above the footer while the title sat tight under the
+       artwork. No upward bias here, so the space above the art and below
+       the seal come out equal. */
+    var sealH = 260, artGap = 76, sealGap = 34;
     var copyH = cardCopy(ctx, cw, prog, rec, cx, 0, right - left, t, true);
-    var blockH = 660 + 40 + copyH + 34 + sealH;
-    var top = (my + 60) + (footTop - (my + 60) - blockH) / 2 - 60;
+    var blockH = 660 + artGap + copyH + sealGap + sealH;
+    var top = (my + 60) + (footTop - (my + 60) - blockH) / 2;
     cardArt(ctx, cw, art, cx, top, 660);
-    var afterCopy = top + 660 + 40 + cardCopy(ctx, cw, prog, rec, cx, top + 660 + 40, right - left, t, false);
+    var afterCopy = top + 660 + artGap + cardCopy(ctx, cw, prog, rec, cx, top + 660 + artGap, right - left, t, false);
     var sw = sealH * prog.sealRatio;
-    ctx.drawImage(seal, cx - sw / 2, afterCopy + 34, sw, sealH);
+    ctx.drawImage(seal, cx - sw / 2, afterCopy + sealGap, sw, sealH);
     cardFooter(ctx, cw, prog, id, cx, left, right, footTop, 20);
   }
 
@@ -690,12 +694,18 @@
     cardSeal(ctx, prog, seal, W, 40 + 28, 40 + 48, 128);
 
     /* Art left, copy right: the only format the spec does not cover, so it
-       keeps the same parts in a two-column arrangement. */
-    var artSize = 400, artX = left + artSize / 2, artY = (H - artSize) / 2 + 20;
+       keeps the same parts in a two-column arrangement. The art was small
+       against a very wide copy column, so it is larger here and nudged in
+       from the frame. */
+    var artSize = 460, artInset = 36;
+    var artL = left + artInset, artX = artL + artSize / 2, artY = (H - artSize) / 2 + 16;
     cardArt(ctx, cw, art, artX, artY, artSize);
 
-    var colL = left + artSize + 72, colR = right, colCx = (colL + colR) / 2;
-    var t = { title:34, artist:21, artistGap:16, stmt:15, stmtGap:14, stmtW:colR - colL };
+    /* Landscape type runs larger than the square's. This canvas is 1600 wide,
+       so at the square's sizes the text renders far smaller relative to the
+       frame, which is the opposite of what a wide card needs. */
+    var colL = artL + artSize + 70, colR = right - 50, colCx = (colL + colR) / 2;
+    var t = { title:54, artist:32, artistGap:22, stmt:24, stmtGap:18, stmtW:colR - colL };
     var footTop = H - 40 - 34 - Math.round(14 * 1.45) - 14;
     var copyH = cardCopy(ctx, cw, prog, rec, colCx, 0, colR - colL, t, true);
     cardCopy(ctx, cw, prog, rec, colCx, artY + (artSize - copyH) / 2, colR - colL, t, false);
