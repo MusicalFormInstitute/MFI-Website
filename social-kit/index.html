@@ -78,6 +78,13 @@
   .sk-record h2 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 700; letter-spacing: -0.015em; color: var(--ink); line-height: 1.15; }
   .sk-record .sk-meta { font-size: 14.5px; color: var(--ink-soft); margin-top: 6px; }
   .sk-record .sk-meta span { color: var(--ink); font-weight: 600; }
+  .sk-colorways { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin: 20px 0 4px; }
+  .sk-cw-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-quiet); }
+  .sk-swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sk-swatch { display: inline-flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; color: var(--ink-soft); background: #fff; border: 1px solid var(--paper-line); border-radius: 0; padding: 7px 13px 7px 9px; cursor: pointer; }
+  .sk-swatch .chip { width: 15px; height: 15px; border: 1.5px solid; display: inline-block; }
+  .sk-swatch:hover { border-color: var(--ink-quiet); }
+  .sk-swatch.active { border-color: var(--ink); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
   .sk-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: 22px 0 30px; }
   .sk-actions .btn-primary { background: var(--orange); color: #fff; border: 1px solid var(--orange); border-radius: 0; padding: 12px 22px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; }
   .sk-actions .btn-primary:hover { background: #C95A30; border-color: #C95A30; }
@@ -142,6 +149,10 @@
       <div class="sk-program" id="skProgram"></div>
       <h2 id="skTitleLine"></h2>
       <div class="sk-meta" id="skMetaLine"></div>
+    </div>
+    <div class="sk-colorways">
+      <span class="sk-cw-label">Colour</span>
+      <div class="sk-swatches" id="skSwatches"></div>
     </div>
     <div class="sk-actions">
       <button class="btn-primary" id="skZip">Download all (ZIP)</button>
@@ -248,39 +259,70 @@
   var HEADERS = { apikey: ANON, Authorization: 'Bearer ' + ANON };
   var WORKER = 'https://certs.musicalform.org';
 
-  /* Brand constants. Only the four site colors plus the site neutrals. */
-  var INK = '#1A1A1A', SOFT = '#555555', QUIET = '#888888', RULE = '#E5E5E2', PAPER = '#FAFAF7';
-  /* Claim strings are the LOCKED canonical certification sentences. Do not
-     reword them without Muse Foundry approval. The CSF tag is a placeholder
-     pending the official CSF designation ruling. */
+  /* ---------------------------------------------------------------
+     Card design per the Claude Design handoff (design_handoff_cep_generator
+     / _cert_generator). Geometry, type scale and colorway tokens are taken
+     from that spec. Two deliberate departures, both Jeffrey's calls:
+       1. The record's data comes from the public registry, never typed by
+          the artist, so a card cannot name a recording that was not certified.
+       2. No "Standard v2.0" in the footer. Version numbers stay off the
+          assets, and the live versions are CEP v1.3 / CSF v2.1 anyway.
+     The footer verify line uses the per-record registry deep link.
+     --------------------------------------------------------------- */
+
+  var LOGO = '/img/mfi-logo-card.png';   /* always the full-colour logo: every colorway is light */
+  var MONO = 'ui-monospace, Menlo, monospace';
+
+  /* Locked copy. Do not reword without Muse Foundry approval. Neither mark
+     is ever named by its acronym in prose; "CEP"/"CSF" appear only as the
+     ID prefix, which is why both cards share one eyebrow. */
+  var EYEBROW = 'THIS CERTIFIES THAT THE SOUND RECORDING';
+  var SCOPE = 'Certification applies to this recording only.';
+
   var PROGRAMS = {
     CSF: {
-      accent: '#DF693B',
       name: 'Certified Significant Form',
-      tag: 'CERTIFIED RECORDING',
       claim: 'Produced without generative AI.',
-      badge: '/img/csf-badge.png',
-      badgeRatio: 683 / 1024
+      seal: '/img/csf-badge.png',
+      sealRatio: 683 / 1024,
+      path: '/csf/'
     },
     CEP: {
-      accent: '#5D92CD',
       name: 'Certificate of Embodied Production',
-      tag: 'CEP-VERIFIED RECORDING',
       claim: 'Produced without grid correction, pitch correction, or generative AI.',
-      badge: '/img/cep-badge.png',
-      badgeRatio: 712 / 685
+      seal: '/img/cep-badge.png',
+      sealRatio: 712 / 685,
+      path: '/cep/'
     }
   };
-  var REGISTRY_HOST = 'registry.musicalform.org';
-  var INSTITUTE = 'THE MUSICAL FORM INSTITUTE';
 
-  /* Per-record registry deep link, e.g. registry.musicalform.org/cep/CEP-000001 */
-  function verifyPath(prog, id){
-    return REGISTRY_HOST + (prog === PROGRAMS.CEP ? '/cep/' : '/csf/') + id;
-  }
-
+  /* Colorway token sets, verbatim from the handoff spec. */
+  var COLORWAYS = {
+    brand:  { label: 'White',  swatch: '#FFFFFF',
+      bg:'#FFFFFF', borderOuter:'#000000', borderInner:'#5D92CD', accent:'#DF693B', mark:'#000000',
+      artBg:'#FFFFFF', artBorder:'#5D92CD', artBorderW:2, shadow:'rgba(93,146,205,.20)',
+      label_:'#5D92CD', title:'#000000', artist:'#5D92CD', statement:'#000000', fine:'#5D92CD',
+      footerBorder:'#5D92CD', footerText:'#5D92CD', footerId:'#DF693B' },
+    blue:   { label: 'Blue',   swatch: '#EAF1F9',
+      bg:'#EAF1F9', borderOuter:'#2E5E92', borderInner:'#C9A24B', accent:'#DF693B', mark:'#17394A',
+      artBg:'#DCE7F4', artBorder:'#C2D6EC', artBorderW:1, shadow:'rgba(0,0,0,.14)',
+      label_:'#8AA6C4', title:'#17394A', artist:'#3B566E', statement:'#3B566E', fine:'#8AA6C4',
+      footerBorder:'#C7DBF0', footerText:'#6E93BC', footerId:'#17394A' },
+    cream:  { label: 'Cream',  swatch: '#F7F5F1',
+      bg:'#F7F5F1', borderOuter:'#17181A', borderInner:'#C9A24B', accent:'#DF693B', mark:'#17181A',
+      artBg:'#E9E5DD', artBorder:'#D6D0C5', artBorderW:1, shadow:'rgba(0,0,0,.14)',
+      label_:'#A39E92', title:'#17181A', artist:'#4A463E', statement:'#4A463E', fine:'#A39E92',
+      footerBorder:'#D9D4CA', footerText:'#8A8578', footerId:'#17181A' },
+    orange: { label: 'Orange', swatch: '#FBEEE7',
+      bg:'#FBEEE7', borderOuter:'#DF693B', borderInner:'#DF693B', accent:'#DF693B', mark:'#B0492A',
+      artBg:'#F5DDD0', artBorder:'#EBC7B4', artBorderW:1, shadow:'rgba(0,0,0,.14)',
+      label_:'#C58A72', title:'#17181A', artist:'#7A4030', statement:'#4A463E', fine:'#C58A72',
+      footerBorder:'#EBD3C6', footerText:'#B87A5E', footerId:'#B0492A' }
+  };
+  var COLORWAY_ORDER = ['brand', 'blue', 'cream', 'orange'];
+  var activeScheme = 'brand';   /* default: white */
   var el = function(id){ return document.getElementById(id); };
-  var state = { rec: null, prog: null, id: null };
+  var state = { rec: null, prog: null, id: null, art: null, seal: null, logo: null, progObj: null };
 
   /* ---------- data ---------- */
 
@@ -419,162 +461,281 @@
     return y;
   }
 
-  function base(ctx, w, h, inset){
-    ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = PAPER;
-    ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = RULE;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(inset, inset, w - inset * 2, h - inset * 2);
-    ctx.lineWidth = 1;
-    ctx.strokeRect(inset + 8.5, inset + 8.5, w - (inset + 8.5) * 2 + 0.5, h - (inset + 8.5) * 2 + 0.5);
+  /* ---------- card drawing (geometry from the design handoff) ----------
+     The square is the reference: 1080x1080, outer frame 2px at inset 44,
+     inner frame 1px at inset 52, content padded 40/72 inside the 44 inset.
+     Story and landscape reuse the same parts at their own scale. */
+
+  function cardBase(ctx, cw, W, H, insetOuter, insetInner){
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cw.bg;
+    ctx.fillRect(0, 0, W, H);
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
-  }
-
-  function drawArt(ctx, img, x, y, size){
-    var sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
-    if (sw / sh > 1.05) { sx = (sw - sh) / 2; sw = sh; }        /* center square from 16:9 */
-    else if (sh / sw > 1.05) { sy = (sh - sw) / 2; sh = sw; }
-    ctx.drawImage(img, sx, sy, sw, sh, x, y, size, size);
-    ctx.strokeStyle = RULE;
+    ctx.strokeStyle = cw.borderOuter;
     ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, size, size);
+    ctx.strokeRect(insetOuter + 1, insetOuter + 1, W - (insetOuter + 1) * 2, H - (insetOuter + 1) * 2);
+    ctx.strokeStyle = cw.borderInner;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(insetInner + 0.5, insetInner + 0.5, W - insetInner * 2 - 1, H - insetInner * 2 - 1);
   }
 
-  function drawBadge(ctx, badge, prog, x, y, h){
-    var w = h * prog.badgeRatio;
-    ctx.drawImage(badge, x, y, w, h);
-    return w;
-  }
+  /* Header: full-colour logo on the left, accent rule + mark name + accent
+     rule on the right. Returns the header's bottom edge. */
+  function cardHeader(ctx, cw, prog, logo, x, y, right, logoH, markSize, ruleW){
+    var lw = logo.naturalWidth / logo.naturalHeight * logoH;
+    ctx.drawImage(logo, x, y, lw, logoH);
 
-  /* Shared text block: tag, title, artist credit, rule, claim, then
-     optionally the ID and verify lines.
-     opts: x, y, w, align, scale, claimSize, showId */
-  function textBlock(ctx, prog, rec, id, opts){
-    var s = opts.scale || 1;
-    var x = opts.x, y = opts.y, w = opts.w;
-    var align = opts.align || 'left';
-    ctx.textAlign = align === 'center' ? 'center' : 'left';
+    font(ctx, 800, markSize);
+    var name = prog.name.toUpperCase();
+    var ls = markSize * 0.12;
+    var textW = ctx.measureText(name).width + ls * (name.length - 1);
+    var gap = Math.round(markSize * 0.78);
+    var total = ruleW * 2 + gap * 2 + textW;
+    var mx = right - total;
+    var my = y + logoH / 2;
+
+    ctx.fillStyle = cw.accent;
+    ctx.fillRect(mx, my - 1, ruleW, 2);
+    ctx.fillStyle = cw.mark;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    spaced(ctx, name, mx + ruleW + gap, my, ls, 'left');
+    ctx.fillStyle = cw.accent;
+    ctx.fillRect(right - ruleW, my - 1, ruleW, 2);
     ctx.textBaseline = 'alphabetic';
-
-    ctx.fillStyle = prog.accent;
-    font(ctx, 600, Math.round(21 * s));
-    spaced(ctx, prog.tag, x, y, 3.5 * s, align);
-    y += Math.round(54 * s);
-
-    /* Recording first: the track title is dominant and the artist is a
-       credit line beneath it. The mark attaches to the recording, never
-       the person (Standards: no display suggesting a person is certified). */
-    ctx.fillStyle = INK;
-    y = drawWrapped(ctx, rec.track_title || '', 700, Math.round(46 * s), Math.round(32 * s), x, y, w, 2, 1.12, true);
-    y += Math.round(8 * s);
-
-    ctx.fillStyle = SOFT;
-    y = drawWrapped(ctx, rec.primary_artist || '', 400, Math.round(30 * s), Math.round(24 * s), x, y, w, 2, 1.18, true);
-    y += Math.round(2 * s);
-
-    ctx.fillStyle = RULE;
-    var rw = Math.min(w, Math.round(560 * s));
-    ctx.fillRect(align === 'center' ? x - rw / 2 : x, y, rw, 2);
-    y += Math.round(38 * s);
-
-    ctx.fillStyle = SOFT;
-    y = drawWrapped(ctx, prog.claim, 400, Math.round((opts.claimSize || 22) * s), Math.round(20 * s), x, y, w, 2, 1.4, true);
-
-    if (opts.showId !== false) {
-      y += Math.round(18 * s);
-      ctx.fillStyle = prog.accent;
-      font(ctx, 600, Math.round(24 * s));
-      ctx.fillText(id, x, y);
-      y += Math.round(36 * s);
-      ctx.fillStyle = SOFT;
-      font(ctx, 400, Math.round(20 * s));
-      ctx.fillText('Verify at ' + verifyPath(prog, id), x, y);
-    }
-    ctx.textAlign = 'left';
-    return y;
+    return y + logoH;
   }
 
-  function instituteLine(ctx, x, y, size, align){
-    ctx.fillStyle = QUIET;
-    font(ctx, 600, size);
+  /* Seal, absolute from the top-right corner. */
+  function cardSeal(ctx, prog, seal, W, top, rightInset, h){
+    var w = h * prog.sealRatio;
+    ctx.drawImage(seal, W - rightInset - w, top, w, h);
+  }
+
+  /* Cover art: square, centre-cropped, colorway border and drop shadow. */
+  function cardArt(ctx, cw, img, cx, y, size){
+    ctx.save();
+    ctx.shadowColor = cw.shadow;
+    ctx.shadowBlur = 36;
+    ctx.shadowOffsetY = 16;
+    ctx.fillStyle = cw.artBg;
+    ctx.fillRect(cx - size / 2, y, size, size);
+    ctx.restore();
+    if (img) {
+      var sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
+      if (sw / sh > 1.02) { sx = (sw - sh) / 2; sw = sh; }
+      else if (sh / sw > 1.02) { sy = (sh - sw) / 2; sh = sw; }
+      ctx.drawImage(img, sx, sy, sw, sh, cx - size / 2, y, size, size);
+    }
+    ctx.strokeStyle = cw.artBorder;
+    ctx.lineWidth = cw.artBorderW;
+    var o = cw.artBorderW / 2;
+    ctx.strokeRect(cx - size / 2 - o, y - o, size + cw.artBorderW, size + cw.artBorderW);
+  }
+
+  /* Centred copy block. Measures first so the caller can vertically centre
+     it, then draws. Returns its height when measure is true. */
+  function cardCopy(ctx, cw, prog, rec, cx, top, maxW, t, measure){
+    var y = top;
+    var title = '“' + (rec.track_title || '') + '”';
+    var artist = rec.primary_artist || '';
+
+    ctx.textAlign = 'center';
+
+    /* eyebrow */
+    if (!measure) {
+      ctx.fillStyle = cw.label_;
+      font(ctx, 600, t.eyebrow);
+      spaced(ctx, EYEBROW, cx, y + t.eyebrow, t.eyebrow * 0.2, 'center');
+    }
+    y += t.eyebrow * 1.2;
+
+    /* title, in quotes, may wrap to two lines */
+    y += t.titleGap;
+    font(ctx, 800, t.title);
+    var tSize = t.title, tLines = wrap(ctx, title, maxW);
+    while (tLines.length > 2 && tSize > t.title * 0.7) {
+      tSize -= 2; font(ctx, 800, tSize); tLines = wrap(ctx, title, maxW);
+    }
+    if (tLines.length === 2) { var b = balanceTwo(ctx, title, maxW); if (b) { tLines = b; } }
+    if (tLines.length > 2) { tLines = tLines.slice(0, 2); tLines[1] = ellipsize(ctx, tLines[1], maxW); }
+    for (var i = 0; i < tLines.length; i++) {
+      if (!measure) { ctx.fillStyle = cw.title; font(ctx, 800, tSize); ctx.fillText(tLines[i], cx, y + tSize); }
+      y += tSize * 1.05;
+    }
+
+    /* artist */
+    y += t.artistGap;
+    font(ctx, 500, t.artist);
+    var aLines = wrap(ctx, artist, maxW);
+    if (aLines.length > 1) { aLines = [ellipsize(ctx, artist, maxW)]; }
+    if (!measure) { ctx.fillStyle = cw.artist; ctx.fillText(aLines[0], cx, y + t.artist); }
+    y += t.artist * 1.2;
+
+    /* statement, locked. Balanced when it takes two lines so the last word
+       is never orphaned. */
+    y += t.stmtGap;
+    font(ctx, 500, t.stmt);
+    var sLines = wrap(ctx, prog.claim, t.stmtW);
+    if (sLines.length === 2) { var sb = balanceTwo(ctx, prog.claim, t.stmtW); if (sb) { sLines = sb; } }
+    for (var j = 0; j < sLines.length; j++) {
+      if (!measure) { ctx.fillStyle = cw.statement; font(ctx, 500, t.stmt); ctx.fillText(sLines[j], cx, y + t.stmt); }
+      y += t.stmt * 1.45;
+    }
+
+    /* scope, locked */
+    y += t.scopeGap;
+    if (!measure) {
+      ctx.fillStyle = cw.fine;
+      font(ctx, 500, t.scope);
+      spaced(ctx, SCOPE, cx, y + t.scope, t.scope * 0.02, 'center');
+    }
+    y += t.scope * 1.2;
+
     ctx.textAlign = 'left';
-    spaced(ctx, INSTITUTE, x, y, 4, align);
+    return y - top;
+  }
+
+  /* Footer: rule, then monospace "ID . Verify at <deep link>". The version
+     number is deliberately absent. */
+  function cardFooter(ctx, cw, prog, id, cx, left, right, baseY, size){
+    ctx.strokeStyle = cw.footerBorder;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(left, baseY + 0.5);
+    ctx.lineTo(right, baseY + 0.5);
+    ctx.stroke();
+
+    var tail = ' · Verify at registry.musicalform.org' + prog.path + id;
+    ctx.font = '600 ' + size + 'px ' + MONO;
+    var idW = ctx.measureText(id).width;
+    ctx.font = '400 ' + size + 'px ' + MONO;
+    var tailW = ctx.measureText(tail).width;
+    var startX = cx - (idW + tailW) / 2;
+    var ty = baseY + Math.round(size * 1.45) + size * 0.75;
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = cw.footerId;
+    ctx.font = '600 ' + size + 'px ' + MONO;
+    ctx.fillText(id, startX, ty);
+    ctx.fillStyle = cw.footerText;
+    ctx.font = '400 ' + size + 'px ' + MONO;
+    ctx.fillText(tail, startX + idW, ty);
   }
 
   /* ---------- the three formats ---------- */
 
-  function footerBand(ctx, prog, id, w, h, inset){
-    var y = h - inset - 40;
-    ctx.strokeStyle = RULE;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(inset + 40, y - 26);
-    ctx.lineTo(w - inset - 40, y - 26);
-    ctx.stroke();
-    ctx.textAlign = 'left';
-    ctx.fillStyle = SOFT;
-    font(ctx, 400, 18);
-    var pre = 'Verify at ' + REGISTRY_HOST + (prog === PROGRAMS.CEP ? '/cep/' : '/csf/');
-    ctx.fillText(pre, inset + 40, y);
-    var preW = ctx.measureText(pre).width;
-    ctx.fillStyle = prog.accent;
-    font(ctx, 600, 18);
-    ctx.fillText(id, inset + 40 + preW, y);
-    ctx.fillStyle = QUIET;
-    font(ctx, 600, 16);
-    spaced(ctx, INSTITUTE, w - inset - 40, y, 3, 'right');
+  function renderSquare(ctx, prog, rec, id, art, seal, logo){
+    var cw = COLORWAYS[activeScheme], W = 1080, H = 1080;
+    cardBase(ctx, cw, W, H, 44, 52);
+    var left = 44 + 72, right = W - 44 - 72, cx = W / 2;
+    var headBottom = cardHeader(ctx, cw, prog, logo, left, 44 + 40, right - 150, 96, 18, 36);
+    /* The seal is absolute inside the framed box (inset 44), not the canvas,
+       so it sits within the frame rather than crossing it. */
+    cardSeal(ctx, prog, seal, W, 44 + 34, 44 + 56, 150);
+
+    var t = { eyebrow:13, title:38, titleGap:10, artist:23, artistGap:4,
+              stmt:19, stmtGap:14, stmtW:640, scope:14, scopeGap:10 };
+    var footTop = H - 44 - 40 - Math.round(15 * 1.45) - 15;
+    var copyH = cardCopy(ctx, cw, prog, rec, cx, 0, right - left, t, true);
+    var blockH = 440 + 26 + copyH;
+    var top = headBottom + (footTop - headBottom - blockH) / 2;
+    cardArt(ctx, cw, art, cx, top, 440);
+    cardCopy(ctx, cw, prog, rec, cx, top + 440 + 26, right - left, t, false);
+    cardFooter(ctx, cw, prog, id, cx, left, right, footTop, 15);
   }
 
-  function renderSquare(ctx, prog, rec, id, art, badge){
-    base(ctx, 1080, 1080, 36);
-    if (art) {
-      drawArt(ctx, art, 300, 80, 480);
-      var bh = prog === PROGRAMS.CEP ? 215 : 255;
-      var by = 598 + (300 - bh) / 2;
-      var bw = drawBadge(ctx, badge, prog, 108, by, bh);
-      textBlock(ctx, prog, rec, id, { x: 108 + bw + 48, y: 644, w: 1080 - (108 + bw + 48) - 88, showId: false });
-    } else {
-      var bh2 = prog === PROGRAMS.CEP ? 330 : 380;
-      drawBadge(ctx, badge, prog, (1080 - bh2 * prog.badgeRatio) / 2, 150, bh2);
-      textBlock(ctx, prog, rec, id, { x: 540, y: 620, w: 800, align: 'center', showId: false });
-    }
-    footerBand(ctx, prog, id, 1080, 1080, 36);
+  function renderStory(ctx, prog, rec, id, art, seal, logo){
+    var cw = COLORWAYS[activeScheme], W = 1080, H = 1920;
+    cardBase(ctx, cw, W, H, 52, 62);
+    var left = 52 + 72, right = W - 52 - 72, cx = W / 2;
+    var lw = logo.naturalWidth / logo.naturalHeight * 120;
+    ctx.drawImage(logo, cx - lw / 2, 52 + 56, lw, 120);
+
+    font(ctx, 800, 22);
+    var name = prog.name.toUpperCase(), ls = 22 * 0.12;
+    var textW = ctx.measureText(name).width + ls * (name.length - 1);
+    var my = 52 + 56 + 120 + 46;
+    var total = 36 * 2 + 34 * 2 + textW, mx = cx - total / 2;
+    ctx.fillStyle = cw.accent;
+    ctx.fillRect(mx, my - 1, 36, 2);
+    ctx.fillRect(mx + total - 36, my - 1, 36, 2);
+    ctx.fillStyle = cw.mark;
+    ctx.textBaseline = 'middle';
+    spaced(ctx, name, mx + 36 + 34, my, ls, 'left');
+    ctx.textBaseline = 'alphabetic';
+
+    var t = { eyebrow:17, title:52, titleGap:16, artist:31, artistGap:8,
+              stmt:26, stmtGap:22, stmtW:840, scope:19, scopeGap:16 };
+    var footTop = H - 52 - 56 - Math.round(20 * 1.45) - 20;
+    var sealH = 190;
+    var copyH = cardCopy(ctx, cw, prog, rec, cx, 0, right - left, t, true);
+    var blockH = 660 + 40 + copyH + 34 + sealH;
+    var top = (my + 60) + (footTop - (my + 60) - blockH) / 2;
+    cardArt(ctx, cw, art, cx, top, 660);
+    var afterCopy = top + 660 + 40 + cardCopy(ctx, cw, prog, rec, cx, top + 660 + 40, right - left, t, false);
+    var sw = sealH * prog.sealRatio;
+    ctx.drawImage(seal, cx - sw / 2, afterCopy + 34, sw, sealH);
+    cardFooter(ctx, cw, prog, id, cx, left, right, footTop, 20);
   }
 
-  function renderStory(ctx, prog, rec, id, art, badge){
-    base(ctx, 1080, 1920, 36);
-    instituteLine(ctx, 540, 136, 19, 'center');
-    if (art) {
-      drawArt(ctx, art, 150, 196, 780);
-      var bh = prog === PROGRAMS.CEP ? 225 : 250;
-      drawBadge(ctx, badge, prog, (1080 - bh * prog.badgeRatio) / 2, 1030, bh);
-      textBlock(ctx, prog, rec, id, { x: 540, y: 1030 + bh + 84, w: 880, align: 'center', scale: 1.16 });
-    } else {
-      var bh2 = prog === PROGRAMS.CEP ? 400 : 460;
-      drawBadge(ctx, badge, prog, (1080 - bh2 * prog.badgeRatio) / 2, 320, bh2);
-      textBlock(ctx, prog, rec, id, { x: 540, y: 320 + bh2 + 150, w: 880, align: 'center', scale: 1.16 });
-    }
+  function renderLandscape(ctx, prog, rec, id, art, seal, logo){
+    var cw = COLORWAYS[activeScheme], W = 1600, H = 900;
+    cardBase(ctx, cw, W, H, 40, 48);
+    var left = 40 + 64, right = W - 40 - 64;
+    cardHeader(ctx, cw, prog, logo, left, 40 + 34, right - 140, 76, 16, 32);
+    cardSeal(ctx, prog, seal, W, 40 + 28, 40 + 48, 128);
+
+    /* Art left, copy right: the only format the spec does not cover, so it
+       keeps the same parts in a two-column arrangement. */
+    var artSize = 400, artX = left + artSize / 2, artY = (H - artSize) / 2 + 20;
+    cardArt(ctx, cw, art, artX, artY, artSize);
+
+    var colL = left + artSize + 72, colR = right, colCx = (colL + colR) / 2;
+    var t = { eyebrow:13, title:34, titleGap:10, artist:21, artistGap:4,
+              stmt:17, stmtGap:14, stmtW:colR - colL, scope:13, scopeGap:10 };
+    var footTop = H - 40 - 34 - Math.round(14 * 1.45) - 14;
+    var copyH = cardCopy(ctx, cw, prog, rec, colCx, 0, colR - colL, t, true);
+    cardCopy(ctx, cw, prog, rec, colCx, artY + (artSize - copyH) / 2, colR - colL, t, false);
+    cardFooter(ctx, cw, prog, id, W / 2, left, right, footTop, 14);
   }
 
-  function renderLandscape(ctx, prog, rec, id, art, badge){
-    base(ctx, 1600, 900, 32);
-    if (art) {
-      drawArt(ctx, art, 110, 170, 560);
-      var tx = 770, tw = 1600 - tx - 110;
-      textBlock(ctx, prog, rec, id, { x: tx, y: 248, w: tw, claimSize: 21 });
-      var bh = prog === PROGRAMS.CEP ? 160 : 190;
-      var by = 900 - 32 - 46 - bh;
-      var bw = drawBadge(ctx, badge, prog, tx, by, bh);
-      instituteLine(ctx, tx + bw + 38, by + bh / 2 + 6, 16, 'left');
-    } else {
-      var bh2 = prog === PROGRAMS.CEP ? 300 : 350;
-      var bx = 190, bby = (900 - bh2) / 2 - 24;
-      var bw2 = drawBadge(ctx, badge, prog, bx, bby, bh2);
-      textBlock(ctx, prog, rec, id, { x: bx + bw2 + 90, y: 280, w: 1600 - (bx + bw2 + 90) - 120 });
-      instituteLine(ctx, 800, 848, 16, 'center');
-    }
+  /* Redraw all three canvases from whatever is in state. Called on first
+     render and again whenever the colorway changes, so switching colour
+     never refetches the record or the cover art. */
+  function drawAll(){
+    if (!state.rec) { return; }
+    var p = state.progObj;
+    renderSquare(el('cvSquare').getContext('2d'), p, state.rec, state.id, state.art, state.seal, state.logo);
+    renderStory(el('cvStory').getContext('2d'), p, state.rec, state.id, state.art, state.seal, state.logo);
+    renderLandscape(el('cvLandscape').getContext('2d'), p, state.rec, state.id, state.art, state.seal, state.logo);
+  }
+
+  function buildSwatches(){
+    var box = el('skSwatches');
+    box.innerHTML = '';
+    COLORWAY_ORDER.forEach(function(key){
+      var cw = COLORWAYS[key];
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sk-swatch' + (key === activeScheme ? ' active' : '');
+      b.setAttribute('data-scheme', key);
+      b.setAttribute('aria-pressed', key === activeScheme ? 'true' : 'false');
+      b.innerHTML = '<span class="chip" style="background:' + cw.swatch +
+                    ';border-color:' + cw.borderOuter + '"></span>' + cw.label;
+      b.addEventListener('click', function(){
+        activeScheme = key;
+        Array.prototype.forEach.call(box.querySelectorAll('.sk-swatch'), function(o){
+          var on = o.getAttribute('data-scheme') === key;
+          o.classList.toggle('active', on);
+          o.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        el('skProgram').style.color = COLORWAYS[activeScheme].accent;
+        drawAll();
+      });
+      box.appendChild(b);
+    });
   }
 
   /* ---------- captions ---------- */
@@ -693,13 +854,14 @@
 
     var fontsReady = Promise.all([
       document.fonts.load('600 24px Poppins'),
-      document.fonts.load('700 60px Poppins'),
+      document.fonts.load('800 40px Poppins'),
+      document.fonts.load('500 24px Poppins'),
       document.fonts.load('400 40px Poppins')
     ]).catch(function(){});
 
-    Promise.all([fetchRecord(id), loadImg(prog.badge), fontsReady])
+    Promise.all([fetchRecord(id), loadImg(prog.seal), loadImg(LOGO), fontsReady])
       .then(function(res){
-        var rec = res[0], badge = res[1];
+        var rec = res[0], seal = res[1], logo = res[2];
         if (!rec) {
           showError('No certification with that ID appears in the public registry. Try searching by artist or track title above. Recordings certified ahead of release enter the registry on their release date.');
           return null;
@@ -708,11 +870,10 @@
         return (wantArt ? loadArt(artCandidates(rec, progKey === 'CEP')) : Promise.resolve(null)).catch(function(){ return null; })
           .then(function(art){
             state.rec = rec; state.prog = progKey; state.id = id;
-            renderSquare(el('cvSquare').getContext('2d'), prog, rec, id, art, badge);
-            renderStory(el('cvStory').getContext('2d'), prog, rec, id, art, badge);
-            renderLandscape(el('cvLandscape').getContext('2d'), prog, rec, id, art, badge);
+            state.art = art; state.seal = seal; state.logo = logo; state.progObj = prog;
+            drawAll();
             el('skProgram').textContent = prog.name;
-            el('skProgram').style.color = prog.accent;
+            el('skProgram').style.color = COLORWAYS[activeScheme].accent;
             el('skTitleLine').textContent = (rec.track_title || '') + ' · ' + (rec.primary_artist || '');
             var meta = [];
             meta.push('Certification ID <span>' + id + '</span>');
@@ -859,6 +1020,8 @@
       setTimeout(function(){ el('skCopy').textContent = 'Copy caption'; }, 1600);
     });
   });
+
+  buildSwatches();
 
   var pre = new URLSearchParams(location.search).get('id');
   if (pre) {
