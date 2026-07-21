@@ -370,17 +370,22 @@ body.v2 > .header { display: none; }
    MARKS — two stamps treated like impressed seals
    ============================================================ */
 .v2-marks {
-  padding: 64px 0 64px;
+  padding: 60px 0 64px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 56px;
+  align-items: start;
   border-bottom: 1px solid var(--paper-line);
 }
-.v2-mark { display: grid; grid-template-columns: 140px 1fr; gap: 28px; align-items: start; }
+/* Side by side: the badge sits above the copy in each card so the text
+   keeps a readable measure at half width. */
+.v2-mark { display: block; }
 .v2-mark img.v2-mark-badge {
-  width: 140px; height: 140px;
+  width: 150px; height: 150px;
   object-fit: contain;
+  object-position: left center;
   display: block;
+  margin-bottom: 22px;
 }
 /* Clickable block: whole .v2-mark navigates to data-href */
 .v2-mark[data-href] {
@@ -394,22 +399,12 @@ body.v2 > .header { display: none; }
 .v2-mark[data-href] h3 a { color: inherit; text-decoration: none; }
 .v2-mark[data-href]:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
 
-/* CEP is the lead, larger and primary */
-.v2-mark.cep {
-  grid-template-columns: 220px 1fr;
-  gap: 48px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid var(--paper-line);
-}
-.v2-mark.cep img.v2-mark-badge {
-  width: 220px; height: 220px;
-}
 .v2-mark.cep h3 {
-  font-size: clamp(26px, 2.6vw, 36px);
+  font-size: clamp(22px, 2vw, 28px);
 }
 .v2-mark.cep p {
-  font-size: 16px;
-  max-width: 620px;
+  font-size: 15.5px;
+  max-width: none;
 }
 .v2-mark.cep .v2-mark-version { font-size: 12.5px; }
 .v2-mark-actions {
@@ -429,20 +424,13 @@ body.v2 > .header { display: none; }
   border-bottom-color: var(--ink) !important;
 }
 
-/* CSF: same size as CEP, follows by order only */
-.v2-mark.csf {
-  grid-template-columns: 220px 1fr;
-  gap: 48px;
-}
-.v2-mark.csf img.v2-mark-badge {
-  width: 220px; height: 220px;
-}
+/* CSF: same treatment as CEP, follows by order only */
 .v2-mark.csf h3 {
-  font-size: clamp(26px, 2.6vw, 36px);
+  font-size: clamp(22px, 2vw, 28px);
 }
 .v2-mark.csf p {
-  font-size: 16px;
-  max-width: 620px;
+  font-size: 15.5px;
+  max-width: none;
 }
 .v2-mark.csf .v2-mark-version { font-size: 12.5px; }
 .v2-mark h3 {
@@ -474,8 +462,7 @@ body.v2 > .header { display: none; }
   font-size: 15px;
   line-height: 1.6;
   color: var(--ink-soft);
-  margin: 0 0 14px;
-  max-width: 460px;
+  margin: 0 0 16px;
 }
 .v2-mark a.v2-mark-link {
   display: inline-block;
@@ -490,58 +477,9 @@ body.v2 > .header { display: none; }
 .v2-mark.csf a.v2-mark-link { color: var(--orange); }
 .v2-mark.cep a.v2-mark-link { color: var(--blue); }
 @media (max-width: 800px) {
-  .v2-marks { gap: 40px; }
-  .v2-mark { grid-template-columns: 140px 1fr; gap: 24px; }
-  .v2-mark img.v2-mark-badge { width: 140px; height: 140px; }
-  .v2-mark.cep { padding-bottom: 36px; }
-}
-
-/* ============================================================
-   NOTES — small editorial column, "From the Institute"
-   ============================================================ */
-.v2-notes {
-  padding: 56px 0 72px;
-}
-.v2-notes-label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin-bottom: 28px;
-}
-.v2-notes-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-}
-.v2-note { border-top: 2px solid var(--ink); padding-top: 18px; }
-.v2-note-tag {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 10px;
-  font-variant-numeric: tabular-nums;
-}
-.v2-note h3 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.18;
-  margin: 0 0 10px;
-}
-.v2-note h3 a { color: var(--ink); text-decoration: none; }
-.v2-note h3 a:hover { color: var(--orange); }
-.v2-note p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  margin: 0;
-}
-@media (max-width: 800px) {
-  .v2-notes-list { grid-template-columns: 1fr; gap: 28px; }
+  .v2-marks { grid-template-columns: 1fr; gap: 44px; padding: 48px 0 52px; }
+  .v2-mark img.v2-mark-badge { width: 130px; height: 130px; margin-bottom: 18px; }
+  .v2-mark.cep { padding-bottom: 40px; border-bottom: 1px solid var(--paper-line); }
 }
 
 /* ============================================================
@@ -725,10 +663,6 @@ body.v2 .v2-feat-list-track {
   .mf-scrim{background:linear-gradient(180deg, rgba(16,16,16,.81) 0%, rgba(16,16,16,.74) 55%, rgba(16,16,16,.77) 100%)}
 }
 
-.mf-lede{background:#FAFAF7;border-bottom:1px solid #E5E5E2;padding:0}
-.mf-lede-wrap{max-width:860px;margin:0 auto;padding:46px 32px;text-align:center}
-.mf-lede-wrap p{font-size:16px;line-height:1.7;color:#555;margin:0}
-.mf-lede-wrap p strong{color:#1A1A1A;font-weight:600}
 @media(max-width:520px){.mf-choose{grid-template-columns:1fr}}
 @media(max-width:760px){.mf-bar-nav{display:none}.mf-wall{grid-template-columns:repeat(5,1fr)}}
 </style>
@@ -857,44 +791,7 @@ body.v2 .v2-feat-list-track {
 })();
 </script>
 
-<!-- ============ LEDE (substance, left-aligned) ============ -->
-<section class="mf-lede">
-  <div class="mf-lede-wrap">
-    <p>The <strong>Certificate of Embodied Production (CEP)</strong> is the Institute&rsquo;s lead certification. It verifies that a recording was produced without grid correction, pitch correction, or generative AI, with every submission individually reviewed by an analyst. Beneath it sits <strong>Certified Significant Form (CSF)</strong>, the baseline layer, which verifies that a recording was produced without generative AI. Every CEP-certified recording meets the CSF standard by definition.</p>
-  </div>
-</section>
-
-<!-- ============ FEATURED ============ -->
-<section>
-  <div class="v2-wrap">
-    <div class="v2-featured">
-
-      <a class="v2-feat-link v2-feat-main" id="v2FeatMain" href="https://registry.musicalform.org/" target="_blank" rel="noopener">
-        <div class="v2-feat-art"><img id="v2FeatImg" src="" alt="" loading="lazy"></div>
-        <div class="v2-feat-meta">
-          <div class="v2-feat-id" id="v2FeatId">…</div>
-          <h2 class="v2-feat-title" id="v2FeatTitle">…</h2>
-          <div class="v2-feat-artist" id="v2FeatArtist">…</div>
-          <div class="v2-feat-tail">
-            <span id="v2FeatLabel">…</span><span class="sep">·</span><span id="v2FeatDate">…</span>
-          </div>
-        </div>
-      </a>
-
-      <div class="v2-feat-list" id="v2FeatList">
-        <div class="v2-feat-list-track" id="v2FeatTrack">
-          <!-- populated by JS -->
-        </div>
-        <div class="v2-feat-more">
-          <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">View full registry &rarr;</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ MARKS ============ -->
+<!-- ============ MARKS (two cards, side by side) ============ -->
 <section>
   <div class="v2-wrap">
     <div class="v2-marks">
@@ -928,26 +825,32 @@ body.v2 .v2-feat-list-track {
   </div>
 </section>
 
-<!-- ============ NOTES FROM THE INSTITUTE ============ -->
+<!-- ============ FEATURED ============ -->
 <section>
   <div class="v2-wrap">
-    <div class="v2-notes">
-      <div class="v2-notes-label">From the Institute</div>
-      <div class="v2-notes-list">
+    <div class="v2-featured">
 
-        <article class="v2-note">
-          <div class="v2-note-tag">Research</div>
-          <h3><a href="/research/gridification">The gridification of popular music</a></h3>
-          <p>Within-song tempo variability across every Billboard Year-End Hot 100 top-five recording from 1960 through 2025, capturing the sharp post-2001 inflection that Pro Tools' Beat Detective made possible.</p>
-        </article>
+      <a class="v2-feat-link v2-feat-main" id="v2FeatMain" href="https://registry.musicalform.org/" target="_blank" rel="noopener">
+        <div class="v2-feat-art"><img id="v2FeatImg" src="" alt="" loading="lazy"></div>
+        <div class="v2-feat-meta">
+          <div class="v2-feat-id" id="v2FeatId">…</div>
+          <h2 class="v2-feat-title" id="v2FeatTitle">…</h2>
+          <div class="v2-feat-artist" id="v2FeatArtist">…</div>
+          <div class="v2-feat-tail">
+            <span id="v2FeatLabel">…</span><span class="sep">·</span><span id="v2FeatDate">…</span>
+          </div>
+        </div>
+      </a>
 
-        <article class="v2-note">
-          <div class="v2-note-tag">Upcoming &middot; May 26&ndash;29, 2026 &middot; Vienna</div>
-          <h3><a href="/news/langer-conference-2026">Susanne K. Langer Circle Conference</a></h3>
-          <p>Jeffrey Anthony presents "Operationalizing Langer's Presentational Symbols: The Certificate of Embodied Production as Musical Praxis."</p>
-        </article>
-
+      <div class="v2-feat-list" id="v2FeatList">
+        <div class="v2-feat-list-track" id="v2FeatTrack">
+          <!-- populated by JS -->
+        </div>
+        <div class="v2-feat-more">
+          <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">View full registry &rarr;</a>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
