@@ -705,13 +705,10 @@ body.v2 .v2-table tbody tr:hover { background: #F5F5F5; }
 body.v2 .v2-status { background: #F5F5F5; }
 
 /* ============================================================
-   V4: Featured tile capped to the height of ~5 side-list rows.
-   Side list is a vertical auto-scrolling marquee of 30 randomized
-   covers, with only ~5 visible at a time.
-
-   Each side row is roughly 96px art + meta + 14px gap = ~110px.
-   Five visible rows + 4 gaps = ~550px. Container set to ~580px
-   to leave a small fade-mask area at top and bottom.
+   V4: Featured tile beside a short static list of registry rows.
+   The side list was a 30-item auto-scrolling marquee rendered
+   twice for a seamless loop, which cost 60 thumbnail requests on
+   every page load. It is now 6 static rows, no animation.
    ============================================================ */
 body.v2 .v2-featured {
   grid-template-columns: 1fr 1.4fr;
@@ -727,37 +724,15 @@ body.v2 .v2-feat-main .v2-feat-art {
   width: 100%;
 }
 
-/* Side list: fixed-height container showing exactly ~5 rows,
-   contents auto-scroll through all 30. */
-body.v2 .v2-feat-list {
-  height: 580px;
-  overflow: hidden;
-  position: relative;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-          mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-}
 body.v2 .v2-feat-list-track {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  animation: v4-scroll-y 60s linear infinite;
-}
-body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; }
-@keyframes v4-scroll-y {
-  0%   { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
 }
 
 @media (max-width: 880px) {
   body.v2 .v2-featured { grid-template-columns: 1fr; }
   body.v2 .v2-feat-main .v2-feat-art { max-width: 100%; max-height: none; }
-  body.v2 .v2-feat-list {
-    height: auto;
-    max-height: 480px;
-    -webkit-mask-image: none;
-            mask-image: none;
-  }
-  body.v2 .v2-feat-list-track { animation: none; }
 }
 </style>
 <script defer src="/consent.js"></script>
@@ -983,7 +958,6 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
 <section class="mf-lede">
   <div class="mf-lede-wrap">
     <p>The <strong>Certificate of Embodied Production (CEP)</strong> is the Institute&rsquo;s lead certification. It verifies that a recording was produced without grid correction, pitch correction, or generative AI, with every submission individually reviewed by an analyst. Beneath it sits <strong>Certified Significant Form (CSF)</strong>, the baseline layer, which verifies that a recording was produced without generative AI. Every CEP-certified recording meets the CSF standard by definition.</p>
-    <p>Watermarking and fingerprinting track what a file is. The Institute certifies how a recording was made. That is <strong>production provenance</strong>, made visible in a market where perfect audio is cheap, claims are easy, and the act behind a recording can no longer be verified from the recording alone.</p>
   </div>
 </section>
 
@@ -1188,10 +1162,10 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
 
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 
-  // One request: newest 110 registry rows plus the exact count from Content-Range.
+  // One request: newest 60 registry rows plus the exact count from Content-Range.
   // The hero cover wall is baked into the HTML at build time; this fetch only
   // feeds the count ticker, the featured card, and the lists below the fold.
-  fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,label,cover_art,source_url,certification_date&order=certification_date.desc&limit=110',{headers:Object.assign({},h,{'Prefer':'count=exact'})})
+  fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,label,cover_art,source_url,certification_date&order=certification_date.desc&limit=60',{headers:Object.assign({},h,{'Prefer':'count=exact'})})
     .then(function(r){
       var range=r.headers.get('content-range')||'*/0';
       var cnt=parseInt(range.split('/')[1]||'0',10);
@@ -1206,7 +1180,7 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
       var withThumb=d.filter(function(t){return !!thumb(t)});
 
       var feat=withThumb[0]||d[0];
-      var side=withThumb.slice(1,31);
+      var side=withThumb.slice(1,7);
       var rest=d.slice(0,15);
 
       // Featured
@@ -1221,8 +1195,7 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
         if(link) link.href='https://registry.musicalform.org/csf/'+encodeURIComponent(feat.csf_id||'');
       }
 
-      // Side list: 30 items rendered into the marquee track, then duplicated
-      // for seamless vertical scroll (translateY(-50%) loops one full set).
+      // Side list: 6 static rows. No duplicate pass, the marquee is gone.
       var track=document.getElementById('v2FeatTrack');
       if(track){
         track.innerHTML='';
@@ -1240,7 +1213,6 @@ body.v2 .v2-feat-list:hover .v2-feat-list-track { animation-play-state: paused; 
             '</div>';
           return a;
         }
-        side.forEach(function(t){ track.appendChild(renderRow(t)); });
         side.forEach(function(t){ track.appendChild(renderRow(t)); });
       }
 
