@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <title>Social Kit | The Musical Form Institute</title>
-<meta name="description" content="Announcement graphics for certified recordings. Enter a CSF or CEP certification ID and download ready-to-post images with a caption to match.">
+<meta name="description" content="Announcement graphics for certified recordings. Search by artist or track and download ready-to-post images with a caption. No charge.">
 <link rel="canonical" href="https://musicalform.org/social-kit">
 <meta property="og:title" content="Social Kit | The Musical Form Institute">
 <meta property="og:description" content="Announcement graphics for certified recordings. Search by artist or track and download ready-to-post images with a caption.">
@@ -123,15 +123,15 @@
   <div class="container">
     <span class="tag">Certified recordings</span>
     <h1>Social Kit</h1>
-    <p class="lede">Announcement graphics for certified recordings. Search by artist or track, pick the recording, and download ready-to-post images in three formats with a caption to match. Free to use for any recording in the public registry.</p>
+    <p class="lede">Announcement graphics for certified recordings. Search by artist or track, pick the recording, and download ready-to-post images in square, story, and landscape formats, with a caption to match. No charge for any recording in the public registry.</p>
     <form class="sk-form" id="skForm">
       <div class="sk-search">
-        <input id="skId" type="text" placeholder="Artist, track title, or certification ID" autocomplete="off" spellcheck="false" aria-label="Search certified recordings">
+        <input id="skId" type="text" placeholder="Artist, track title, or ID (CEP-000001)" autocomplete="off" spellcheck="false" aria-label="Search certified recordings">
         <div class="sk-suggest" id="skSuggest"></div>
       </div>
       <button type="submit" id="skGo">Search</button>
     </form>
-    <div class="sk-note">Every certified recording is listed in the <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" style="color: var(--ink); border-bottom: 1.5px solid var(--blue); text-decoration: none; padding-bottom: 1px;">public registry</a>. The certification ID also works here directly.</div>
+    <div class="sk-note">Every certified recording is listed in the <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" style="color: var(--ink); border-bottom: 1.5px solid var(--blue); text-decoration: none; padding-bottom: 1px;">public registry</a>. You can paste a certification ID into the search above.</div>
     <div class="sk-error" id="skError"></div>
   </div>
 </section>
@@ -176,9 +176,9 @@
         <strong>Certification applies to the recording only.</strong> These graphics announce the certification of a specific sound recording. They do not certify an artist, a label, or a catalog. The public registry at <a href="https://registry.musicalform.org" target="_blank" rel="noopener" style="color: var(--ink); border-bottom: 1.5px solid var(--orange); text-decoration: none; padding-bottom: 1px;">registry.musicalform.org</a> is the authoritative record of active certifications.
       </div>
       <h2>How it works</h2>
-      <p>Every certified recording has a unique certification ID, issued with the decision letter and listed in the public registry. This page reads the registry and composes the graphics in your browser. Nothing is uploaded, and the images belong to you.</p>
-      <p>Recordings certified ahead of release enter the public registry on their release date. If a newly certified recording does not appear yet, that is why.</p>
-      <p>Badge files for packaging, liner notes, and cover art are provided separately with certification. Questions: <a href="mailto:certifications@musicalform.org">certifications@musicalform.org</a>.</p>
+      <p>Every certified recording has a unique certification ID listed in the public registry. This page reads the registry and composes the graphics in your browser. Nothing is uploaded and nothing is stored.</p>
+      <p>Recordings certified ahead of release enter the public registry on their release date. If a newly certified recording does not appear yet, that is usually why.</p>
+      <p>These graphics are announcements for social feeds. They are not the certification badge. Badge files for packaging, liner notes, and cover art are provided separately with certification. Questions: <a href="mailto:certifications@musicalform.org">certifications@musicalform.org</a>.</p>
     </div>
   </div>
 </section>
@@ -684,7 +684,7 @@
   function generate(rawId){
     var id = (rawId || '').trim().toUpperCase().replace(/\s+/g, '-');
     if (!/^(CSF|CEP)-[0-9-]{4,}$/.test(id)) {
-      showError('That is not a certification ID. Search by artist or track title above, or use the full ID from the decision letter.');
+      showError('That is not a certification ID. Search by artist or track title above, or use the full certification ID, for example CEP-000001.');
       return;
     }
     el('skError').style.display = 'none';
@@ -704,7 +704,7 @@
       .then(function(res){
         var rec = res[0], badge = res[1];
         if (!rec) {
-          showError('No certification with that ID appears in the public registry. Check the ID against the decision letter. Recordings certified ahead of release enter the registry on their release date.');
+          showError('No certification with that ID appears in the public registry. Try searching by artist or track title above. Recordings certified ahead of release enter the registry on their release date.');
           return null;
         }
         var wantArt = new URLSearchParams(location.search).get('noart') !== '1';
