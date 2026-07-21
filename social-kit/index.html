@@ -481,8 +481,10 @@
   }
 
   /* Header: full-colour logo on the left, accent rule + mark name + accent
-     rule on the right. Returns the header's bottom edge. */
-  function cardHeader(ctx, cw, prog, logo, x, y, right, logoH, markSize, ruleW){
+     rule optically centred in the gap between the logo and the seal (the
+     spec's space-between left it visibly off-centre against the two marks).
+     Returns the header's bottom edge. */
+  function cardHeader(ctx, cw, prog, logo, x, y, sealLeft, logoH, markSize, ruleW){
     var lw = logo.naturalWidth / logo.naturalHeight * logoH;
     ctx.drawImage(logo, x, y, lw, logoH);
 
@@ -492,7 +494,8 @@
     var textW = ctx.measureText(name).width + ls * (name.length - 1);
     var gap = Math.round(markSize * 0.78);
     var total = ruleW * 2 + gap * 2 + textW;
-    var mx = right - total;
+    var mx = (x + lw + sealLeft) / 2 - total / 2;
+    var right = mx + total;
     var my = y + logoH / 2;
 
     ctx.fillStyle = cw.accent;
@@ -630,12 +633,14 @@
     var cw = COLORWAYS[activeScheme], W = 1080, H = 1080;
     cardBase(ctx, cw, W, H, 44, 52);
     var left = 44 + 72, right = W - 44 - 72, cx = W / 2;
-    var headBottom = cardHeader(ctx, cw, prog, logo, left, 44 + 40, right - 150, 96, 18, 36);
     /* The seal is absolute inside the framed box (inset 44), not the canvas,
-       so it sits within the frame rather than crossing it. */
+       so it sits within the frame rather than crossing it. Its left edge is
+       what the header centres the mark row against. */
+    var sealW = 150 * prog.sealRatio, sealLeft = W - (44 + 56) - sealW;
+    var headBottom = cardHeader(ctx, cw, prog, logo, left, 44 + 40, sealLeft, 96, 18, 36);
     cardSeal(ctx, prog, seal, W, 44 + 34, 44 + 56, 150);
 
-    var t = { eyebrow:13, title:38, titleGap:10, artist:23, artistGap:4,
+    var t = { eyebrow:13, title:38, titleGap:12, artist:23, artistGap:18,
               stmt:19, stmtGap:14, stmtW:640, scope:14, scopeGap:10 };
     var footTop = H - 44 - 40 - Math.round(15 * 1.45) - 15;
     var copyH = cardCopy(ctx, cw, prog, rec, cx, 0, right - left, t, true);
@@ -666,7 +671,7 @@
     spaced(ctx, name, mx + 36 + 34, my, ls, 'left');
     ctx.textBaseline = 'alphabetic';
 
-    var t = { eyebrow:17, title:52, titleGap:16, artist:31, artistGap:8,
+    var t = { eyebrow:17, title:52, titleGap:18, artist:31, artistGap:26,
               stmt:26, stmtGap:22, stmtW:840, scope:19, scopeGap:16 };
     var footTop = H - 52 - 56 - Math.round(20 * 1.45) - 20;
     var sealH = 190;
@@ -684,7 +689,8 @@
     var cw = COLORWAYS[activeScheme], W = 1600, H = 900;
     cardBase(ctx, cw, W, H, 40, 48);
     var left = 40 + 64, right = W - 40 - 64;
-    cardHeader(ctx, cw, prog, logo, left, 40 + 34, right - 140, 76, 16, 32);
+    var lsW = 128 * prog.sealRatio, lsLeft = W - (40 + 48) - lsW;
+    cardHeader(ctx, cw, prog, logo, left, 40 + 34, lsLeft, 76, 16, 32);
     cardSeal(ctx, prog, seal, W, 40 + 28, 40 + 48, 128);
 
     /* Art left, copy right: the only format the spec does not cover, so it
@@ -693,7 +699,7 @@
     cardArt(ctx, cw, art, artX, artY, artSize);
 
     var colL = left + artSize + 72, colR = right, colCx = (colL + colR) / 2;
-    var t = { eyebrow:13, title:34, titleGap:10, artist:21, artistGap:4,
+    var t = { eyebrow:13, title:34, titleGap:12, artist:21, artistGap:16,
               stmt:17, stmtGap:14, stmtW:colR - colL, scope:13, scopeGap:10 };
     var footTop = H - 40 - 34 - Math.round(14 * 1.45) - 14;
     var copyH = cardCopy(ctx, cw, prog, rec, colCx, 0, colR - colL, t, true);
