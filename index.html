@@ -367,114 +367,6 @@ body.v2 > .header { display: none; }
 }
 
 /* ============================================================
-   LEDGER TABLE — printed log of recent certifications
-   ============================================================ */
-.v2-ledger {
-  padding: 52px 0 56px;
-  border-bottom: 1px solid var(--paper-line);
-}
-.v2-ledger-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 22px;
-  gap: 24px;
-}
-.v2-ledger-label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-.v2-ledger-more {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1.5px solid var(--orange);
-  padding-bottom: 1px;
-}
-.v2-ledger-more:hover { color: var(--orange); }
-.v2-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-}
-.v2-table thead th {
-  text-align: left;
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-quiet);
-  padding: 12px 14px 12px 0;
-  border-bottom: 1px solid var(--ink);
-  white-space: nowrap;
-}
-.v2-table tbody td {
-  padding: 12px 14px 12px 0;
-  border-bottom: 1px solid var(--paper-line);
-  color: var(--ink);
-  vertical-align: top;
-  line-height: 1.4;
-}
-.v2-table tbody tr {
-  cursor: pointer;
-  transition: background 0.12s, box-shadow 0.12s;
-}
-.v2-table tbody tr:hover {
-  background: #F5F5F5;
-  box-shadow: inset 3px 0 0 var(--orange);
-}
-.v2-table tbody tr:hover .col-id { color: var(--orange); }
-.v2-table tbody tr:hover .col-artist,
-.v2-table tbody tr:hover .col-title { color: var(--ink); }
-.v2-table .col-id {
-  width: 168px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
-  color: var(--orange);
-  white-space: nowrap;
-}
-.v2-table .col-date {
-  width: 110px;
-  color: var(--ink-soft);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-.v2-table .col-tier {
-  width: 130px;
-}
-.v2-table .col-tier .pill {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border: 1px solid var(--ink);
-  color: var(--ink);
-  background: transparent;
-}
-.v2-table .col-tier .pill.v   { border-color: var(--ink); }
-.v2-table .col-tier .pill.c   { border-color: var(--ink-soft); color: var(--ink-soft); }
-.v2-table .col-tier .pill.p   { border-color: var(--blue); color: var(--blue); }
-.v2-table .col-tier .pill.a   { border-color: var(--orange); color: var(--orange); }
-.v2-table .col-artist { width: 24%; font-weight: 600; }
-.v2-table .col-title  { width: 30%; }
-.v2-table .col-label  { color: var(--ink-soft); }
-.v2-table a { color: inherit; text-decoration: none; }
-.v2-table a:hover { color: var(--orange); }
-@media (max-width: 900px) {
-  .v2-table { font-size: 12.5px; }
-  .v2-table .col-label, .v2-table thead th.col-label { display: none; }
-  .v2-table .col-tier, .v2-table thead th.col-tier { display: none; }
-}
-
-/* ============================================================
    MARKS — two stamps treated like impressed seals
    ============================================================ */
 .v2-marks {
@@ -695,10 +587,6 @@ body.v2 .v2-mast-nav a:hover { color: var(--paper); }
 body.v2 .v2-mast-rule { background: rgba(255,255,255,0.4); }
 body.v2 .v2-mast-manifesto { color: rgba(255,255,255,0.92); }
 body.v2 .v2-mast-issn { color: rgba(255,255,255,0.55); }
-
-/* Use Mist (#F5F5F5) for the table-row hover so it reads more clearly
-   on pure white than the previous rgba(0,0,0,0.025). */
-body.v2 .v2-table tbody tr:hover { background: #F5F5F5; }
 
 /* Use Mist as a soft section accent for the status strip background,
    which gives the page some tonal break without leaving the palette. */
