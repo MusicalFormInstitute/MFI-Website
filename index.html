@@ -687,7 +687,14 @@ body.v2 .v2-feat-list-track {
 <!-- ============ MUSIC-FIRST HERO ============ -->
 <section class="mf-hero">
   <!-- Hero background: single owned photo (source img/3.png), optimized to img/hero.jpg. Replaced the 63-thumbnail cover wall. -->
-  <img class="mf-hero-photo" src="/img/hero.jpg" alt="" fetchpriority="high" decoding="async">
+  <!-- Two widths. On a phone the hero box is ~412x1413 CSS px, so object-fit
+       cover throws away about 84% of a landscape photo's width and still has
+       to upscale it. Downloading the full 2000px file to do that is the main
+       cost in mobile LCP; the 1100px variant covers the same box behind the
+       scrim at a third of the bytes. -->
+  <img class="mf-hero-photo" src="/img/hero.jpg"
+       srcset="/img/hero-sm.jpg 1100w, /img/hero.jpg 2000w" sizes="100vw"
+       alt="" fetchpriority="high" decoding="async">
   <div class="mf-scrim"></div>
   <div class="mf-hero-inner">
     <div class="mf-hero-copy">
