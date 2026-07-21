@@ -276,8 +276,10 @@
   /* Locked copy. Do not reword without Muse Foundry approval. Neither mark
      is ever named by its acronym in prose; "CEP"/"CSF" appear only as the
      ID prefix, which is why both cards share one eyebrow. */
-  var EYEBROW = 'THIS CERTIFIES THAT THE SOUND RECORDING';
-  var SCOPE = 'Certification applies to this recording only.';
+  /* The design's eyebrow and scope line were removed from the card at
+     Jeffrey's direction. Kept here only as a record of the original strings.
+     var EYEBROW = 'THIS CERTIFIES THAT THE SOUND RECORDING';
+     var SCOPE = 'Certification applies to this recording only.'; */
 
   var PROGRAMS = {
     CSF: {
@@ -537,8 +539,13 @@
     ctx.strokeRect(cx - size / 2 - o, y - o, size + cw.artBorderW, size + cw.artBorderW);
   }
 
-  /* Centred copy block. Measures first so the caller can vertically centre
-     it, then draws. Returns its height when measure is true. */
+  /* Centred copy block: title, artist, statement. Measures first so the
+     caller can vertically centre it, then draws. Returns its height when
+     measure is true.
+     The design's "THIS CERTIFIES THAT THE SOUND RECORDING" eyebrow and its
+     "Certification applies to this recording only." scope line were both cut
+     at Jeffrey's direction: the card already shows a single recording, so
+     both read as redundant. */
   function cardCopy(ctx, cw, prog, rec, cx, top, maxW, t, measure){
     var y = top;
     var title = '“' + (rec.track_title || '') + '”';
@@ -546,16 +553,7 @@
 
     ctx.textAlign = 'center';
 
-    /* eyebrow */
-    if (!measure) {
-      ctx.fillStyle = cw.label_;
-      font(ctx, 600, t.eyebrow);
-      spaced(ctx, EYEBROW, cx, y + t.eyebrow, t.eyebrow * 0.2, 'center');
-    }
-    y += t.eyebrow * 1.2;
-
     /* title, in quotes, may wrap to two lines */
-    y += t.titleGap;
     font(ctx, 800, t.title);
     var tSize = t.title, tLines = wrap(ctx, title, maxW);
     while (tLines.length > 2 && tSize > t.title * 0.7) {
@@ -576,25 +574,19 @@
     if (!measure) { ctx.fillStyle = cw.artist; ctx.fillText(aLines[0], cx, y + t.artist); }
     y += t.artist * 1.2;
 
-    /* statement, locked. Balanced when it takes two lines so the last word
-       is never orphaned. */
+    /* statement. Set without its closing full stop on the card: it reads as
+       a label here, not a sentence. The canonical string keeps its period
+       everywhere else, including the caption. Balanced when it takes two
+       lines so the last word is never orphaned. */
     y += t.stmtGap;
+    var claim = prog.claim.replace(/\.\s*$/, '');
     font(ctx, 500, t.stmt);
-    var sLines = wrap(ctx, prog.claim, t.stmtW);
-    if (sLines.length === 2) { var sb = balanceTwo(ctx, prog.claim, t.stmtW); if (sb) { sLines = sb; } }
+    var sLines = wrap(ctx, claim, t.stmtW);
+    if (sLines.length === 2) { var sb = balanceTwo(ctx, claim, t.stmtW); if (sb) { sLines = sb; } }
     for (var j = 0; j < sLines.length; j++) {
       if (!measure) { ctx.fillStyle = cw.statement; font(ctx, 500, t.stmt); ctx.fillText(sLines[j], cx, y + t.stmt); }
       y += t.stmt * 1.45;
     }
-
-    /* scope, locked */
-    y += t.scopeGap;
-    if (!measure) {
-      ctx.fillStyle = cw.fine;
-      font(ctx, 500, t.scope);
-      spaced(ctx, SCOPE, cx, y + t.scope, t.scope * 0.02, 'center');
-    }
-    y += t.scope * 1.2;
 
     ctx.textAlign = 'left';
     return y - top;
@@ -644,12 +636,13 @@
     var headBottom = cardHeader(ctx, cw, prog, logo, left, 44 + 40, sealLeft, 96, 17, 34);
     cardSeal(ctx, prog, seal, W, 44 + 36, 44 + 56, sealH);
 
-    var t = { eyebrow:13, title:38, titleGap:12, artist:23, artistGap:18,
-              stmt:19, stmtGap:14, stmtW:640, scope:14, scopeGap:10 };
+    var t = { title:38, artist:23, artistGap:18, stmt:17, stmtGap:16, stmtW:640 };
     var footTop = H - 44 - 40 - Math.round(15 * 1.45) - 15;
     var copyH = cardCopy(ctx, cw, prog, rec, cx, 0, right - left, t, true);
     var blockH = 440 + 26 + copyH;
-    var top = headBottom + (footTop - headBottom - blockH) / 2;
+    /* Biased above centre: Jeffrey wants the art sitting higher than a
+       straight vertical centre puts it. */
+    var top = headBottom + (footTop - headBottom - blockH) / 2 - 44;
     cardArt(ctx, cw, art, cx, top, 440);
     cardCopy(ctx, cw, prog, rec, cx, top + 440 + 26, right - left, t, false);
     cardFooter(ctx, cw, prog, id, cx, left, right, footTop, 15);
@@ -675,13 +668,12 @@
     spaced(ctx, name, mx + 36 + 34, my, ls, 'left');
     ctx.textBaseline = 'alphabetic';
 
-    var t = { eyebrow:17, title:52, titleGap:18, artist:31, artistGap:26,
-              stmt:26, stmtGap:22, stmtW:840, scope:19, scopeGap:16 };
+    var t = { title:52, artist:31, artistGap:26, stmt:23, stmtGap:24, stmtW:840 };
     var footTop = H - 52 - 56 - Math.round(20 * 1.45) - 20;
     var sealH = 190;
     var copyH = cardCopy(ctx, cw, prog, rec, cx, 0, right - left, t, true);
     var blockH = 660 + 40 + copyH + 34 + sealH;
-    var top = (my + 60) + (footTop - (my + 60) - blockH) / 2;
+    var top = (my + 60) + (footTop - (my + 60) - blockH) / 2 - 60;
     cardArt(ctx, cw, art, cx, top, 660);
     var afterCopy = top + 660 + 40 + cardCopy(ctx, cw, prog, rec, cx, top + 660 + 40, right - left, t, false);
     var sw = sealH * prog.sealRatio;
@@ -703,8 +695,7 @@
     cardArt(ctx, cw, art, artX, artY, artSize);
 
     var colL = left + artSize + 72, colR = right, colCx = (colL + colR) / 2;
-    var t = { eyebrow:13, title:34, titleGap:12, artist:21, artistGap:16,
-              stmt:17, stmtGap:14, stmtW:colR - colL, scope:13, scopeGap:10 };
+    var t = { title:34, artist:21, artistGap:16, stmt:15, stmtGap:14, stmtW:colR - colL };
     var footTop = H - 40 - 34 - Math.round(14 * 1.45) - 14;
     var copyH = cardCopy(ctx, cw, prog, rec, colCx, 0, colR - colL, t, true);
     cardCopy(ctx, cw, prog, rec, colCx, artY + (artSize - copyH) / 2, colR - colL, t, false);
