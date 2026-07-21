@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<title>Social Kit | The Musical Form Institute</title>
+<meta name="description" content="Announcement graphics for certified recordings. Enter a CSF or CEP certification ID and download ready-to-post images with a caption to match.">
+<link rel="canonical" href="https://musicalform.org/social-kit">
+<meta property="og:title" content="Social Kit | The Musical Form Institute">
+<meta property="og:description" content="Announcement graphics for certified recordings. Search by artist or track and download ready-to-post images with a caption.">
+<meta property="og:image" content="https://musicalform.org/img/og-default.jpg">
+<meta property="og:url" content="https://musicalform.org/social-kit">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Social Kit | The Musical Form Institute">
+<meta name="twitter:description" content="Announcement graphics for certified recordings. Search by artist or track and download ready-to-post images with a caption.">
+<meta name="twitter:image" content="https://musicalform.org/img/og-default.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Social Kit",
+  "url": "https://musicalform.org/social-kit",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Generates announcement graphics for sound recordings certified by the Musical Form Institute. Search the public registry by artist or track and download ready-to-post images.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Musical Form Institute",
+    "url": "https://musicalform.org"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://vqydcmpraydbepckczzd.supabase.co">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles-v4-pages.css">
+<script defer src="/consent.js"></script>
+<style>
+  .sk-hero { padding: 64px 0 44px; border-bottom: 1px solid var(--paper-line); }
+  .sk-hero h1 { font-size: clamp(34px, 4vw, 48px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.06; color: var(--ink); margin-bottom: 12px; }
+  .sk-hero .tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: var(--blue); padding: 0 0 2px 0; border-bottom: 1px solid currentColor; margin-bottom: 14px; }
+  .sk-hero p.lede { font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6; color: var(--ink-soft); max-width: 640px; margin-bottom: 28px; }
+  .sk-form { display: flex; flex-wrap: wrap; gap: 12px; max-width: 640px; }
+  .sk-search { position: relative; flex: 1 1 300px; }
+  .sk-form input { width: 100%; font-family: 'Poppins', sans-serif; font-size: 16px; padding: 12px 14px; border: 1px solid var(--paper-line); border-radius: 0; background: #fff; color: var(--ink); }
+  .sk-form input::placeholder { color: var(--ink-quiet); }
+  .sk-form input:focus { outline: none; border-color: var(--blue); }
+  .sk-suggest { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 40; background: #fff; border: 1px solid var(--paper-line); border-top: 0; max-height: 384px; overflow-y: auto; box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+  .sk-suggest .sk-sg-row { display: flex; align-items: baseline; gap: 10px; padding: 11px 14px; cursor: pointer; border-bottom: 1px solid var(--paper-line); }
+  .sk-suggest .sk-sg-row:last-child { border-bottom: 0; }
+  .sk-suggest .sk-sg-row:hover, .sk-suggest .sk-sg-row.active { background: var(--mist); }
+  .sk-sg-chip { flex: 0 0 auto; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; padding: 2px 7px; border: 1.5px solid currentColor; }
+  .sk-sg-chip.cep { color: var(--blue); }
+  .sk-sg-chip.csf { color: var(--orange); }
+  .sk-sg-main { flex: 1 1 auto; min-width: 0; font-size: 14.5px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sk-sg-main strong { font-weight: 600; }
+  .sk-sg-main span { color: var(--ink-soft); }
+  .sk-sg-id { flex: 0 0 auto; font-size: 12px; color: var(--ink-quiet); font-variant-numeric: tabular-nums; }
+  .sk-sg-note { padding: 11px 14px; font-size: 13px; color: var(--ink-quiet); }
+  .sk-form button { background: var(--orange); color: #fff; border: 1px solid var(--orange); border-radius: 0; padding: 12px 26px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.02em; cursor: pointer; }
+  .sk-form button:hover { background: #C95A30; border-color: #C95A30; }
+  .sk-form button:disabled { opacity: 0.55; cursor: default; }
+  .sk-note { font-size: 13px; color: var(--ink-quiet); margin-top: 12px; max-width: 640px; }
+  .sk-error { display: none; margin-top: 18px; max-width: 640px; background: var(--mist); border-left: 3px solid var(--orange); padding: 14px 18px; font-size: 14.5px; line-height: 1.55; color: var(--ink); }
+  .sk-result { display: none; padding: 44px 0 8px; }
+  .sk-record { max-width: 1100px; margin-bottom: 8px; }
+  .sk-record .sk-program { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+  .sk-record h2 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 700; letter-spacing: -0.015em; color: var(--ink); line-height: 1.15; }
+  .sk-record .sk-meta { font-size: 14.5px; color: var(--ink-soft); margin-top: 6px; }
+  .sk-record .sk-meta span { color: var(--ink); font-weight: 600; }
+  .sk-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: 22px 0 30px; }
+  .sk-actions .btn-primary { background: var(--orange); color: #fff; border: 1px solid var(--orange); border-radius: 0; padding: 12px 22px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .sk-actions .btn-primary:hover { background: #C95A30; border-color: #C95A30; }
+  .sk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1200px; }
+  .sk-card { border: 1px solid var(--paper-line); background: #fff; padding: 16px; }
+  .sk-card canvas { width: 100%; height: auto; display: block; border: 1px solid var(--paper-line); }
+  .sk-card .sk-card-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; gap: 8px; }
+  .sk-card .sk-card-name { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+  .sk-card .sk-card-dim { font-size: 12.5px; color: var(--ink-quiet); font-variant-numeric: tabular-nums; }
+  .sk-card a.sk-dl { font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: none; border-bottom: 1.5px solid var(--blue); padding-bottom: 1px; white-space: nowrap; cursor: pointer; }
+  .sk-card a.sk-dl:hover { color: var(--blue); }
+  .sk-caption { max-width: 760px; margin-top: 36px; }
+  .sk-caption h3 { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .sk-caption textarea { width: 100%; min-height: 150px; font-family: 'Poppins', sans-serif; font-size: 14.5px; line-height: 1.6; color: var(--ink); background: var(--mist); border: 1px solid var(--paper-line); padding: 14px 16px; resize: vertical; }
+  .sk-caption .sk-copy { margin-top: 10px; display: inline-block; font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: none; border-bottom: 1.5px solid var(--blue); padding-bottom: 1px; cursor: pointer; }
+  .sk-caption .sk-copy:hover { color: var(--blue); }
+  .sk-rules { max-width: 760px; padding: 40px 0 56px; }
+  .sk-rules h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin: 40px 0 14px; }
+  .sk-rules p { font-size: 16px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 16px; }
+  .sk-rules a { color: var(--ink); border-bottom: 1.5px solid var(--orange); text-decoration: none; padding-bottom: 1px; }
+  .sk-callout { background: var(--mist); border-left: 3px solid var(--blue); padding: 18px 22px; margin: 24px 0; font-size: 15px; line-height: 1.6; color: var(--ink); }
+</style>
+</head>
+<body class="v4">
+
+<header class="v4-mast">
+  <div class="v4-wrap">
+    <a href="/" class="v4-mast-mark">The Musical Form Institute</a>
+    <nav class="v4-mast-nav">
+      <a href="/about">About</a>
+      <a href="/standards">Standards</a>
+      <a href="/cep">CEP</a>
+      <a href="/cep-submission">Submit CEP</a>
+      <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a>
+      <a href="/research">Research</a>
+      <a href="/news">News</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="sk-hero">
+  <div class="container">
+    <span class="tag">Certified recordings</span>
+    <h1>Social Kit</h1>
+    <p class="lede">Announcement graphics for certified recordings. Search by artist or track, pick the recording, and download ready-to-post images in three formats with a caption to match. Free to use for any recording in the public registry.</p>
+    <form class="sk-form" id="skForm">
+      <div class="sk-search">
+        <input id="skId" type="text" placeholder="Artist, track title, or certification ID" autocomplete="off" spellcheck="false" aria-label="Search certified recordings">
+        <div class="sk-suggest" id="skSuggest"></div>
+      </div>
+      <button type="submit" id="skGo">Search</button>
+    </form>
+    <div class="sk-note">Every certified recording is listed in the <a href="https://registry.musicalform.org/" target="_blank" rel="noopener" style="color: var(--ink); border-bottom: 1.5px solid var(--blue); text-decoration: none; padding-bottom: 1px;">public registry</a>. The certification ID also works here directly.</div>
+    <div class="sk-error" id="skError"></div>
+  </div>
+</section>
+
+<section class="sk-result" id="skResult">
+  <div class="container">
+    <div class="sk-record">
+      <div class="sk-program" id="skProgram"></div>
+      <h2 id="skTitleLine"></h2>
+      <div class="sk-meta" id="skMetaLine"></div>
+    </div>
+    <div class="sk-actions">
+      <button class="btn-primary" id="skZip">Download all (ZIP)</button>
+      <span style="font-size:13px;color:var(--ink-quiet)">Three PNG files plus the caption text</span>
+    </div>
+    <div class="sk-grid">
+      <div class="sk-card">
+        <canvas id="cvSquare" width="1080" height="1080"></canvas>
+        <div class="sk-card-row"><span><span class="sk-card-name">Square</span> <span class="sk-card-dim">1080 &times; 1080</span></span><a class="sk-dl" data-fmt="square">Download PNG</a></div>
+      </div>
+      <div class="sk-card">
+        <canvas id="cvStory" width="1080" height="1920"></canvas>
+        <div class="sk-card-row"><span><span class="sk-card-name">Story</span> <span class="sk-card-dim">1080 &times; 1920</span></span><a class="sk-dl" data-fmt="story">Download PNG</a></div>
+      </div>
+      <div class="sk-card">
+        <canvas id="cvLandscape" width="1600" height="900"></canvas>
+        <div class="sk-card-row"><span><span class="sk-card-name">Landscape</span> <span class="sk-card-dim">1600 &times; 900</span></span><a class="sk-dl" data-fmt="landscape">Download PNG</a></div>
+      </div>
+    </div>
+    <div class="sk-caption">
+      <h3>Caption</h3>
+      <textarea id="skCaption" spellcheck="false"></textarea>
+      <a class="sk-copy" id="skCopy">Copy caption</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sk-rules">
+      <div class="sk-callout">
+        <strong>Certification applies to the recording only.</strong> These graphics announce the certification of a specific sound recording. They do not certify an artist, a label, or a catalog. The public registry at <a href="https://registry.musicalform.org" target="_blank" rel="noopener" style="color: var(--ink); border-bottom: 1.5px solid var(--orange); text-decoration: none; padding-bottom: 1px;">registry.musicalform.org</a> is the authoritative record of active certifications.
+      </div>
+      <h2>How it works</h2>
+      <p>Every certified recording has a unique certification ID, issued with the decision letter and listed in the public registry. This page reads the registry and composes the graphics in your browser. Nothing is uploaded, and the images belong to you.</p>
+      <p>Recordings certified ahead of release enter the public registry on their release date. If a newly certified recording does not appear yet, that is why.</p>
+      <p>Badge files for packaging, liner notes, and cover art are provided separately with certification. Questions: <a href="mailto:certifications@musicalform.org">certifications@musicalform.org</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-text">
+        <h4>Updates from the Institute</h4>
+        <p>Standards changes, registry milestones, conference talks. Roughly monthly.</p>
+      </div>
+      <form class="footer-newsletter-form" action="/api/subscribe" method="POST">
+        <input type="email" name="email_address" placeholder="your@email.com" required aria-label="Email address">
+        <input type="hidden" name="redirect_url" value="https://musicalform.org/thanks">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/img/mfi-logo-horizontal-inverted.png" alt="Musical Form Institute" class="footer-brand-logo" width="480" height="299">
+        <p>Independent certification for sound recordings. Operated by Muse Foundry LLC.</p>
+        <p>CEP and CSF certification mark applications pending.</p>
+        <p>The Musical Form Institute is an Associate Member of A2IM.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="/cep">CEP</a></li>
+          <li><a href="/csf">CSF</a></li>
+          <li><a href="/standards">Standards</a></li>
+          <li><a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Registry</a></li>
+          <li><a href="/social-kit">Social Kit</a></li>
+          <li><a href="/labels">For Labels</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Institute</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:certifications@musicalform.org">certifications@musicalform.org</a></li>
+          <li><a href="tel:+15202657278">+1 520 265 7278</a></li>
+          <li>PO Box 12734<br>Tucson, AZ 85732</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Muse Foundry LLC. All rights reserved.</div>
+      <div>
+        <a href="/privacy" style="margin-right:24px">Privacy</a>
+        <a href="/terms-of-use">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var SUPA = 'https://vqydcmpraydbepckczzd.supabase.co/rest/v1';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxeWRjbXByYXlkYmVwY2tjenpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNDE0MzIsImV4cCI6MjA5MDYxNzQzMn0.ew6VRo9I1EDkvDpGeVOevfR-4D9QjGRQ-rMyH1dppDg';
+  var HEADERS = { apikey: ANON, Authorization: 'Bearer ' + ANON };
+  var WORKER = 'https://certs.musicalform.org';
+
+  /* Brand constants. Only the four site colors plus the site neutrals. */
+  var INK = '#1A1A1A', SOFT = '#555555', QUIET = '#888888', RULE = '#E5E5E2', PAPER = '#FAFAF7';
+  /* Claim strings are the LOCKED canonical certification sentences. Do not
+     reword them without Muse Foundry approval. The CSF tag is a placeholder
+     pending the official CSF designation ruling. */
+  var PROGRAMS = {
+    CSF: {
+      accent: '#DF693B',
+      name: 'Certified Significant Form',
+      tag: 'CERTIFIED RECORDING',
+      claim: 'Produced without generative AI.',
+      badge: '/img/csf-badge.png',
+      badgeRatio: 683 / 1024
+    },
+    CEP: {
+      accent: '#5D92CD',
+      name: 'Certificate of Embodied Production',
+      tag: 'CEP-VERIFIED RECORDING',
+      claim: 'Produced without grid correction, pitch correction, or generative AI.',
+      badge: '/img/cep-badge.png',
+      badgeRatio: 712 / 685
+    }
+  };
+  var REGISTRY_HOST = 'registry.musicalform.org';
+  var INSTITUTE = 'THE MUSICAL FORM INSTITUTE';
+
+  /* Per-record registry deep link, e.g. registry.musicalform.org/cep/CEP-000001 */
+  function verifyPath(prog, id){
+    return REGISTRY_HOST + (prog === PROGRAMS.CEP ? '/cep/' : '/csf/') + id;
+  }
+
+  var el = function(id){ return document.getElementById(id); };
+  var state = { rec: null, prog: null, id: null };
+
+  /* ---------- data ---------- */
+
+  function fetchRecord(id){
+    var isCep = id.indexOf('CEP-') === 0;
+    var view = isCep ? '/v_cep_public_registry' : '/v_csf_public_registry';
+    var key = isCep ? 'cep_id' : 'csf_id';
+    var fields = isCep
+      ? 'cep_id,primary_artist,track_title,release_title,label,certification_date,cover_art_url'
+      : 'csf_id,primary_artist,track_title,release_title,label,certification_date,cover_art,source_url';
+    return fetch(SUPA + view + '?' + key + '=eq.' + encodeURIComponent(id) + '&select=' + fields + '&limit=1', { headers: HEADERS })
+      .then(function(r){ if(!r.ok) throw new Error('registry'); return r.json(); })
+      .then(function(rows){ return rows && rows[0] ? rows[0] : null; });
+  }
+
+  function loadImg(url){
+    return new Promise(function(resolve, reject){
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function(){ resolve(img); };
+      img.onerror = function(){ reject(new Error('img')); };
+      img.src = url;
+    });
+  }
+
+  function youtubeId(url){
+    var m = (url || '').match(/(?:v=|youtu\.be\/|\/shorts\/)([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : null;
+  }
+
+  var LIVE_ART_HOSTS = ['i.scdn.co', 'cdn-images.dzcdn.net', 'e-cdns-images.dzcdn.net'];
+
+  function artCandidates(rec, isCep){
+    var out = [];
+    if (isCep) {
+      var u = rec.cover_art_url || '';
+      if (u) {
+        if (/^https?:\/\//.test(u)) { out.push(u); }
+        else { out.push(WORKER + '/cep/public/artwork/' + encodeURIComponent(u.split('/')[0])); }
+      }
+    } else {
+      var ca = rec.cover_art || '';
+      if (ca && LIVE_ART_HOSTS.some(function(h){ return ca.indexOf('//' + h + '/') !== -1; })) { out.push(ca); }
+      var vid = youtubeId(rec.source_url);
+      if (vid) {
+        out.push('https://i.ytimg.com/vi/' + vid + '/maxresdefault.jpg');
+        out.push('https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg');
+      }
+    }
+    return out;
+  }
+
+  function loadArt(urls){
+    if (!urls.length) { return Promise.resolve(null); }
+    return loadImg(urls[0]).catch(function(){ return loadArt(urls.slice(1)); });
+  }
+
+  /* ---------- canvas helpers ---------- */
+
+  function font(ctx, weight, size){ ctx.font = weight + ' ' + size + 'px Poppins, sans-serif'; }
+
+  function fitSize(ctx, text, weight, size, maxW, minSize){
+    font(ctx, weight, size);
+    while (size > minSize && ctx.measureText(text).width > maxW) { size -= 2; font(ctx, weight, size); }
+    return size;
+  }
+
+  function ellipsize(ctx, text, maxW){
+    if (ctx.measureText(text).width <= maxW) { return text; }
+    var t = text;
+    while (t.length > 1 && ctx.measureText(t + '…').width > maxW) { t = t.slice(0, -1); }
+    return t + '…';
+  }
+
+  function wrap(ctx, text, maxW){
+    var words = text.split(' '), lines = [], cur = '';
+    words.forEach(function(w){
+      var probe = cur ? cur + ' ' + w : w;
+      if (ctx.measureText(probe).width <= maxW || !cur) { cur = probe; }
+      else { lines.push(cur); cur = w; }
+    });
+    if (cur) { lines.push(cur); }
+    return lines;
+  }
+
+  function spaced(ctx, text, x, y, ls, align){
+    var total = ctx.measureText(text).width + ls * (text.length - 1);
+    var cx = align === 'center' ? x - total / 2 : (align === 'right' ? x - total : x);
+    var prevAlign = ctx.textAlign;
+    ctx.textAlign = 'left';
+    for (var i = 0; i < text.length; i++) {
+      ctx.fillText(text[i], cx, y);
+      cx += ctx.measureText(text[i]).width + ls;
+    }
+    ctx.textAlign = prevAlign;
+    return total;
+  }
+
+  /* Split into two lines with the most even widths that still fit maxW */
+  function balanceTwo(ctx, text, maxW){
+    var words = text.split(' ');
+    var best = null, bestDiff = Infinity;
+    for (var i = 1; i < words.length; i++) {
+      var a = words.slice(0, i).join(' '), b = words.slice(i).join(' ');
+      var wa = ctx.measureText(a).width, wb = ctx.measureText(b).width;
+      if (wa <= maxW && wb <= maxW && Math.abs(wa - wb) < bestDiff) {
+        bestDiff = Math.abs(wa - wb);
+        best = [a, b];
+      }
+    }
+    return best;
+  }
+
+  /* Draw text wrapped to at most maxLines, shrinking from size toward minSize
+     first. Returns the y after the last line. */
+  function drawWrapped(ctx, text, weight, size, minSize, x, y, maxW, maxLines, lh, balance){
+    font(ctx, weight, size);
+    var lines = wrap(ctx, text, maxW);
+    while (lines.length > maxLines && size > minSize) {
+      size -= 2;
+      font(ctx, weight, size);
+      lines = wrap(ctx, text, maxW);
+    }
+    if (lines.length > maxLines) {
+      lines = lines.slice(0, maxLines);
+      lines[maxLines - 1] = ellipsize(ctx, lines[maxLines - 1], maxW);
+    }
+    if (balance && lines.length === 2) {
+      var bal = balanceTwo(ctx, text, maxW);
+      if (bal) { lines = bal; }
+    }
+    for (var i = 0; i < lines.length; i++) {
+      ctx.fillText(lines[i], x, y);
+      y += Math.round(size * (lh || 1.22));
+    }
+    return y;
+  }
+
+  function base(ctx, w, h, inset){
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = PAPER;
+    ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = RULE;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(inset, inset, w - inset * 2, h - inset * 2);
+    ctx.lineWidth = 1;
+    ctx.strokeRect(inset + 8.5, inset + 8.5, w - (inset + 8.5) * 2 + 0.5, h - (inset + 8.5) * 2 + 0.5);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+  }
+
+  function drawArt(ctx, img, x, y, size){
+    var sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
+    if (sw / sh > 1.05) { sx = (sw - sh) / 2; sw = sh; }        /* center square from 16:9 */
+    else if (sh / sw > 1.05) { sy = (sh - sw) / 2; sh = sw; }
+    ctx.drawImage(img, sx, sy, sw, sh, x, y, size, size);
+    ctx.strokeStyle = RULE;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, size, size);
+  }
+
+  function drawBadge(ctx, badge, prog, x, y, h){
+    var w = h * prog.badgeRatio;
+    ctx.drawImage(badge, x, y, w, h);
+    return w;
+  }
+
+  /* Shared text block: tag, title, artist credit, rule, claim, then
+     optionally the ID and verify lines.
+     opts: x, y, w, align, scale, claimSize, showId */
+  function textBlock(ctx, prog, rec, id, opts){
+    var s = opts.scale || 1;
+    var x = opts.x, y = opts.y, w = opts.w;
+    var align = opts.align || 'left';
+    ctx.textAlign = align === 'center' ? 'center' : 'left';
+    ctx.textBaseline = 'alphabetic';
+
+    ctx.fillStyle = prog.accent;
+    font(ctx, 600, Math.round(21 * s));
+    spaced(ctx, prog.tag, x, y, 3.5 * s, align);
+    y += Math.round(54 * s);
+
+    /* Recording first: the track title is dominant and the artist is a
+       credit line beneath it. The mark attaches to the recording, never
+       the person (Standards: no display suggesting a person is certified). */
+    ctx.fillStyle = INK;
+    y = drawWrapped(ctx, rec.track_title || '', 700, Math.round(46 * s), Math.round(32 * s), x, y, w, 2, 1.12, true);
+    y += Math.round(8 * s);
+
+    ctx.fillStyle = SOFT;
+    y = drawWrapped(ctx, rec.primary_artist || '', 400, Math.round(30 * s), Math.round(24 * s), x, y, w, 2, 1.18, true);
+    y += Math.round(2 * s);
+
+    ctx.fillStyle = RULE;
+    var rw = Math.min(w, Math.round(560 * s));
+    ctx.fillRect(align === 'center' ? x - rw / 2 : x, y, rw, 2);
+    y += Math.round(38 * s);
+
+    ctx.fillStyle = SOFT;
+    y = drawWrapped(ctx, prog.claim, 400, Math.round((opts.claimSize || 22) * s), Math.round(20 * s), x, y, w, 2, 1.4, true);
+
+    if (opts.showId !== false) {
+      y += Math.round(18 * s);
+      ctx.fillStyle = prog.accent;
+      font(ctx, 600, Math.round(24 * s));
+      ctx.fillText(id, x, y);
+      y += Math.round(36 * s);
+      ctx.fillStyle = SOFT;
+      font(ctx, 400, Math.round(20 * s));
+      ctx.fillText('Verify at ' + verifyPath(prog, id), x, y);
+    }
+    ctx.textAlign = 'left';
+    return y;
+  }
+
+  function instituteLine(ctx, x, y, size, align){
+    ctx.fillStyle = QUIET;
+    font(ctx, 600, size);
+    ctx.textAlign = 'left';
+    spaced(ctx, INSTITUTE, x, y, 4, align);
+  }
+
+  /* ---------- the three formats ---------- */
+
+  function footerBand(ctx, prog, id, w, h, inset){
+    var y = h - inset - 40;
+    ctx.strokeStyle = RULE;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(inset + 40, y - 26);
+    ctx.lineTo(w - inset - 40, y - 26);
+    ctx.stroke();
+    ctx.textAlign = 'left';
+    ctx.fillStyle = SOFT;
+    font(ctx, 400, 18);
+    var pre = 'Verify at ' + REGISTRY_HOST + (prog === PROGRAMS.CEP ? '/cep/' : '/csf/');
+    ctx.fillText(pre, inset + 40, y);
+    var preW = ctx.measureText(pre).width;
+    ctx.fillStyle = prog.accent;
+    font(ctx, 600, 18);
+    ctx.fillText(id, inset + 40 + preW, y);
+    ctx.fillStyle = QUIET;
+    font(ctx, 600, 16);
+    spaced(ctx, INSTITUTE, w - inset - 40, y, 3, 'right');
+  }
+
+  function renderSquare(ctx, prog, rec, id, art, badge){
+    base(ctx, 1080, 1080, 36);
+    if (art) {
+      drawArt(ctx, art, 300, 80, 480);
+      var bh = prog === PROGRAMS.CEP ? 215 : 255;
+      var by = 598 + (300 - bh) / 2;
+      var bw = drawBadge(ctx, badge, prog, 108, by, bh);
+      textBlock(ctx, prog, rec, id, { x: 108 + bw + 48, y: 644, w: 1080 - (108 + bw + 48) - 88, showId: false });
+    } else {
+      var bh2 = prog === PROGRAMS.CEP ? 330 : 380;
+      drawBadge(ctx, badge, prog, (1080 - bh2 * prog.badgeRatio) / 2, 150, bh2);
+      textBlock(ctx, prog, rec, id, { x: 540, y: 620, w: 800, align: 'center', showId: false });
+    }
+    footerBand(ctx, prog, id, 1080, 1080, 36);
+  }
+
+  function renderStory(ctx, prog, rec, id, art, badge){
+    base(ctx, 1080, 1920, 36);
+    instituteLine(ctx, 540, 136, 19, 'center');
+    if (art) {
+      drawArt(ctx, art, 150, 196, 780);
+      var bh = prog === PROGRAMS.CEP ? 225 : 250;
+      drawBadge(ctx, badge, prog, (1080 - bh * prog.badgeRatio) / 2, 1030, bh);
+      textBlock(ctx, prog, rec, id, { x: 540, y: 1030 + bh + 84, w: 880, align: 'center', scale: 1.16 });
+    } else {
+      var bh2 = prog === PROGRAMS.CEP ? 400 : 460;
+      drawBadge(ctx, badge, prog, (1080 - bh2 * prog.badgeRatio) / 2, 320, bh2);
+      textBlock(ctx, prog, rec, id, { x: 540, y: 320 + bh2 + 150, w: 880, align: 'center', scale: 1.16 });
+    }
+  }
+
+  function renderLandscape(ctx, prog, rec, id, art, badge){
+    base(ctx, 1600, 900, 32);
+    if (art) {
+      drawArt(ctx, art, 110, 170, 560);
+      var tx = 770, tw = 1600 - tx - 110;
+      textBlock(ctx, prog, rec, id, { x: tx, y: 248, w: tw, claimSize: 21 });
+      var bh = prog === PROGRAMS.CEP ? 160 : 190;
+      var by = 900 - 32 - 46 - bh;
+      var bw = drawBadge(ctx, badge, prog, tx, by, bh);
+      instituteLine(ctx, tx + bw + 38, by + bh / 2 + 6, 16, 'left');
+    } else {
+      var bh2 = prog === PROGRAMS.CEP ? 300 : 350;
+      var bx = 190, bby = (900 - bh2) / 2 - 24;
+      var bw2 = drawBadge(ctx, badge, prog, bx, bby, bh2);
+      textBlock(ctx, prog, rec, id, { x: bx + bw2 + 90, y: 280, w: 1600 - (bx + bw2 + 90) - 120 });
+      instituteLine(ctx, 800, 848, 16, 'center');
+    }
+  }
+
+  /* ---------- captions ---------- */
+
+  function caption(progKey, rec, id){
+    var t = rec.track_title || 'This recording';
+    var a = rec.primary_artist || '';
+    var head = a ? t + ' by ' + a : t;
+    if (progKey === 'CEP') {
+      return head + ' is certified under the Certificate of Embodied Production. Produced without grid correction, pitch correction, or generative AI.\n\nCertification ID: ' + id + '\nVerify at https://registry.musicalform.org/cep/' + id;
+    }
+    return head + ' is Certified Significant Form. Produced without generative AI.\n\nCertification ID: ' + id + '\nVerify at https://registry.musicalform.org/csf/' + id;
+  }
+
+  /* ---------- zip (STORE only, no dependencies) ---------- */
+
+  var CRC_TABLE = (function(){
+    var t = new Uint32Array(256);
+    for (var n = 0; n < 256; n++) {
+      var c = n;
+      for (var k = 0; k < 8; k++) { c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1); }
+      t[n] = c >>> 0;
+    }
+    return t;
+  })();
+
+  function crc32(u8){
+    var c = 0xFFFFFFFF;
+    for (var i = 0; i < u8.length; i++) { c = CRC_TABLE[(c ^ u8[i]) & 0xFF] ^ (c >>> 8); }
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  function buildZip(files){
+    var enc = new TextEncoder();
+    var chunks = [], central = [], offset = 0;
+    var dosTime = 0, dosDate = ((2026 - 1980) << 9) | (1 << 5) | 1;
+    files.forEach(function(f){
+      var name = enc.encode(f.name);
+      var crc = crc32(f.data);
+      var head = new DataView(new ArrayBuffer(30));
+      head.setUint32(0, 0x04034b50, true);
+      head.setUint16(4, 20, true);
+      head.setUint16(6, 0x0800, true);
+      head.setUint16(8, 0, true);
+      head.setUint16(10, dosTime, true);
+      head.setUint16(12, dosDate, true);
+      head.setUint32(14, crc, true);
+      head.setUint32(18, f.data.length, true);
+      head.setUint32(22, f.data.length, true);
+      head.setUint16(26, name.length, true);
+      head.setUint16(28, 0, true);
+      chunks.push(new Uint8Array(head.buffer), name, f.data);
+      var cd = new DataView(new ArrayBuffer(46));
+      cd.setUint32(0, 0x02014b50, true);
+      cd.setUint16(4, 20, true);
+      cd.setUint16(6, 20, true);
+      cd.setUint16(8, 0x0800, true);
+      cd.setUint16(10, 0, true);
+      cd.setUint16(12, dosTime, true);
+      cd.setUint16(14, dosDate, true);
+      cd.setUint32(16, crc, true);
+      cd.setUint32(20, f.data.length, true);
+      cd.setUint32(24, f.data.length, true);
+      cd.setUint16(28, name.length, true);
+      cd.setUint32(42, offset, true);
+      central.push(new Uint8Array(cd.buffer), name);
+      offset += 30 + name.length + f.data.length;
+    });
+    var cdSize = central.reduce(function(s, c){ return s + c.length; }, 0);
+    var end = new DataView(new ArrayBuffer(22));
+    end.setUint32(0, 0x06054b50, true);
+    end.setUint16(8, files.length, true);
+    end.setUint16(10, files.length, true);
+    end.setUint32(12, cdSize, true);
+    end.setUint32(16, offset, true);
+    var all = chunks.concat(central, [new Uint8Array(end.buffer)]);
+    return new Blob(all, { type: 'application/zip' });
+  }
+
+  /* ---------- downloads ---------- */
+
+  function canvasBlob(cv){
+    return new Promise(function(resolve){ cv.toBlob(resolve, 'image/png'); });
+  }
+
+  function save(blob, name){
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+  }
+
+  /* ---------- flow ---------- */
+
+  function showError(msg){
+    var e = el('skError');
+    e.innerHTML = msg;
+    e.style.display = 'block';
+    el('skResult').style.display = 'none';
+  }
+
+  function generate(rawId){
+    var id = (rawId || '').trim().toUpperCase().replace(/\s+/g, '-');
+    if (!/^(CSF|CEP)-[0-9-]{4,}$/.test(id)) {
+      showError('That is not a certification ID. Search by artist or track title above, or use the full ID from the decision letter.');
+      return;
+    }
+    el('skError').style.display = 'none';
+    var btn = el('skGo');
+    btn.disabled = true;
+    btn.textContent = 'Generating';
+    var progKey = id.indexOf('CEP-') === 0 ? 'CEP' : 'CSF';
+    var prog = PROGRAMS[progKey];
+
+    var fontsReady = Promise.all([
+      document.fonts.load('600 24px Poppins'),
+      document.fonts.load('700 60px Poppins'),
+      document.fonts.load('400 40px Poppins')
+    ]).catch(function(){});
+
+    Promise.all([fetchRecord(id), loadImg(prog.badge), fontsReady])
+      .then(function(res){
+        var rec = res[0], badge = res[1];
+        if (!rec) {
+          showError('No certification with that ID appears in the public registry. Check the ID against the decision letter. Recordings certified ahead of release enter the registry on their release date.');
+          return null;
+        }
+        var wantArt = new URLSearchParams(location.search).get('noart') !== '1';
+        return (wantArt ? loadArt(artCandidates(rec, progKey === 'CEP')) : Promise.resolve(null)).catch(function(){ return null; })
+          .then(function(art){
+            state.rec = rec; state.prog = progKey; state.id = id;
+            renderSquare(el('cvSquare').getContext('2d'), prog, rec, id, art, badge);
+            renderStory(el('cvStory').getContext('2d'), prog, rec, id, art, badge);
+            renderLandscape(el('cvLandscape').getContext('2d'), prog, rec, id, art, badge);
+            el('skProgram').textContent = prog.name;
+            el('skProgram').style.color = prog.accent;
+            el('skTitleLine').textContent = (rec.track_title || '') + ' · ' + (rec.primary_artist || '');
+            var meta = [];
+            meta.push('Certification ID <span>' + id + '</span>');
+            if (rec.certification_date) { meta.push('Certified <span>' + rec.certification_date + '</span>'); }
+            if (rec.label) { meta.push('Label <span>' + String(rec.label).replace(/</g, '&lt;') + '</span>'); }
+            el('skMetaLine').innerHTML = meta.join(' &nbsp;·&nbsp; ');
+            el('skCaption').value = caption(progKey, rec, id);
+            el('skResult').style.display = 'block';
+            el('skResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            try { history.replaceState(null, '', '?id=' + encodeURIComponent(id)); } catch (e) {}
+          });
+      })
+      .catch(function(){
+        showError('The registry could not be reached. Try again in a moment.');
+      })
+      .then(function(){
+        btn.disabled = false;
+        btn.textContent = 'Search';
+      });
+  }
+
+  /* ---------- search-as-you-type ---------- */
+
+  var ID_SHAPE = /^(CSF|CEP)-[0-9-]{4,}$/;
+  var sgTimer = null, sgSeq = 0, sgItems = [], sgActive = -1;
+
+  function sgQuery(q){
+    var safe = q.replace(/[,()"\\*]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!safe) { return Promise.resolve([]); }
+    var pat = encodeURIComponent('*' + safe + '*');
+    var cep = fetch(SUPA + '/v_cep_public_registry?or=(primary_artist.ilike.' + pat + ',track_title.ilike.' + pat + ',cep_id.ilike.' + pat + ')&select=cep_id,primary_artist,track_title,certification_date&order=cep_id.desc&limit=20', { headers: HEADERS }).then(function(r){ return r.ok ? r.json() : []; });
+    var csf = fetch(SUPA + '/v_csf_public_registry?or=(primary_artist.ilike.' + pat + ',track_title.ilike.' + pat + ',csf_id.ilike.' + pat + ')&select=csf_id,primary_artist,track_title,certification_date&order=certification_date.desc&limit=20', { headers: HEADERS }).then(function(r){ return r.ok ? r.json() : []; });
+    return Promise.all([cep, csf]).then(function(res){
+      var out = [];
+      (res[0] || []).forEach(function(r){ out.push({ prog: 'CEP', id: r.cep_id, artist: r.primary_artist, title: r.track_title }); });
+      (res[1] || []).forEach(function(r){ out.push({ prog: 'CSF', id: r.csf_id, artist: r.primary_artist, title: r.track_title }); });
+      return out;
+    });
+  }
+
+  function sgClose(){
+    el('skSuggest').style.display = 'none';
+    el('skSuggest').innerHTML = '';
+    sgItems = []; sgActive = -1;
+  }
+
+  function sgPick(i){
+    if (!sgItems[i]) { return; }
+    var it = sgItems[i];
+    el('skId').value = it.id;
+    sgClose();
+    generate(it.id);
+  }
+
+  function sgRender(items, capped){
+    var box = el('skSuggest');
+    sgItems = items; sgActive = -1;
+    if (!items.length) {
+      box.innerHTML = '<div class="sk-sg-note">No certified recordings match. Recordings certified ahead of release enter the registry on their release date.</div>';
+      box.style.display = 'block';
+      return;
+    }
+    var esc = function(s){ return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+    box.innerHTML = items.map(function(it, i){
+      return '<div class="sk-sg-row" data-i="' + i + '"><span class="sk-sg-chip ' + it.prog.toLowerCase() + '">' + it.prog + '</span><span class="sk-sg-main"><strong>' + esc(it.title) + '</strong> <span>· ' + esc(it.artist) + '</span></span><span class="sk-sg-id">' + esc(it.id) + '</span></div>';
+    }).join('') + (capped ? '<div class="sk-sg-note">Showing the first matches. Add a word of the track title to narrow.</div>' : '');
+    box.style.display = 'block';
+    Array.prototype.forEach.call(box.querySelectorAll('.sk-sg-row'), function(row){
+      row.addEventListener('mousedown', function(ev){ ev.preventDefault(); sgPick(parseInt(row.getAttribute('data-i'), 10)); });
+    });
+  }
+
+  function sgHighlight(){
+    Array.prototype.forEach.call(el('skSuggest').querySelectorAll('.sk-sg-row'), function(row, i){
+      row.classList.toggle('active', i === sgActive);
+      if (i === sgActive) { row.scrollIntoView({ block: 'nearest' }); }
+    });
+  }
+
+  function sgRun(){
+    var q = el('skId').value.trim();
+    if (q.length < 2 || ID_SHAPE.test(q.toUpperCase().replace(/\s+/g, '-'))) { sgClose(); return; }
+    var seq = ++sgSeq;
+    sgQuery(q).then(function(items){
+      if (seq !== sgSeq) { return; }
+      sgRender(items.slice(0, 24), items.length >= 20);
+    }).catch(function(){});
+  }
+
+  el('skId').addEventListener('input', function(){
+    el('skError').style.display = 'none';
+    clearTimeout(sgTimer);
+    sgTimer = setTimeout(sgRun, 250);
+  });
+
+  el('skId').addEventListener('keydown', function(ev){
+    if (el('skSuggest').style.display !== 'block' || !sgItems.length) { return; }
+    if (ev.key === 'ArrowDown') { ev.preventDefault(); sgActive = Math.min(sgActive + 1, sgItems.length - 1); sgHighlight(); }
+    else if (ev.key === 'ArrowUp') { ev.preventDefault(); sgActive = Math.max(sgActive - 1, 0); sgHighlight(); }
+    else if (ev.key === 'Escape') { sgClose(); }
+    else if (ev.key === 'Enter' && sgActive >= 0) { ev.preventDefault(); sgPick(sgActive); }
+  });
+
+  el('skId').addEventListener('blur', function(){ setTimeout(sgClose, 150); });
+
+  el('skForm').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    clearTimeout(sgTimer);
+    var raw = el('skId').value.trim();
+    var asId = raw.toUpperCase().replace(/\s+/g, '-');
+    if (ID_SHAPE.test(asId)) { sgClose(); generate(asId); return; }
+    if (sgItems.length === 1) { sgPick(0); return; }
+    sgRun();
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.sk-dl'), function(a){
+    a.addEventListener('click', function(){
+      if (!state.id) { return; }
+      var map = { square: 'cvSquare', story: 'cvStory', landscape: 'cvLandscape' };
+      var fmt = a.getAttribute('data-fmt');
+      canvasBlob(el(map[fmt])).then(function(b){ save(b, 'MFI-' + state.id + '-' + fmt + '.png'); });
+    });
+  });
+
+  el('skZip').addEventListener('click', function(){
+    if (!state.id) { return; }
+    Promise.all([canvasBlob(el('cvSquare')), canvasBlob(el('cvStory')), canvasBlob(el('cvLandscape'))])
+      .then(function(blobs){ return Promise.all(blobs.map(function(b){ return b.arrayBuffer(); })); })
+      .then(function(bufs){
+        var files = [
+          { name: 'MFI-' + state.id + '-square.png', data: new Uint8Array(bufs[0]) },
+          { name: 'MFI-' + state.id + '-story.png', data: new Uint8Array(bufs[1]) },
+          { name: 'MFI-' + state.id + '-landscape.png', data: new Uint8Array(bufs[2]) },
+          { name: 'MFI-' + state.id + '-caption.txt', data: new TextEncoder().encode(el('skCaption').value) }
+        ];
+        save(buildZip(files), 'MFI-' + state.id + '-social-kit.zip');
+      });
+  });
+
+  el('skCopy').addEventListener('click', function(){
+    var t = el('skCaption');
+    navigator.clipboard.writeText(t.value).then(function(){
+      el('skCopy').textContent = 'Copied';
+      setTimeout(function(){ el('skCopy').textContent = 'Copy caption'; }, 1600);
+    });
+  });
+
+  var pre = new URLSearchParams(location.search).get('id');
+  if (pre) {
+    el('skId').value = pre.toUpperCase();
+    generate(pre);
+  }
+})();
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
