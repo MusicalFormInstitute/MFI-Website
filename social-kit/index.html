@@ -636,9 +636,13 @@
     /* The seal is absolute inside the framed box (inset 44), not the canvas,
        so it sits within the frame rather than crossing it. Its left edge is
        what the header centres the mark row against. */
-    var sealW = 150 * prog.sealRatio, sealLeft = W - (44 + 56) - sealW;
-    var headBottom = cardHeader(ctx, cw, prog, logo, left, 44 + 40, sealLeft, 96, 18, 36);
-    cardSeal(ctx, prog, seal, W, 44 + 34, 44 + 56, 150);
+    /* Seal a touch under the spec's 150 and the mark one step down from 18.
+       CEP's name is long enough that at spec size it left only ~8px either
+       side; this buys ~27px without visibly changing the composition. */
+    var sealH = 140;
+    var sealW = sealH * prog.sealRatio, sealLeft = W - (44 + 56) - sealW;
+    var headBottom = cardHeader(ctx, cw, prog, logo, left, 44 + 40, sealLeft, 96, 17, 34);
+    cardSeal(ctx, prog, seal, W, 44 + 36, 44 + 56, sealH);
 
     var t = { eyebrow:13, title:38, titleGap:12, artist:23, artistGap:18,
               stmt:19, stmtGap:14, stmtW:640, scope:14, scopeGap:10 };
