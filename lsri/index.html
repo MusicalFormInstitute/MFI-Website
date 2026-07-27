@@ -55,9 +55,8 @@
   .lsri-photo-credit a { color:var(--ink-quiet); text-decoration:underline; }
   .lsri-photo-credit a:hover { color:var(--ink-soft); }
   .lsri-program-line { font-size:24px; font-weight:500; letter-spacing:0.01em; line-height:1.3; margin:0 0 18px; }
-  .lsri-program-line .pl-a { color:var(--blue); }
-  .lsri-program-line .pl-b { color:var(--orange); }
-  .lsri-program-line .pl-bar { color:var(--ink-quiet); }
+  .lsri-program-line .pl-a { color:var(--blue); display:block; }
+  .lsri-program-line .pl-b { color:var(--orange); display:block; margin-top:2px; }
   .lsri-hero h1 { font-size:clamp(26px,4.3vw,48px); font-weight:800; letter-spacing:-0.03em; line-height:1.08; color:var(--ink); margin:0 0 16px; }
   .lsri-hero .lsri-sub { font-size:clamp(17px,1.7vw,21px); font-weight:600; color:var(--ink); margin:0 0 20px; max-width:42ch; line-height:1.35; }
   .lsri-hero .lsri-lead { font-size:clamp(16px,1.4vw,18px); line-height:1.6; color:var(--ink-soft); max-width:54ch; margin:0 0 30px; }
@@ -132,6 +131,18 @@
   .lsri-cta h2 { font-size:clamp(26px,3vw,34px); font-weight:700; letter-spacing:-0.02em; color:var(--ink); margin:0 0 16px; }
   .lsri-cta p { font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:62ch; margin:0 0 28px; }
 
+  .lsri-modal[hidden]{ display:none; }
+  .lsri-modal{ position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .lsri-modal-backdrop{ position:absolute; inset:0; background:rgba(26,26,26,0.55); }
+  .lsri-modal-card{ position:relative; background:#fff; border:1px solid var(--paper-line); max-width:440px; width:100%; padding:34px 30px 30px; box-shadow:0 20px 60px rgba(0,0,0,0.25); }
+  .lsri-modal-card h2{ font-size:24px; font-weight:700; letter-spacing:-0.02em; color:var(--ink); margin:0 0 12px; }
+  .lsri-modal-card p{ font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0 0 22px; }
+  .lsri-modal-card .lsri-btn{ display:block; width:100%; text-align:center; }
+  .lsri-modal-alt{ font-size:13px; color:var(--ink-quiet); margin-top:16px; text-align:center; }
+  .lsri-modal-alt a{ color:var(--ink-soft); }
+  .lsri-modal-x{ position:absolute; top:10px; right:14px; background:none; border:none; font-size:26px; line-height:1; color:var(--ink-quiet); cursor:pointer; padding:4px; }
+  .lsri-modal-x:hover{ color:var(--ink); }
+
   @media (max-width:860px) {
     .lsri-hero { padding:48px 0 40px; }
     .lsri-steps { grid-template-columns:1fr; gap:28px; }
@@ -162,7 +173,7 @@
 <section class="lsri-hero">
   <div class="container lsri-hero-grid">
     <div class="lsri-hero-text">
-      <div class="lsri-program-line"><span class="pl-a">The Local Sound Recording Initiative</span> <span class="pl-bar">|</span> <span class="pl-b">A program of the Musical Form Institute</span></div>
+      <div class="lsri-program-line"><span class="pl-a">The Local Sound Recording Initiative</span><span class="pl-b">A program of the Musical Form Institute</span></div>
       <h1>Local Recording Ecosystem Design Lab</h1>
       <div class="lsri-sub">A facilitated planning process for local music workforce and infrastructure</div>
       <p class="lsri-lead">Bring the people who make local recordings into one room. Pay them for their knowledge. Leave with a plan the city can act on.</p>
@@ -188,7 +199,7 @@
   <div class="container">
     <h2>Start with the local question</h2>
     <p>Tell us about the city or region, the organizations involved, and the recording-workforce or infrastructure question you are trying to answer.</p>
-    <a class="lsri-btn lsri-btn--primary" href="/contact">Discuss a Design Lab</a>
+    <button type="button" class="lsri-btn lsri-btn--primary" id="lsriDiscussBtn">Discuss a Design Lab</button>
   </div>
 </section>
 
@@ -252,6 +263,29 @@
     </div>
   </div>
 </footer>
+
+<div class="lsri-modal" id="lsriModal" role="dialog" aria-modal="true" aria-labelledby="lsriModalTitle" hidden>
+  <div class="lsri-modal-backdrop" data-close></div>
+  <div class="lsri-modal-card">
+    <button class="lsri-modal-x" type="button" aria-label="Close" data-close>&times;</button>
+    <h2 id="lsriModalTitle">Discuss a Design Lab</h2>
+    <p>Tell us about the city or region and the recording-workforce or infrastructure question you&rsquo;re trying to answer, and we&rsquo;ll be in touch.</p>
+    <a class="lsri-btn lsri-btn--primary" href="mailto:jeffrey@musicalform.org?subject=Local%20Recording%20Ecosystem%20Design%20Lab">Email us to discuss</a>
+    <div class="lsri-modal-alt">Or email <a href="mailto:jeffrey@musicalform.org?subject=Local%20Recording%20Ecosystem%20Design%20Lab">jeffrey@musicalform.org</a></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var modal=document.getElementById('lsriModal'), openBtn=document.getElementById('lsriDiscussBtn');
+  if(!modal||!openBtn) return;
+  function openModal(){ modal.hidden=false; document.body.style.overflow='hidden'; }
+  function closeModal(){ modal.hidden=true; document.body.style.overflow=''; }
+  openBtn.addEventListener('click', openModal);
+  modal.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !modal.hidden) closeModal(); });
+})();
+</script>
 
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
