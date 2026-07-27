@@ -60,7 +60,12 @@
 
   /* dark about hero */
   .ab-hero{background:#101010;color:#fff;padding:clamp(56px,9vw,108px) 32px}
-  .ab-hero-in{max-width:920px;margin:0 auto}
+  .ab-hero-in{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.15fr 0.85fr;gap:52px;align-items:center}
+  .ab-hero-text{min-width:0}
+  .ab-hero-media img{display:block;width:100%;height:auto;max-height:470px;object-fit:cover;object-position:center;box-shadow:0 16px 44px rgba(0,0,0,0.4)}
+  .ab-photo-credit{font-size:11px;color:rgba(255,255,255,.5);margin-top:8px;line-height:1.4}
+  .ab-photo-credit a{color:rgba(255,255,255,.62);text-decoration:underline}
+  @media (max-width:820px){.ab-hero-in{grid-template-columns:1fr;gap:30px}.ab-hero-media img{max-height:360px}}
   .ab-eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5D92CD;margin-bottom:18px}
   .ab-hero h1{font-size:clamp(32px,4.6vw,54px);font-weight:700;line-height:1.07;letter-spacing:-.025em;max-width:18ch;color:#fff}
   .ab-hero p{margin-top:24px;font-size:clamp(16px,1.5vw,20px);line-height:1.6;color:rgba(255,255,255,.8);max-width:60ch}
@@ -110,9 +115,15 @@
 
 <section class="ab-hero">
   <div class="ab-hero-in">
-    <div class="ab-eyebrow">About the Institute</div>
-    <h1>Independent certification for sound recordings</h1>
-    <p>The Musical Form Institute certifies recordings by how they were made, under published standards, on a public record. It administers two certification marks and operates the registry where any certified recording can be verified.</p>
+    <div class="ab-hero-text">
+      <div class="ab-eyebrow">About the Institute</div>
+      <h1>Independent certification for sound recordings</h1>
+      <p>The Musical Form Institute certifies recordings by how they were made, under published standards, on a public record. It administers two certification marks and operates the registry where any certified recording can be verified.</p>
+    </div>
+    <div class="ab-hero-media">
+      <img src="/img/about-hero.jpg" alt="An Otari MTR-10 reel-to-reel tape recorder with studio outboard gear" width="1066" height="1600" loading="eager">
+      <div class="ab-photo-credit">Photo by <a href="https://unsplash.com/@sweeksco?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener">Steven Weeks</a> on <a href="https://unsplash.com/photos/black-and-gray-dj-controller-NNGyAvsmAnk?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></div>
+    </div>
   </div>
 </section>
 
