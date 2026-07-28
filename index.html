@@ -665,6 +665,14 @@ body.v2 .v2-feat-list-track {
 
 @media(max-width:520px){.mf-choose{grid-template-columns:1fr}}
 @media(max-width:760px){.mf-bar-nav{display:none}.mf-wall{grid-template-columns:repeat(5,1fr)}}
+
+/* ===== DARK TEST: everything below the hero (hero + masthead untouched) ===== */
+body.v2 { background:#0E0E0E; }
+body.v2 > section:not(.mf-hero) {
+  --paper:#0E0E0E; --paper-line:#2C2C2C; --ink:#F4F4F2; --ink-soft:#C0C0BC; --ink-quiet:#8E8E8A;
+  background:#0E0E0E; color:#F4F4F2;
+}
+body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; }
 </style>
 </head>
 <body class="v2">
