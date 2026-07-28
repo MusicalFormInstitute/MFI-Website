@@ -98,6 +98,13 @@
   .cep-related a:hover { color: var(--blue); }
   .cep-related a:last-child { border-bottom: 0; }
   .cep-related a::after { content: " \2192"; color: var(--blue); }
+
+  /* CEP page: dark + minimal (masthead + footer keep their own dark) */
+  body.v4 { background:#0E0E0E; }
+  .cep-hero, .section {
+    --paper:#0E0E0E; --paper-line:#2C2C2C; --ink:#F4F4F2; --ink-soft:#C0C0BC; --ink-quiet:#9A9A96; --mist:#161616;
+    background:#0E0E0E; color:#F4F4F2;
+  }
 </style>
 </head>
 <body class="v4">
@@ -145,34 +152,6 @@
 <section class="section">
   <div class="container">
     <div class="cep-body">
-
-      <h2>What the mark certifies</h2>
-      <p>The Certificate of Embodied Production certifies a sound recording produced primarily without three specific post-performance interventions. The mark is a process certification. The CEP does not ask what is produced, but how it is produced. Rather than fidelity to sound, think fidelity to the act.</p>
-
-      <h2>What the CEP is not</h2>
-      <p>The CEP is not watermarking, fingerprinting, or AI detection. Those tools address content provenance: they track what a file is and where it travels. The CEP addresses production provenance: how the recording was made. The Institute does not sell detection scores. It issues a certification, against a published standard, that a recording was produced by performance rather than correction.</p>
-
-      <h2>What appears on the public record</h2>
-      <p>Certified recordings are entered into the public registry at <a href="https://registry.musicalform.org" target="_blank" rel="noopener" style="color: var(--ink); border-bottom: 1.5px solid var(--orange); text-decoration: none; padding-bottom: 1px;">registry.musicalform.org</a>. Each certification receives a unique CEP identifier and is linked to the recording&rsquo;s ISRC. The master audio file submitted for review is deleted no later than 90 days after it is received. Only a SHA-256 cryptographic hash of the master file is retained on the public record, allowing any future copy of the file to be verified against the certification without the Institute holding the audio.</p>
-
-      <div class="cep-callout">
-        <strong>Audio retention policy.</strong> Master audio is deleted no later than 90 days after it is received. Only the SHA-256 hash, the certification metadata, and the decision letter are retained on the public record.
-      </div>
-
-      <h2>Who the mark is for</h2>
-      <p>The CEP is issued to a specific sound recording. It applies to the recording, not to the artist, label, or performer. An artist whose previous recording was certified has no standing claim that subsequent recordings are certified. Each recording is evaluated independently.</p>
-      <p>The mark is intended for recording artists, independent labels, distributors, and platforms that want to make verifiable claims about how a recording was produced.</p>
-
-      <h2>How CEP relates to CSF</h2>
-      <p>The Institute issues two certification marks on one ladder. The CEP is the lead mark. <a href="/csf" style="color: var(--ink); border-bottom: 1.5px solid var(--orange); text-decoration: none; padding-bottom: 1px;">Certified Significant Form (CSF)</a> is the baseline layer beneath it and certifies only that a recording was produced without generative AI. A recording certified under CEP meets the CSF standard by definition; the inverse is not true.</p>
-
-      <h2>The published standard</h2>
-      <p>The full criteria, methodology, thresholds, and review procedure are defined in the public standard document. The standard is versioned, dated, and published as a PDF. Older versions remain available for reference.</p>
-      <p><a href="/s/CEP_Public_Standard_v1_3_June_11_2026.pdf" target="_blank" rel="noopener" style="color: var(--ink); border-bottom: 1.5px solid var(--orange); text-decoration: none; padding-bottom: 1px;">Download CEP Public Standard v1.3 (June 11, 2026)</a></p>
-
-      <h2>Submit a recording</h2>
-      <p>Submissions are accepted on a rolling basis. There is no application window. The submission form collects the recording, the artist&rsquo;s attestation, and the metadata required for analyst review.</p>
-      <p><a href="/cep-submission" style="display: inline-block; background: var(--orange); color: #fff; padding: 12px 22px; font-weight: 600; font-size: 14px; letter-spacing: 0.02em; text-decoration: none; border: 1px solid var(--orange); margin-top: 8px;">Submit a recording for CEP review</a></p>
 
       <div class="cep-related">
         <a href="/csf">Certified Significant Form (CSF), the baseline layer</a>
