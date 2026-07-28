@@ -105,6 +105,11 @@
     --paper:#0E0E0E; --paper-line:#2C2C2C; --ink:#F4F4F2; --ink-soft:#C0C0BC; --ink-quiet:#9A9A96; --mist:#161616;
     background:#0E0E0E; color:#F4F4F2;
   }
+  .cep-talk .cep-talk-eyebrow { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; }
+  .cep-talk-title { font-size:clamp(24px,2.6vw,32px); font-weight:700; letter-spacing:-0.015em; color:var(--ink); margin:0 0 12px; max-width:26ch; }
+  .cep-talk-note { font-size:15px; line-height:1.65; color:var(--ink-soft); max-width:70ch; margin:0 0 28px; }
+  .cep-talk-video { position:relative; width:100%; max-width:900px; aspect-ratio:16/9; background:#000; box-shadow:0 12px 44px rgba(0,0,0,0.5); }
+  .cep-talk-video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
 </style>
 </head>
 <body class="v4">
@@ -145,6 +150,17 @@
           <a class="registry-link" href="https://registry.musicalform.org/cep" target="_blank" rel="noopener">View the registry</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cep-talk">
+  <div class="container">
+    <div class="cep-talk-eyebrow">Presentation</div>
+    <h2 class="cep-talk-title">Operationalizing Langer&rsquo;s Presentational Symbols</h2>
+    <p class="cep-talk-note">Presented at the 2026 Susanne K. Langer conference in Vienna, Austria. The recording of the conference talk is forthcoming; this version is shared here in the meantime.</p>
+    <div class="cep-talk-video">
+      <iframe src="https://www.youtube.com/embed/A1I9f4q3Iww?rel=0" title="Operationalizing Langer's Presentational Symbols: The Certificate of Embodied Production" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 </section>
