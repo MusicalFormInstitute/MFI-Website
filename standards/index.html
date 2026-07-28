@@ -34,6 +34,15 @@
   body.v4 .standards-hero-cards { display:grid; grid-template-columns:1fr 1fr; gap:44px; }
   body.v4 .standards-hero-cards .standard-card { border-bottom:0 !important; padding:0 !important; }
   @media (max-width:820px){ body.v4 .standards-hero-cards { grid-template-columns:1fr; gap:36px; } }
+  /* bigger badges + bigger blue/orange eyebrow tags on the standards cards */
+  body.v4 .standards-hero-cards .standard-card { grid-template-columns:160px 1fr; }
+  body.v4 .standards-hero-cards .standard-badge { max-width:160px; }
+  body.v4 .standards-hero-cards .standard-badge img { width:100%; height:auto; display:block; }
+  body.v4 .standards-hero-cards .standard-tag { font-size:15px !important; }
+  @media (max-width:600px){
+    body.v4 .standards-hero-cards .standard-card { grid-template-columns:1fr; gap:18px; }
+    body.v4 .standards-hero-cards .standard-badge { max-width:140px; }
+  }
 </style>
 </head>
 <body class="v4">
