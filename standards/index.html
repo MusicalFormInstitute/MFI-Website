@@ -23,6 +23,18 @@
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/styles-v4-pages.css">
 <script defer src="/consent.js"></script>
+<style>
+  /* Standards page: dark + minimal (masthead + footer keep their own dark) */
+  body.v4 { background:#0E0E0E; }
+  .page-hero, .section {
+    --paper:#0E0E0E; --paper-line:#2C2C2C; --ink:#F4F4F2; --ink-soft:#B8B8B4; --ink-quiet:#9A9A96;
+    background:#0E0E0E; color:#F4F4F2;
+  }
+  body.v4 .standards-hero-grid { grid-template-columns:1fr; gap:22px; }
+  body.v4 .standards-hero-cards { display:grid; grid-template-columns:1fr 1fr; gap:44px; }
+  body.v4 .standards-hero-cards .standard-card { border-bottom:0 !important; padding:0 !important; }
+  @media (max-width:820px){ body.v4 .standards-hero-cards { grid-template-columns:1fr; gap:36px; } }
+</style>
 </head>
 <body class="v4">
 
@@ -47,8 +59,6 @@
     <div class="standards-hero-grid">
       <div>
         <div class="page-hero-eyebrow">Published Standards</div>
-        <h1>The standards behind every certification</h1>
-        <p>Both MFI marks are issued under public standards. Anyone can read them, cite them, or audit a certification against them. The standards are versioned, dated, and published as PDFs.</p>
       </div>
       <div class="standards-hero-cards">
 
@@ -163,17 +173,6 @@
         <h3>Certifications appear in the registry</h3>
         <p>Certified recordings receive a unique ID and are published in the public registry. Master audio is deleted no later than 90 days after it is received. A SHA-256 hash of the file is retained permanently for verification.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="container">
-    <div class="section-eyebrow">Background</div>
-    <h2>The empirical context</h2>
-    <p class="section-intro" style="max-width: 820px;">The standards are written against a measurable baseline of how popular recordings are now produced. The Institute publishes original research on the <a href="/research/gridification" style="color: var(--vintage-blue); border-bottom: 1px solid currentColor; text-decoration: none; font-weight: 500;">gridification of popular music</a>, documenting tempo variability across six decades of Billboard year-end top-five recordings (1960 through 2025), alongside two companion essays on the civic and aesthetic stakes.</p>
-    <div style="margin-top: 24px;">
-      <a href="/research" class="btn btn-blue">View Research &rarr;</a>
     </div>
   </div>
 </section>
