@@ -23,6 +23,12 @@
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/styles-v4-pages.css">
 <script defer src="/consent.js"></script>
+<style>
+  .lab-hero-grid { display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center; }
+  .lab-hero-text { min-width:0; }
+  .lab-hero-media img { display:block; width:100%; height:auto; max-height:460px; object-fit:cover; object-position:center; box-shadow:0 14px 40px rgba(0,0,0,0.16); }
+  @media (max-width:820px){ .lab-hero-grid { grid-template-columns:1fr; gap:28px; } .lab-hero-media img { max-height:320px; } }
+</style>
 </head>
 <body class="v4">
 
@@ -43,75 +49,21 @@
 </header>
 
 <section class="page-hero">
-  <div class="container">
-    <div class="page-hero-eyebrow">For Labels</div>
-    <h1>Two marks, one ladder. One trust layer for your catalog</h1>
-    <p>Independent verification of how the music was made, on the public record. Built for indie labels, distributors, and rights organizations who want a credential that does not depend on any one platform.</p>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
-      <a href="mailto:certifications@musicalform.org?subject=Label%20Portal%20Access%20Request" class="btn btn-primary">Request Portal Access</a>
-      <a href="/standards" class="btn btn-outline">Read the Standards</a>
+  <div class="container lab-hero-grid">
+    <div class="lab-hero-text">
+      <div class="page-hero-eyebrow">For Labels</div>
+      <h1>Bulk catalog and prerelease certification for labels</h1>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
+        <a href="mailto:certifications@musicalform.org?subject=Label%20Access%20Request" class="btn btn-primary">Request Label Access</a>
+        <a href="/standards" class="btn btn-outline">Read the Standards</a>
+      </div>
+    </div>
+    <div class="lab-hero-media">
+      <img src="/img/labels-hero.jpg" alt="A stack of colorful vinyl records seen edge-on" width="1066" height="1600" loading="eager">
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-eyebrow">Already in the registry</div>
-    <h2>The current scale</h2>
-    <p class="section-intro">Live counts from the public registry, updated every time a new record is certified.</p>
-    <div class="hero-stats" style="max-width: 800px;">
-      <div class="hero-stats-list" style="grid-template-columns: repeat(3, 1fr);">
-        <div>
-          <div class="hero-stat-value" id="csfCount">12,900+</div>
-          <div class="hero-stat-label">CSF Certifications</div>
-        </div>
-        <div>
-          <div class="hero-stat-value" id="labelCount">235+</div>
-          <div class="hero-stat-label">Labels in Registry</div>
-        </div>
-        <div>
-          <div class="hero-stat-value" id="artistCount">1,278</div>
-          <div class="hero-stat-label">Artists Represented</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="container">
-    <div class="section-eyebrow">Why MFI</div>
-    <h2>What labels get from the certification</h2>
-    <p class="section-intro">A short list of what the marks actually do for your release strategy and for your artists.</p>
-
-    <div class="value-grid">
-      <div class="value-card">
-        <h3>A platform-independent credential</h3>
-        <p>The mark is yours, not a streaming service's internal score. It travels with the recording across DSPs, sync deals, sync libraries, and press.</p>
-      </div>
-      <div class="value-card">
-        <h3>Public verifiability</h3>
-        <p>Anyone can look up a CSF or CEP ID in the public registry. Sync agencies, journalists, and listeners can confirm the certification themselves.</p>
-      </div>
-      <div class="value-card">
-        <h3>Defense against false-positive AI flags</h3>
-        <p>If a DSP's automated tooling flags a recording as AI-generated, having an independent CSF certification on file is a documented counter-record.</p>
-      </div>
-      <div class="value-card">
-        <h3>Production methodology on the record</h3>
-        <p>The CEP certifies the deeper claim: that the recording was actually performed, not constructed. For artists whose craft is the story, that documentation matters.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section alt">
-  <div class="container" style="text-align: center;">
-    <div class="section-eyebrow">For partners</div>
-    <h2>Get in touch</h2>
-    <p style="max-width: 620px; margin: 0 auto;">Email <a href="mailto:certifications@musicalform.org?subject=Label%20inquiry" style="color: var(--vintage-blue); border-bottom: 1px solid currentColor; text-decoration: none;">certifications@musicalform.org</a> with questions or to request a meeting. We respond within one business day.</p>
-  </div>
-</section>
 
 <footer class="footer">
   <div class="container">
@@ -180,30 +132,6 @@
     </div>
   </div>
 </footer>
-
-<script>
-(function(){
-  var SUPA='https://vqydcmpraydbepckczzd.supabase.co/rest/v1';
-  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxeWRjbXByYXlkYmVwY2tjenpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNDE0MzIsImV4cCI6MjA5MDYxNzQzMn0.ew6VRo9I1EDkvDpGeVOevfR-4D9QjGRQ-rMyH1dppDg';
-  var h={'apikey':KEY,'Authorization':'Bearer '+KEY};
-  function fmt(n){return Number(n).toLocaleString()}
-  fetch(SUPA+'/v_csf_public_registry?select=csf_id',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
-    .then(function(r){var range=r.headers.get('content-range')||'*/0';var el=document.getElementById('csfCount');if(el)el.textContent=fmt(range.split('/')[1]||'0')}).catch(function(){});
-  fetch(SUPA+'/v_label_summary?select=label',{headers:Object.assign({},h,{'Prefer':'count=exact','Range':'0-0'})})
-    .then(function(r){var range=r.headers.get('content-range')||'*/0';var el=document.getElementById('labelCount');if(el)el.textContent=fmt(range.split('/')[1]||'0')}).catch(function(){});
-  // Distinct artist count
-  fetch(SUPA+'/v_csf_public_registry?select=primary_artist&limit=10000',{headers:h})
-    .then(function(r){return r.json()})
-    .then(function(d){
-      if(!d || !d.length) return;
-      var set = {};
-      d.forEach(function(t){ if(t.primary_artist) set[t.primary_artist] = true; });
-      var n = Object.keys(set).length;
-      var el = document.getElementById('artistCount');
-      if(el) el.textContent = fmt(n);
-    }).catch(function(){});
-})();
-</script>
 
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
