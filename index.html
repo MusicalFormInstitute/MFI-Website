@@ -717,14 +717,14 @@ body.v2 .v2-feat-list-track {
         <h2>Which mark fits your record?</h2>
 
         <div class="mf-choose">
-          <div class="mf-choice" data-mark="csf" role="button" tabindex="0" aria-pressed="false">
+          <div class="mf-choice sel" data-mark="csf" role="button" tabindex="0" aria-pressed="true">
             <div class="mf-choice-top">
               <div><div class="mf-choice-name">CSF</div><div class="mf-choice-full">Certified Significant Form</div></div>
               <span class="mf-radio"><span class="dot"></span></span>
             </div>
             <div class="mf-choice-desc">For any release made without generative AI.</div>
           </div>
-          <div class="mf-choice sel" data-mark="cep" role="button" tabindex="0" aria-pressed="true">
+          <div class="mf-choice" data-mark="cep" role="button" tabindex="0" aria-pressed="false">
             <span class="mf-choice-pill">Includes CSF</span>
             <div class="mf-choice-top">
               <div><div class="mf-choice-name">CEP</div><div class="mf-choice-full">Certificate of Embodied Production</div></div>
@@ -759,7 +759,7 @@ body.v2 .v2-feat-list-track {
   if(!form) return;
   var btn=document.getElementById("hcBtn"), err=document.getElementById("hcErr");
   var choices=form.querySelectorAll(".mf-choice");
-  var mark="cep";  // CEP pre-selected; a failed CEP review still yields CSF
+  var mark="csf";  // CSF pre-selected (test); user can switch to CEP
   function select(m){
     mark=m;
     for(var j=0;j<choices.length;j++){
