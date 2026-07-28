@@ -131,6 +131,14 @@
   .lsri-cta h2 { font-size:clamp(26px,3vw,34px); font-weight:700; letter-spacing:-0.02em; color:var(--ink); margin:0 0 16px; }
   .lsri-cta p { font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:62ch; margin:0 0 28px; }
 
+  .lsri-article { display:block; border:1px solid var(--paper-line); background:#fff; padding:26px 28px; max-width:760px; text-decoration:none; color:inherit; transition:border-color .15s; }
+  .lsri-article:hover { border-color:var(--ink); }
+  .lsri-article-meta { font-size:13px; font-weight:600; letter-spacing:0.02em; color:var(--ink-quiet); margin-bottom:8px; }
+  .lsri-article-title { font-size:20px; font-weight:700; letter-spacing:-0.015em; line-height:1.25; color:var(--ink); margin-bottom:10px; }
+  .lsri-article-desc { font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0 0 14px; }
+  .lsri-article-cue { display:inline-block; font-size:14px; font-weight:600; color:var(--ink); border-bottom:1.5px solid var(--orange); padding-bottom:1px; }
+  .lsri-article:hover .lsri-article-cue { color:var(--orange); }
+
   @media (max-width:860px) {
     .lsri-hero { padding:48px 0 40px; }
     .lsri-steps { grid-template-columns:1fr; gap:28px; }
@@ -165,6 +173,9 @@
       <h1>Recording Ecosystem Lab</h1>
       <div class="lsri-sub">A facilitated planning process for local music workforce and infrastructure</div>
       <p class="lsri-lead">Bring the people who make local recordings into one room. Pay them for their knowledge. Leave with a plan the city can act on.</p>
+      <div class="lsri-actions">
+        <a class="lsri-btn lsri-btn--primary" href="mailto:jeffrey@musicalform.org?subject=Recording%20Ecosystem%20Lab">Discuss a Recording Ecosystem Lab</a>
+      </div>
     </div>
     <div class="lsri-hero-media">
       <img src="/lsri/lsri-hero.jpg" alt="Mural of a saxophonist on a building above a city street" width="1066" height="1600" loading="eager">
@@ -181,12 +192,16 @@
   </div>
 </section>
 
-<!-- 10. FINAL CTA -->
-<section class="lsri-cta">
+<!-- 3. FURTHER READING -->
+<section class="lsri-section">
   <div class="container">
-    <h2>Start with the local question</h2>
-    <p>Tell us about the city or region, the organizations involved, and the recording-workforce or infrastructure question you are trying to answer.</p>
-    <a class="lsri-btn lsri-btn--primary" href="mailto:jeffrey@musicalform.org?subject=Recording%20Ecosystem%20Lab">Discuss a Recording Ecosystem Lab</a>
+    <h2>Further reading</h2>
+    <a class="lsri-article" href="https://medium.com/the-riff/the-gear-addiction-thats-killing-music-and-the-planet-e692159a41e7?sk=18d3e2160e6bafb1304f8011f29d2a9e" target="_blank" rel="noopener">
+      <div class="lsri-article-meta">The Riff on Medium &middot; August 12, 2025</div>
+      <div class="lsri-article-title">The Gear Addiction That's Killing Music and the Planet</div>
+      <p class="lsri-article-desc">Jeffrey Anthony on how gear culture, sold as democratization, funnels money to manufacturers and carries real environmental costs while homogenizing how music gets made.</p>
+      <span class="lsri-article-cue">Read the article &rarr;</span>
+    </a>
   </div>
 </section>
 
