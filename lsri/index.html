@@ -131,8 +131,10 @@
   .lsri-cta h2 { font-size:clamp(26px,3vw,34px); font-weight:700; letter-spacing:-0.02em; color:var(--ink); margin:0 0 16px; }
   .lsri-cta p { font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:62ch; margin:0 0 28px; }
 
-  .lsri-article { display:block; border:1px solid var(--paper-line); background:#fff; padding:26px 28px; max-width:760px; text-decoration:none; color:inherit; transition:border-color .15s; }
+  .lsri-article { display:block; border:1px solid var(--paper-line); background:#fff; max-width:760px; text-decoration:none; color:inherit; transition:border-color .15s; overflow:hidden; }
   .lsri-article:hover { border-color:var(--ink); }
+  .lsri-article-img { display:block; width:100%; height:auto; border-bottom:1px solid var(--paper-line); }
+  .lsri-article-body { padding:26px 28px; }
   .lsri-article-meta { font-size:13px; font-weight:600; letter-spacing:0.02em; color:var(--ink-quiet); margin-bottom:8px; }
   .lsri-article-title { font-size:20px; font-weight:700; letter-spacing:-0.015em; line-height:1.25; color:var(--ink); margin-bottom:10px; }
   .lsri-article-desc { font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0 0 14px; }
@@ -197,10 +199,13 @@
   <div class="container">
     <h2>Further reading</h2>
     <a class="lsri-article" href="https://medium.com/the-riff/the-gear-addiction-thats-killing-music-and-the-planet-e692159a41e7?sk=18d3e2160e6bafb1304f8011f29d2a9e" target="_blank" rel="noopener">
-      <div class="lsri-article-meta">The Riff on Medium &middot; August 12, 2025</div>
-      <div class="lsri-article-title">The Gear Addiction That's Killing Music and the Planet</div>
-      <p class="lsri-article-desc">Jeffrey Anthony on how gear culture, sold as democratization, funnels money to manufacturers and carries real environmental costs while homogenizing how music gets made.</p>
-      <span class="lsri-article-cue">Read the article &rarr;</span>
+      <img class="lsri-article-img" src="/lsri/gear-addiction-sonic-ranch.jpg" alt="The control room at Sonic Ranch: a large analog mixing console and studio monitors" width="1430" height="1075" loading="lazy">
+      <div class="lsri-article-body">
+        <div class="lsri-article-meta">The Riff on Medium &middot; August 12, 2025</div>
+        <div class="lsri-article-title">The Gear Addiction That's Killing Music and the Planet</div>
+        <p class="lsri-article-desc">Jeffrey Anthony on how gear culture, sold as democratization, funnels money to manufacturers and carries real environmental costs while homogenizing how music gets made.</p>
+        <span class="lsri-article-cue">Read the article &rarr;</span>
+      </div>
     </a>
   </div>
 </section>
