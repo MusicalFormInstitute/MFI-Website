@@ -23,6 +23,44 @@
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/styles-v4-pages.css">
 <script defer src="/consent.js"></script>
+<style>
+  /* News page: dark (masthead + footer keep their own dark) */
+  body.v4 { background:#0E0E0E; }
+  .page-hero, .section {
+    --paper:#0E0E0E; --ink:#F4F4F2; --ink-soft:#C0C0BC; --ink-quiet:#9A9A96;
+    --paper-line:rgba(255,255,255,0.14);
+    background:#0E0E0E; color:#F4F4F2;
+  }
+  /* clickable destination cue at the foot of each news card */
+  .news-cue {
+    display:inline-block; margin-top:12px;
+    font-size:13px; font-weight:600; letter-spacing:0.01em;
+    color:var(--ink); border-bottom:1.5px solid var(--orange); padding-bottom:1px;
+  }
+  .news-card:hover .news-cue { color:var(--orange); }
+  body.v4 .section h2.news-heading { margin-bottom:24px; }
+  /* current-news rich link / social preview card */
+  .news-media-card {
+    display:block; max-width:640px;
+    border:1px solid rgba(255,255,255,0.14);
+    background:#161616; color:inherit; text-decoration:none;
+    transition:border-color .15s ease;
+  }
+  .news-media-card:hover { border-color:rgba(255,255,255,0.55); }
+  .news-media-card img {
+    display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
+    border-bottom:1px solid rgba(255,255,255,0.10);
+  }
+  .news-media-body { padding:22px 24px 24px; }
+  .news-media-body .news-date { margin-bottom:8px; }
+  .news-media-body h3 {
+    font-size:20px; font-weight:700; letter-spacing:-0.015em; line-height:1.25;
+    color:var(--ink); margin-bottom:10px;
+  }
+  .news-media-body p { font-size:14px; line-height:1.55; color:var(--ink-soft); }
+  .news-media-body .news-cue { margin-top:14px; }
+  .news-media-card:hover .news-cue { color:var(--orange); }
+</style>
 </head>
 <body class="v4">
 
@@ -52,30 +90,33 @@
 
 <section class="section">
   <div class="container">
-    <div class="news-list">
+    <h2 class="news-heading">Current news</h2>
 
-      <a href="/news/langer-conference-2026" class="news-card">
-        <div class="news-date">May 26-29, 2026 &middot; Vienna</div>
-        <h3>Susanne K. Langer Circle Conference 2026</h3>
-        <p>Jeffrey Anthony presents "Operationalizing Langer's Presentational Symbols: The Certificate of Embodied Production as Musical Praxis" at an international philosophy conference at the Susanne K. Langer Circle in Vienna.</p>
-      </a>
-
-    </div>
+    <a href="https://thekevinalexander.substack.com/p/gridification-embodied-production-music-time" class="news-media-card" target="_blank" rel="noopener">
+      <img src="/img/news/on-repeat-records-gridification.jpg" alt="On Repeat Records guest post: Gridification Is Reshaping Music" width="1200" height="675" loading="lazy">
+      <div class="news-media-body">
+        <div class="news-date">July 16, 2026 &middot; On Repeat Records</div>
+        <h3>Gridification Is Reshaping Music. Now Is the Perfect Time to Talk About Perfect Timing.</h3>
+        <p>Jeffrey Anthony, Founder and Director of the Musical Form Institute, was invited to write a guest post for On Repeat Records on what gridification is, how it has changed the way music is made, and how we receive it.</p>
+        <span class="news-cue">Read the article &rarr;</span>
+      </div>
+    </a>
   </div>
 </section>
 
-<section class="section alt">
+<section class="section">
   <div class="container">
-    <div class="section-eyebrow">Stay informed</div>
-    <h2>How updates are published</h2>
-    <p class="section-intro">All meaningful updates are posted on this page. Major standards revisions are also republished as new versioned PDFs on the <a href="/standards" style="color:var(--vintage-blue)">Standards page</a> with a public version-history record.</p>
+    <h2 class="news-heading">Past news</h2>
+    <div class="news-list">
 
-    <ul class="kv-list">
-      <li><strong>Standards revisions</strong><span>New version PDF, dated, with summary on this page and a row in the Standards version-history table.</span></li>
-      <li><strong>Conference talks</strong><span>Posted here when accepted. Materials linked when available.</span></li>
-      <li><strong>Registry milestones</strong><span>Notable thresholds (record counts, label counts, partner additions) noted here.</span></li>
-      <li><strong>Operational notices</strong><span>Anything that changes how the Institute operates (review timing, submission policy, fee changes) is announced here in advance of taking effect.</span></li>
-    </ul>
+      <a href="https://musicalform.org/cep#:~:text=Operationalizing%20Langer%E2%80%99s%20Presentational%20Symbols" class="news-card">
+        <div class="news-date">May 26-29, 2026 &middot; Vienna</div>
+        <h3>Susanne K. Langer Circle Conference 2026</h3>
+        <p>Jeffrey Anthony presented "Operationalizing Langer's Presentational Symbols: The Certificate of Embodied Production as Musical Praxis" at an international philosophy conference at the Susanne K. Langer Circle in Vienna. The lecture is posted on the CEP page.</p>
+        <span class="news-cue">Read the lecture &rarr;</span>
+      </a>
+
+    </div>
   </div>
 </section>
 
