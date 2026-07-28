@@ -41,14 +41,16 @@
   body.v4 .section h2.news-heading { margin-bottom:24px; }
   /* current-news rich link / social preview card */
   .news-media-card {
-    display:block; max-width:640px;
+    display:block; max-width:900px;
     border:1px solid rgba(255,255,255,0.14);
     background:#161616; color:inherit; text-decoration:none;
     transition:border-color .15s ease;
   }
   .news-media-card:hover { border-color:rgba(255,255,255,0.55); }
+  /* full image, natural 16:9 ratio, never cropped. height:auto is required so the
+     img's height="675" attribute does not force a fixed tall box under width:100% */
   .news-media-card img {
-    display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
+    display:block; width:100%; height:auto;
     border-bottom:1px solid rgba(255,255,255,0.10);
   }
   .news-media-body { padding:22px 24px 24px; }
