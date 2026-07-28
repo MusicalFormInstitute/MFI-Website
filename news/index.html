@@ -40,11 +40,18 @@
   .news-card:hover .news-cue { color:var(--orange); }
   body.v4 .section h2.news-heading { margin-bottom:24px; }
   /* current-news rich link / social preview card */
+  .news-cards { max-width:900px; display:flex; flex-direction:column; gap:22px; }
   .news-media-card {
-    display:block; max-width:900px;
+    display:block; width:100%;
     border:1px solid rgba(255,255,255,0.14);
     background:#161616; color:inherit; text-decoration:none;
     transition:border-color .15s ease;
+  }
+  .news-badge {
+    display:inline-block; margin-bottom:12px;
+    font-size:11px; font-weight:700; letter-spacing:0.07em; text-transform:uppercase;
+    color:var(--orange); border:1px solid rgba(223,105,59,0.55);
+    padding:3px 9px; border-radius:2px;
   }
   .news-media-card:hover { border-color:rgba(255,255,255,0.55); }
   /* full image, natural 16:9 ratio, never cropped. height:auto is required so the
@@ -94,15 +101,29 @@
   <div class="container">
     <h2 class="news-heading">Current news</h2>
 
-    <a href="https://thekevinalexander.substack.com/p/gridification-embodied-production-music-time" class="news-media-card" target="_blank" rel="noopener">
-      <img src="/img/news/on-repeat-records-gridification.jpg" alt="On Repeat Records guest post: Gridification Is Reshaping Music" width="1200" height="675" loading="lazy">
-      <div class="news-media-body">
-        <div class="news-date">July 16, 2026 &middot; On Repeat Records</div>
-        <h3>Gridification Is Reshaping Music. Now Is the Perfect Time to Talk About Perfect Timing.</h3>
-        <p>Jeffrey Anthony, Founder and Director of the Musical Form Institute, was invited to write a guest post for On Repeat Records on what gridification is, how it has changed the way music is made, and how we receive it.</p>
-        <span class="news-cue">Read the article &rarr;</span>
-      </div>
-    </a>
+    <div class="news-cards">
+
+      <a href="https://thekevinalexander.substack.com/p/gridification-embodied-production-music-time" class="news-media-card" target="_blank" rel="noopener">
+        <img src="/img/news/on-repeat-records-gridification.jpg" alt="On Repeat Records guest post: Gridification Is Reshaping Music" width="1200" height="675" loading="lazy">
+        <div class="news-media-body">
+          <div class="news-date">July 16, 2026 &middot; On Repeat Records</div>
+          <h3>Gridification Is Reshaping Music. Now Is the Perfect Time to Talk About Perfect Timing.</h3>
+          <p>Jeffrey Anthony, Founder and Director of the Musical Form Institute, was invited to write a guest post for On Repeat Records on what gridification is, how it has changed the way music is made, and how we receive it.</p>
+          <span class="news-cue">Read the article &rarr;</span>
+        </div>
+      </a>
+
+      <a href="https://medium.com/the-riff/at-indie-week-i-watched-the-music-industry-sell-out-to-ai-4527981cf70c?sk=84c219d82e9dff7a671d9100b092e8f7" class="news-media-card" target="_blank" rel="noopener">
+        <div class="news-media-body">
+          <span class="news-badge">Medium Staff Pick &middot; Featured</span>
+          <div class="news-date">July 12, 2026 &middot; The Riff on Medium</div>
+          <h3>At Indie Week, I Watched the Music Industry Sell Out to AI</h3>
+          <p>Jeffrey Anthony, Founder and Director of the Musical Form Institute, reports from a panel at A2IM Indie Week featuring executives from Meta, Suno, Warner Music Group, and EMPIRE, and watches the industry reframe artists' work as "content" while an AI company sells its output as "music."</p>
+          <span class="news-cue">Read the article &rarr;</span>
+        </div>
+      </a>
+
+    </div>
   </div>
 </section>
 
@@ -115,7 +136,7 @@
         <div class="news-date">May 26-29, 2026 &middot; Vienna</div>
         <h3>Susanne K. Langer Circle Conference 2026</h3>
         <p>Jeffrey Anthony presented "Operationalizing Langer's Presentational Symbols: The Certificate of Embodied Production as Musical Praxis" at an international philosophy conference at the Susanne K. Langer Circle in Vienna. The lecture is posted on the CEP page.</p>
-        <span class="news-cue">Read the lecture &rarr;</span>
+        <span class="news-cue">Watch the lecture &rarr;</span>
       </a>
 
     </div>
