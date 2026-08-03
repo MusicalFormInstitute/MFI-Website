@@ -89,14 +89,16 @@
   .lsri-list li:last-child { border-bottom:0; }
   .lsri-list li::before { content:""; position:absolute; left:0; top:18px; width:7px; height:7px; background:var(--blue); }
 
-  .lsri-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:8px; }
-  .lsri-step-head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .lsri-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:8px; }
+  .lsri-step-head { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
   .lsri-step-num { flex:none; width:30px; height:30px; border-radius:50%; background:var(--blue); color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; }
-  .lsri-step h3 { font-size:18px; font-weight:700; color:var(--ink); margin:0; }
+  .lsri-step h3 { font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink); margin:0; }
+  .lsri-step p { font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0; }
   .lsri-step ul { list-style:none; margin:0; padding:0; }
   .lsri-step li { position:relative; font-size:15px; line-height:1.55; color:var(--ink-soft); padding:9px 0 9px 18px; border-bottom:1px solid var(--paper-line); }
   .lsri-step li:last-child { border-bottom:0; }
   .lsri-step li::before { content:""; position:absolute; left:0; top:15px; width:6px; height:6px; background:var(--blue); }
+  .lsri-steps-note { font-size:14px; line-height:1.6; color:var(--ink-quiet); margin-top:28px; max-width:72ch; }
 
   .lsri-statement { background:var(--mist); border-left:3px solid var(--blue); padding:24px 28px; margin:40px 0 0; font-size:clamp(17px,1.6vw,20px); font-weight:600; line-height:1.5; color:var(--ink); }
 
@@ -138,6 +140,16 @@
   .lsri-cta h2 { font-size:clamp(26px,3vw,34px); font-weight:700; letter-spacing:-0.02em; color:var(--ink); margin:0 0 16px; }
   .lsri-cta p { font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:62ch; margin:0 0 28px; }
 
+  .lsri-deliverable { border:1px solid var(--paper-line); background:var(--mist); padding:6px 26px 10px; margin-top:24px; max-width:760px; }
+
+  .lsri-section p a { color:var(--ink); text-decoration:underline; text-decoration-color:var(--blue); text-underline-offset:2px; }
+  .lsri-section p a:hover { color:var(--blue); }
+
+  .lsri-founding { background:var(--mist); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line); }
+  .lsri-founding-sub { color:var(--ink); font-weight:600; }
+  .lsri-email { font-size:14px; font-weight:600; color:var(--ink); text-decoration:underline; text-decoration-color:var(--blue); text-underline-offset:2px; }
+  .lsri-email:hover { color:var(--blue); }
+
   .lsri-articles { display:flex; flex-direction:column; gap:24px; max-width:760px; }
   .lsri-article { display:block; width:100%; border:1px solid var(--paper-line); background:#fff; text-decoration:none; color:inherit; transition:border-color .15s; overflow:hidden; }
   .lsri-article:hover { border-color:var(--ink); }
@@ -154,9 +166,12 @@
 
   @media (max-width:860px) {
     .lsri-hero { padding:48px 0 40px; }
-    .lsri-steps { grid-template-columns:1fr; gap:28px; }
+    .lsri-steps { grid-template-columns:repeat(2,1fr); gap:28px; }
     .lsri-plans { grid-template-columns:1fr; }
     .lsri-includes { grid-template-columns:1fr; gap:24px; }
+  }
+  @media (max-width:540px) {
+    .lsri-steps { grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -187,7 +202,7 @@
       <div class="lsri-sub">A facilitated planning process for local music workforce and infrastructure</div>
       <p class="lsri-lead">Bring the people who make local recordings into one room. Pay them for their knowledge. Leave with a plan the city can act on.</p>
       <div class="lsri-actions">
-        <a class="lsri-btn lsri-btn--primary" href="mailto:lsri@musicalform.org?subject=Recording%20Ecosystem%20Lab">Discuss a Lab for Your City</a>
+        <a class="lsri-btn lsri-btn--primary" href="mailto:lsri@musicalform.org?subject=Recording%20Ecosystem%20Lab%20Inquiry">Discuss a Lab for Your City</a>
         <a class="lsri-btn lsri-btn--blue" href="/lsri/LSRI-Recording-Ecosystem-Lab.pdf" target="_blank" rel="noopener">View the Lab Overview</a>
       </div>
     </div>
@@ -230,16 +245,50 @@
   </div>
 </section>
 
-<!-- 5. THE CLIMATE CASE -->
+<!-- 5. HOW THE LAB WORKS -->
 <section class="lsri-section">
   <div class="container">
-    <h2>The climate case</h2>
-    <p>A city can build recording capacity collectively rather than duplicate it one bedroom at a time.</p>
-    <p>Shared studios, equipment, repair capacity, and local production resources may reduce repeated purchases, shipping, packaging, and waste. The Lab identifies where collective investment could make local recording infrastructure more affordable, useful, and resource-efficient.</p>
+    <h2>How the Lab works</h2>
+    <div class="lsri-steps">
+      <div class="lsri-step">
+        <div class="lsri-step-head"><span class="lsri-step-num">1</span><h3>Plan</h3></div>
+        <p>LSRI and the local host identify partners, define the question the city needs answered, and develop the stakeholder survey and Lab agenda.</p>
+      </div>
+      <div class="lsri-step">
+        <div class="lsri-step-head"><span class="lsri-step-num">2</span><h3>Convene</h3></div>
+        <p>LSRI facilitates a working session with the people who make and support local recordings.</p>
+      </div>
+      <div class="lsri-step">
+        <div class="lsri-step-head"><span class="lsri-step-num">3</span><h3>Analyze data</h3></div>
+        <p>LSRI combines survey findings with what was learned in the Lab to identify local strengths, gaps, and shared priorities.</p>
+      </div>
+      <div class="lsri-step">
+        <div class="lsri-step-head"><span class="lsri-step-num">4</span><h3>Deliver</h3></div>
+        <p>The host receives a Local Recording Ecosystem Action Plan with costed options, potential partners, and the decisions required to move forward.</p>
+      </div>
+    </div>
+    <p class="lsri-steps-note">Participant stipends, venue, travel, accessibility, and other local costs are scoped with the host and identified in the engagement budget.</p>
   </div>
 </section>
 
-<!-- 6. WHERE THIS FITS -->
+<!-- 6. WHAT THE ACTION PLAN CONTAINS -->
+<section class="lsri-section">
+  <div class="container">
+    <h2>What the action plan contains</h2>
+    <p>The Local Recording Ecosystem Action Plan gives the host a locally grounded basis for investment and implementation decisions.</p>
+    <div class="lsri-deliverable">
+      <ul class="lsri-list">
+        <li>Existing strengths and priority gaps</li>
+        <li>Recommended actions and their sequence</li>
+        <li>Potential partners and responsibilities</li>
+        <li>Budget and timeline options</li>
+        <li>Decision points and immediate next steps</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 7. WHERE THIS FITS -->
 <section class="lsri-section">
   <div class="container">
     <h2>Where this fits</h2>
@@ -248,7 +297,40 @@
   </div>
 </section>
 
-<!-- 7. FURTHER READING -->
+<!-- 8. THE CLIMATE CASE -->
+<section class="lsri-section">
+  <div class="container">
+    <h2>The climate case</h2>
+    <p>A city can build recording capacity collectively rather than duplicate it one bedroom at a time.</p>
+    <p>Shared studios, equipment, repair capacity, and local production resources may reduce repeated purchases, shipping, packaging, and waste. The Lab identifies where collective investment could make local recording infrastructure more affordable, useful, and resource-efficient.</p>
+  </div>
+</section>
+
+<!-- 9. WHO LEADS THE LAB -->
+<section class="lsri-section">
+  <div class="container">
+    <h2>Who leads the Lab</h2>
+    <p>The Lab is led by Jeffrey Anthony, founder and director of the Musical Form Institute. He brings 25 years of experience as a touring and session musician, record producer, and studio owner, an MPA and graduate training in collaborative governance, and professional experience in municipal economic development and public-sector program administration.</p>
+    <p>At the City of Tucson, he created and led a supplier-diversity anchor procurement initiative designed to redirect institutional spending toward local businesses. The project and his approach to community wealth building were <a href="https://www.nlc.org/article/2022/01/13/local-businesses-are-helping-tucson-grow-its-economy/" target="_blank" rel="noopener">featured by the National League of Cities</a>.</p>
+    <p>He developed the Recording Ecosystem Lab to connect the practical knowledge of people who make records with the planning and investment tools used by cities.</p>
+  </div>
+</section>
+
+<!-- 10. FOUNDING PARTNER AND CLOSING CTA -->
+<section class="lsri-cta lsri-founding">
+  <div class="container">
+    <div class="lsri-eyebrow">Founding partner</div>
+    <h2>Bring the first Lab to your city or region</h2>
+    <p>LSRI is seeking a city, regional organization, or multi-partner coalition to host the first Recording Ecosystem Lab. The engagement will be shaped around the partner&rsquo;s local question, stakeholders, and investment context.</p>
+    <p class="lsri-founding-sub">Start with a 30-minute conversation about local fit, partners, scope, and funding.</p>
+    <div class="lsri-actions">
+      <a class="lsri-btn lsri-btn--primary" href="mailto:lsri@musicalform.org?subject=Recording%20Ecosystem%20Lab%20Inquiry">Discuss a Lab</a>
+      <a class="lsri-email" href="mailto:lsri@musicalform.org?subject=Recording%20Ecosystem%20Lab%20Inquiry">lsri@musicalform.org</a>
+    </div>
+  </div>
+</section>
+
+<!-- 11. FURTHER READING -->
 <section class="lsri-section">
   <div class="container">
     <h2>Further reading</h2>
