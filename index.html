@@ -24,7 +24,7 @@
   "alternateName": "Musical Form Institute",
   "url": "https://musicalform.org",
   "logo": "https://musicalform.org/img/mfi-logo-horizontal.png",
-  "description": "Independent certification body for sound recordings. Administers the Certificate of Embodied Production (CEP) and Certified Significant Form (CSF) certification marks. Operated by Muse Foundry LLC.",
+  "description": "Independent certification body for sound recordings. Administers the Certificate of Embodied Production (CEP) certification mark. Operated by Muse Foundry LLC.",
   "founder": { "@type": "Person", "name": "Jeffrey Anthony", "url": "https://musicalform.org/about#founder" },
   "parentOrganization": { "@type": "Organization", "name": "Muse Foundry LLC" },
   "sameAs": [
@@ -372,10 +372,12 @@ body.v2 > .header { display: none; }
 .v2-marks {
   padding: 60px 0 64px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 56px;
   align-items: start;
   border-bottom: 1px solid var(--paper-line);
+  max-width: 660px;
+  margin: 0 auto;
 }
 /* Side by side: the badge sits above the copy in each card so the text
    keeps a readable measure at half width. */
@@ -712,7 +714,7 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
       <div class="mf-count"><strong id="v2Count">&hellip;</strong><span>recordings in the public registry</span></div>
       <div class="mf-hero-links">
         <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Explore the registry &rarr;</a>
-        <a href="/standards">The two marks &rarr;</a>
+        <a href="/standards">The standard &rarr;</a>
       </div>
       <div class="mf-hero-support">
         <a href="/support">Support the Institute</a>
@@ -722,27 +724,8 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
     <div class="mf-cep">
       <form class="mf-cep-card" id="heroCepForm" novalidate>
         <div class="mf-cep-eyebrow"><span>Submit your recording &middot; Free during beta</span></div>
-        <h2>Which mark fits your record?</h2>
-
-        <div class="mf-choose">
-          <div class="mf-choice sel" data-mark="csf" role="button" tabindex="0" aria-pressed="true">
-            <div class="mf-choice-top">
-              <div><div class="mf-choice-name">CSF</div><div class="mf-choice-full">Certified Significant Form</div></div>
-              <span class="mf-radio"><span class="dot"></span></span>
-            </div>
-            <div class="mf-choice-desc">For any release made without generative AI.</div>
-          </div>
-          <div class="mf-choice" data-mark="cep" role="button" tabindex="0" aria-pressed="false">
-            <span class="mf-choice-pill">Includes CSF</span>
-            <div class="mf-choice-top">
-              <div><div class="mf-choice-name">CEP</div><div class="mf-choice-full">Certificate of Embodied Production</div></div>
-              <span class="mf-radio"><span class="dot"></span></span>
-            </div>
-            <div class="mf-choice-desc">For recordings produced without grid correction, pitch correction, or generative AI.</div>
-            <a class="mf-choice-learn" href="/cep" onclick="event.stopPropagation()">Learn more about CEP &rarr;</a>
-          </div>
-        </div>
-        <div class="mf-choose-note">If a recording does not meet the CEP standard, it is reviewed for CSF.</div>
+        <h2>Submit your recording</h2>
+        <p class="mf-cep-sub">For the Certificate of Embodied Production, the Institute&rsquo;s certification for recordings produced without grid correction, pitch correction, or generative AI. Each submission is reviewed by an analyst. <a href="/cep" style="color:#DF693B;font-weight:600;text-decoration:none">Learn more &rarr;</a></p>
 
         <div class="mf-cep-field"><label for="hcName">Your name</label><input id="hcName" autocomplete="name"></div>
         <div class="mf-cep-field"><label for="hcEmail">Email <span style="color:#DC2626">*</span></label><input id="hcEmail" type="email" autocomplete="email" placeholder="you@example.com"></div>
@@ -766,20 +749,6 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
   var form=document.getElementById("heroCepForm");
   if(!form) return;
   var btn=document.getElementById("hcBtn"), err=document.getElementById("hcErr");
-  var choices=form.querySelectorAll(".mf-choice");
-  var mark="csf";  // CSF pre-selected (test); user can switch to CEP
-  function select(m){
-    mark=m;
-    for(var j=0;j<choices.length;j++){
-      var on=choices[j].getAttribute("data-mark")===m;
-      choices[j].classList.toggle("sel",on);
-      choices[j].setAttribute("aria-pressed",on?"true":"false");
-    }
-  }
-  for(var i=0;i<choices.length;i++){(function(el){
-    el.addEventListener("click",function(){select(el.getAttribute("data-mark"));});
-    el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();select(el.getAttribute("data-mark"));}});
-  })(choices[i]);}
   function v(id){var e=document.getElementById(id);return e?e.value.trim():"";}
   function fail(m){err.textContent=m;err.classList.add("show");}
   form.addEventListener("submit",function(e){
@@ -789,13 +758,11 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
     if(!email||email.indexOf("@")<0){return fail("Enter a valid email.");}
     if(!link){return fail("Add a link to your release.");}
     btn.disabled=true; btn.textContent="Sending…";
-    var url,payload;
-    if(mark==="csf"){url=WORKER+"/csf/public/submit";payload={submitter_name:name,contact_email:email,source_url:link};}
-    else{url=WORKER+"/cep/submit-streaming";payload={submitter_name:name,contact_email:email,link_to_track:link};}
+    var url=WORKER+"/cep/submit-streaming", payload={submitter_name:name,contact_email:email,link_to_track:link};
     fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
     .then(function(r){if(!r.ok)return r.json().then(function(x){throw new Error(x.detail||"Submission failed");});return r.json().catch(function(){return {};});})
     .then(function(d){
-      try{if(typeof window.gtag==="function")window.gtag("event","form_submit",{form_type:(mark==="csf"?"csf_streaming_hero":"cep_streaming_hero"),case_number:d&&d.case_number,value:1});}catch(e){}
+      try{if(typeof window.gtag==="function")window.gtag("event","form_submit",{form_type:"cep_streaming_hero",case_number:d&&d.case_number,value:1});}catch(e){}
       var done=document.getElementById("hcDone"), msg=document.getElementById("hcDoneMsg");
       if(d&&d.case_number){msg.innerHTML="Case <strong>"+d.case_number+"</strong>. We&rsquo;ll pull your track details and email "+email+".";}
       else{msg.innerHTML="We&rsquo;ll review your recording and email "+email+".";}
@@ -822,17 +789,6 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
             <a class="v2-mark-link" href="/cep">Learn more about CEP &rarr;</a>
             <a class="v2-mark-link v2-mark-link-secondary" href="/cep-submission">Submit a recording</a>
           </div>
-        </div>
-      </div>
-
-      <div class="v2-mark csf" data-href="/csf" role="link" tabindex="0" aria-label="Read more about Certified Significant Form">
-        <img class="v2-mark-badge" src="/img/csf-badge-sm.png" alt="CSF mark" width="186" height="280">
-        <div>
-          <span class="v2-mark-tag">The baseline layer</span>
-          <h3><a href="/csf">Certified Significant Form</a></h3>
-          <div class="v2-mark-version">Public Standard v2.1 &middot; June 11, 2026</div>
-          <p>Certifies a recording was produced without generative AI. The baseline layer of the Institute&rsquo;s certification ladder, operated as a public registry at scale. Every CEP-certified recording meets this standard by definition.</p>
-          <a class="v2-mark-link" href="/csf">Learn more about CSF &rarr;</a>
         </div>
       </div>
 
@@ -965,51 +921,54 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
 
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 
-  // One request: newest 60 registry rows plus the exact count from Content-Range.
-  // The hero cover wall is baked into the HTML at build time; this fetch only
-  // feeds the count ticker, the featured card, and the lists below the fold.
-  fetch(SUPA+'/v_csf_public_registry?select=csf_id,primary_artist,track_title,label,cover_art,source_url,certification_date&order=certification_date.desc&limit=60',{headers:Object.assign({},h,{'Prefer':'count=exact'})})
+  // Count ticker: total recordings in the public registry.
+  fetch(SUPA+'/v_csf_public_registry?select=csf_id&limit=1',{headers:Object.assign({},h,{'Prefer':'count=exact'})})
     .then(function(r){
       var range=r.headers.get('content-range')||'*/0';
       var cnt=parseInt(range.split('/')[1]||'0',10);
       var el=document.getElementById('v2Count');
       if(el) el.textContent=fmt(cnt);
-      return r.json();
-    })
+    }).catch(function(){});
+
+  // Featured: recordings certified under the Certificate of Embodied Production.
+  function cepThumb(t){var u=t.cover_art_url||'';return u.indexOf('http')===0?u:'';}
+  fetch(SUPA+'/v_cep_public_registry?select=cep_id,primary_artist,track_title,label,certification_date,cover_art_url&order=certification_date.desc&limit=60',{headers:h})
+    .then(function(r){return r.json();})
     .then(function(d){
       if(!d || !d.length) return;
       shuffle(d);
 
-      var withThumb=d.filter(function(t){return !!thumb(t)});
+      var withThumb=d.filter(function(t){return !!cepThumb(t)});
 
       var feat=withThumb[0]||d[0];
       var side=withThumb.slice(1,7);
 
       // Featured
       if(feat){
-        var img=document.getElementById('v2FeatImg'); if(img){img.removeAttribute('loading'); img.setAttribute('fetchpriority','high'); img.src=thumb(feat)||''; img.alt=feat.track_title||''}
-        document.getElementById('v2FeatId').textContent=feat.csf_id||'';
+        var img=document.getElementById('v2FeatImg'); if(img){img.removeAttribute('loading'); img.setAttribute('fetchpriority','high'); img.src=cepThumb(feat)||''; img.alt=feat.track_title||''}
+        document.getElementById('v2FeatId').textContent=feat.cep_id||'';
         document.getElementById('v2FeatTitle').textContent=feat.track_title||'';
         document.getElementById('v2FeatArtist').textContent=feat.primary_artist||'';
-        document.getElementById('v2FeatLabel').textContent=feat.label||'';
+        var labEl=document.getElementById('v2FeatLabel'); labEl.textContent=feat.label||'';
+        var sep=labEl.nextElementSibling; if(sep) sep.style.display=feat.label?'':'none';
         document.getElementById('v2FeatDate').textContent=shortDate(feat.certification_date);
         var link=document.getElementById('v2FeatMain');
-        if(link) link.href='https://registry.musicalform.org/csf/'+encodeURIComponent(feat.csf_id||'');
+        if(link) link.href='https://registry.musicalform.org/cep/'+encodeURIComponent(feat.cep_id||'');
       }
 
-      // Side list: 6 static rows. No duplicate pass, the marquee is gone.
+      // Side list: up to 6 rows.
       var track=document.getElementById('v2FeatTrack');
       if(track){
         track.innerHTML='';
         function renderRow(t){
           var a=document.createElement('a');
           a.className='v2-feat-row';
-          a.href='https://registry.musicalform.org/csf/'+encodeURIComponent(t.csf_id||'');
+          a.href='https://registry.musicalform.org/cep/'+encodeURIComponent(t.cep_id||'');
           a.target='_blank'; a.rel='noopener';
           a.innerHTML=
-            '<div class="art"><img src="'+esc(thumb(t))+'" alt="" loading="lazy"></div>'+
+            '<div class="art"><img src="'+esc(cepThumb(t))+'" alt="" loading="lazy"></div>'+
             '<div class="meta">'+
-              '<div class="row-id">'+esc(t.csf_id||'')+'</div>'+
+              '<div class="row-id">'+esc(t.cep_id||'')+'</div>'+
               '<div class="row-title">'+esc(t.track_title||'')+'</div>'+
               '<div class="row-artist">'+esc(t.primary_artist||'')+'</div>'+
             '</div>';
