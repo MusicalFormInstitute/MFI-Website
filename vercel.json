@@ -23,8 +23,6 @@
     }
   ],
   "redirects": [
-    { "source": "/research", "destination": "/", "permanent": false },
-    { "source": "/research/(.*)", "destination": "/", "permanent": false },
     { "source": "/about-jeffrey-anthony", "destination": "/about#founder", "permanent": true },
     { "source": "/founder", "destination": "/about#founder", "permanent": true },
     { "source": "/news-events", "destination": "/news", "permanent": true },
