@@ -711,7 +711,6 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
       <span class="mf-tag">Independent certification for sound recordings</span>
       <h1>Beyond fidelity to the signal. <em>Fidelity to the act.</em></h1>
       <p class="mf-hero-lede">What you hear took lifetimes. We make that labor visible. Every certification is issued against a published standard by independent review, and every result is listed in a public registry.</p>
-      <div class="mf-count"><strong id="v2Count">&hellip;</strong><span>recordings in the public registry</span></div>
       <div class="mf-hero-links">
         <a href="https://registry.musicalform.org/" target="_blank" rel="noopener">Explore the registry &rarr;</a>
         <a href="/standards">The standard &rarr;</a>
@@ -845,7 +844,6 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
         <img src="/img/mfi-logo-horizontal-inverted.png" alt="Musical Form Institute" class="footer-brand-logo" width="480" height="299">
         <p>Independent certification for sound recordings. Operated by Muse Foundry LLC.</p>
         <p>CEP and CSF certification mark applications pending.</p>
-        <p>The Musical Form Institute is an Associate Member of A2IM.</p>
       </div>
       <div class="footer-col">
         <h4>Programs</h4>
@@ -920,15 +918,6 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
   }
 
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
-
-  // Count ticker: total recordings in the public registry.
-  fetch(SUPA+'/v_csf_public_registry?select=csf_id&limit=1',{headers:Object.assign({},h,{'Prefer':'count=exact'})})
-    .then(function(r){
-      var range=r.headers.get('content-range')||'*/0';
-      var cnt=parseInt(range.split('/')[1]||'0',10);
-      var el=document.getElementById('v2Count');
-      if(el) el.textContent=fmt(cnt);
-    }).catch(function(){});
 
   // Featured: recordings certified under the Certificate of Embodied Production.
   function cepThumb(t){var u=t.cover_art_url||'';return u.indexOf('http')===0?u:'';}
