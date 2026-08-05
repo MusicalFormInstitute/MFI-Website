@@ -376,11 +376,9 @@ body.v2 > .header { display: none; }
   gap: 56px;
   align-items: start;
   border-bottom: 1px solid var(--paper-line);
-  max-width: 660px;
+  max-width: 900px;
   margin: 0 auto;
 }
-/* Side by side: the badge sits above the copy in each card so the text
-   keeps a readable measure at half width. */
 .v2-mark { display: block; }
 .v2-mark img.v2-mark-badge {
   width: 150px; height: 150px;
@@ -388,6 +386,29 @@ body.v2 > .header { display: none; }
   object-position: left center;
   display: block;
   margin-bottom: 22px;
+}
+/* CEP card: a big badge on the left, copy on the right, on a panel that lifts
+   off the near-black page so the section reads as a distinct break. */
+.v2-mark.cep {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 48px;
+  align-items: center;
+  background: #1A1A1A;
+  border: 1px solid #2C2C2C;
+  border-radius: 14px;
+  padding: 44px 48px;
+}
+.v2-mark.cep img.v2-mark-badge {
+  width: 260px; height: auto;
+  object-fit: contain;
+  object-position: center;
+  margin: 0;
+}
+@media (max-width: 720px) {
+  .v2-mark.cep { grid-template-columns: 1fr; gap: 22px; padding: 32px 24px; text-align: center; }
+  .v2-mark.cep img.v2-mark-badge { width: 170px; margin: 0 auto; }
+  .v2-mark.cep .v2-mark-actions { justify-content: center; }
 }
 /* Clickable block: whole .v2-mark navigates to data-href */
 .v2-mark[data-href] {
@@ -674,7 +695,7 @@ body.v2 > section:not(.mf-hero) {
   --paper:#0E0E0E; --paper-line:#2C2C2C; --ink:#F4F4F2; --ink-soft:#C0C0BC; --ink-quiet:#8E8E8A;
   background:#0E0E0E; color:#F4F4F2;
 }
-body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; }
+body.v2 > section:not(.mf-hero) .v2-mark.cep[data-href]:hover { background:#212121; }
 </style>
 </head>
 <body class="v2">
@@ -778,7 +799,7 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
     <div class="v2-marks">
 
       <div class="v2-mark cep" data-href="/cep" role="link" tabindex="0" aria-label="Read more about the Certificate of Embodied Production">
-        <img class="v2-mark-badge" src="/img/cep-badge-sm.png" alt="CEP mark" width="280" height="269">
+        <img class="v2-mark-badge" src="/img/cep-badge.png" alt="CEP mark" width="712" height="685">
         <div>
           <span class="v2-mark-tag">Process certification</span>
           <h3><a href="/cep">Certificate of Embodied Production</a></h3>
@@ -930,7 +951,7 @@ body.v2 > section:not(.mf-hero) .v2-mark[data-href]:hover { background:#1A1A1A; 
       var withThumb=d.filter(function(t){return !!cepThumb(t)});
 
       var feat=withThumb[0]||d[0];
-      var side=withThumb.slice(1,7);
+      var side=withThumb.slice(1,5);
 
       // Featured
       if(feat){
