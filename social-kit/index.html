@@ -291,7 +291,7 @@
     },
     CEP: {
       name: 'Certificate of Embodied Production',
-      claim: 'Produced without grid correction, pitch correction, or generative AI.',
+      claim: 'Produced without grid correction, pitch correction, or AI-generated musical or lyrical content.',
       seal: '/img/cep-badge.png',
       sealRatio: 712 / 685,
       path: '/cep/'
@@ -756,7 +756,7 @@
     var a = rec.primary_artist || '';
     var head = a ? t + ' by ' + a : t;
     if (progKey === 'CEP') {
-      return head + ' is certified under the Certificate of Embodied Production. Produced without grid correction, pitch correction, or generative AI.\n\nCertification ID: ' + id + '\nVerify at https://registry.musicalform.org/cep/' + id;
+      return head + ' is certified under the Certificate of Embodied Production. Produced without grid correction, pitch correction, or generative AI used to create, supply, replace, or reconstruct musical or lyrical content.\n\nCertification ID: ' + id + '\nVerify at https://registry.musicalform.org/cep/' + id;
     }
     return head + ' is Certified Significant Form. Produced without generative AI.\n\nCertification ID: ' + id + '\nVerify at https://registry.musicalform.org/csf/' + id;
   }
